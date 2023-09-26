@@ -1,0 +1,35 @@
+--------------| Database Migration |--------------
+php yii migrate
+php yii migrate/fresh
+--------------------------------------------------
+
+-------------------| Git Pull |-------------------
+git fetch
+git pull
+--------------------------------------------------
+
+-------------------| Git Push |-------------------
+git add .
+git commit -m "message"
+git push
+--------------------------------------------------
+
+--------------| Httpd-vhost Config |--------------
+<VirtualHost *:80>
+    DocumentRoot "{path}"
+    ServerName sipedes.project
+    <Directory "{path}">
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule . index.php
+            DirectoryIndex index.php
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride all
+            Order Deny,Allow
+            Allow from all
+            Require all granted
+            RewriteEngine on
+            Require all granted
+    </Directory>
+</VirtualHost>
+--------------------------------------------------
