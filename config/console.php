@@ -1,5 +1,7 @@
 <?php
 
+use yii\rbac\DbManager;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -10,7 +12,7 @@ $config = [
     'controllerNamespace' => 'app\commands',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
         '@tests' => '@app/tests',
     ],
     'components' => [
@@ -26,15 +28,19 @@ $config = [
             ],
         ],
         'db' => $db,
+        'authManager' => [
+            'class' => DbManager::class,
+            'defaultRoles' => ['admin', 'staff', 'kades', 'pemohon'],
+        ],
     ],
     'params' => $params,
     /*
-    'controllerMap' => [
-        'fixture' => [ // Fixture generation command line.
-            'class' => 'yii\faker\FixtureController',
-        ],
-    ],
-    */
+'controllerMap' => [
+'fixture' => [ // Fixture generation command line.
+'class' => 'yii\faker\FixtureController',
+],
+],
+ */
 ];
 
 if (YII_ENV_DEV) {

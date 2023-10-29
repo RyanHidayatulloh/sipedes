@@ -7,7 +7,7 @@ use yii\db\Migration;
  */
 class m230923_021438_init extends Migration
 {
-    public function up()
+    public function safeUp()
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
@@ -29,7 +29,7 @@ class m230923_021438_init extends Migration
         ], $tableOptions);
     }
 
-    public function down()
+    public function safeDown()
     {
         $this->dropTable('{{%user}}');
     }

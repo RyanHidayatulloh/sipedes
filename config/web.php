@@ -1,5 +1,7 @@
 <?php
 
+use yii\rbac\DbManager;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -15,6 +17,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'sipedes123',
+            'parsers' => [
+                'application/json' => 'yiiwebJsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -48,8 +53,17 @@ $config = [
             'rules' => [
             ],
         ],
+        'authManager' => [
+            'class' => DbManager::class,
+            'defaultRoles' => ['admin', 'staff', 'kades', 'pemohon'],
+        ],
     ],
     'params' => $params,
+    'modules' => [
+        'api' => [
+            'class' => 'app\modules\api\v1\Module',
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {
