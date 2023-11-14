@@ -75,6 +75,9 @@ $config = [
         'api' => [
             'class' => 'app\modules\api\v1\Module',
         ],
+        'panel' => [
+            'class' => 'app\modules\panel\v1\Module',
+        ],
     ],
 ];
 

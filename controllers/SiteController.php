@@ -9,9 +9,12 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Pengguna;
 
 class SiteController extends Controller
 {
+    public $layout = 'landing';
+
     /**
      * {@inheritdoc}
      */
@@ -105,6 +108,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+        dd(Pengguna::find(Yii::$app->user->getId())->assignments[0]->item_name);
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');

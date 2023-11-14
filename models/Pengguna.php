@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * This is the model class for table "pengguna".
@@ -34,4 +35,9 @@ class Pengguna extends Model
         'updated_at',
         'verification_token',
     ];
+
+    public function assignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'user_id', 'id');
+    }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace app\modules\api\v1\controllers;
+namespace app\modules\panel\v1\controllers;
 
 use yii\web\Controller;
 
 /**
- * Default controller for the `v1` module
+ * Default controller for the `Panel` module
  */
 class DefaultController extends Controller
 {
