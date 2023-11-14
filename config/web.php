@@ -1,5 +1,6 @@
 <?php
 
+use app\libraries\Eloquent;
 use yii\rbac\DbManager;
 
 $params = require __DIR__ . '/params.php';
@@ -8,7 +9,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'db'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -46,7 +47,17 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => [
+            'class' => Eloquent::class,
+            'driver' => 'mysql',
+            'database' => 'db_sipedes',
+            'prefix' => '',
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
