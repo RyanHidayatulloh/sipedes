@@ -78,6 +78,6 @@ class Eloquent extends Component implements BootstrapInterface
 
         $this->capsule->bootEloquent();
 
-        $app->set('db', $this->capsule);
+        $app->set('eloquent', $this->capsule);
     }
 }

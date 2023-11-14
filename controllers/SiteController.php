@@ -61,7 +61,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        dd(Yii::$app->db->schema());
         return $this->render('index');
     }
 
