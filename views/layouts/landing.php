@@ -1,10 +1,3 @@
-<!--
-Author:
-SHUBHAM PRAKASH
-LinkedIn: https://www.linkedin.com/in/ishubhamprakash/
-GitHub: https://github.com/i-shubhamprakash
--->
-
 <!DOCTYPE html>
 <html>
 
@@ -56,19 +49,17 @@ GitHub: https://github.com/i-shubhamprakash
             <div class="container">
                 <div class="row">
                     <div class="col m6" id="home-heading">
-                        <h1 class="text-shadow">FIND BALANCE WITH <span id="main-head-blue"> BENIFICIARY </span></h1>
-                        <p class="flow-text" data-aos="fade-right">Feeling stuck? At a crossroads in your career or
-                            emotional life? Even the
-                            strongest among us can feel lost, unsure, ambivalent, or unhappy at times. As a Counselling
-                            Professional, I can help you understand and manage whatever life throws at you, and how to
-                            do it successfully. I believe that you have the strength not just to survive, but to
-                            thrive!</p>
+                        <h1 class="text-shadow">SISTEM INFORMASI PELAYANAN UMUM DAN ADMINISTRASI DESA <span
+                                id="main-head-blue"> BUNIWAH </span></h1>
+                        <p class="flow-text" data-aos="fade-right">Hadir untuk membantu efektifitas dan efisiensi
+                            pengelolaan proses pelayanan administrasi pembuatan surat-menyurat di desa buniwah</p>
+                        <a href="#!" class="btn">Daftar</a>
                     </div>
                     <div class="col m6" id="home-top-image" data-aos="fade-left">
                         <picture>
-                            <source media="(min-width: 650px)" srcset="/resources/images/index-row1.jpg">
-                            <source media="(min-width: 465px)" srcset="/resources/images/index-row1.jpg">
-                            <img src="/resources/images/index-row1.jpg" alt="" style="width:auto;">
+                            <source media="(min-width: 650px)" srcset="/resources/images/index-row1.png">
+                            <source media="(min-width: 465px)" srcset="/resources/images/index-row1.png">
+                            <img src="/resources/images/index-row1.png" alt="" style="width:auto;">
                         </picture>
                     </div>
                 </div>
@@ -80,22 +71,15 @@ GitHub: https://github.com/i-shubhamprakash
                 <div class="row">
 
                     <div class="col s12 center">
-                        <h1 data-aos="zoom-out-up">LEARN MORE ABOUT ME</h1>
+                        <h1 data-aos="zoom-out-up">WAKTU PELAYANAN</h1>
                         <div class="row">
                             <div class="col s12 m6" data-aos="flip-left">
-                                <img src="/resources/images/shubham.jpg" alt="" style="width:auto;" class="circle">
+                                <img src="/resources/images/time.png" alt="" width="50">
                             </div>
                             <div class="col s12 m6">
-                                <p class="flow-text" data-aos="fade-left">Fully-certified, I’ve been successfully
-                                    coaching clients
-                                    throughout the
-                                    kolkata area and facilitating their self-growth. If you are feeling overwhelmed by
-                                    life’s
-                                    demands, my services aim to introduce clarity and self-motivation. I also teach
-                                    techniques
-                                    to better manage the emotional gauntlet of modern life.</p>
-
-                                <a href="/contact.html" class="btn">Get In Touch</a>
+                                <ul class="left flow-text grey-text text-lighten-5" data-aos="fade-left">
+                                    <li><b><i class="medium material-icons">schedule</i> asdasd</b></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -107,79 +91,38 @@ GitHub: https://github.com/i-shubhamprakash
         <div class="row row3">
             <div class="container fluid">
                 <div class="row">
-                    <div class="col s12 m7">
+                    <div class="col m6 offset-m3 s12">
                         <div class="card hoverable" data-aos="zoom-in">
                             <div class="card-image waves-effect waves-block waves-light">
                                 <img class="activator" src="/resources/images/career.jpg">
                             </div>
                             <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Career Coaching<i
+                                <span class="card-title activator grey-text text-darken-4">Prosedur Pelayanan<i
                                         class="material-icons right">more_vert</i></span>
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">
-                                    CAREER COACHING<i class="material-icons right">close</i></span>
-                                <p>Do you feel like you are always adding new tasks to your to-do list but never
-                                    crossing anything out? My specialization in Career Coaching will help guide and
-                                    inspire you to achieve more of your personal and professional goals. Get in touch
-                                    today and start taking control of your life with my Career Coaching tools and
-                                    techniques.Career Coaching</p>
+                                    Prosedur Pelayanan<i class="material-icons right">close</i></span>
+                                <ol>
+                                    <li>
+                                        <strong>Half-Life 2</strong>
+                                        <p>Fight aliens, wear a head crab, learn about gravity</p>
+                                    </li>
+                                    <li>
+                                        <strong>Halo: Combat Evolved</strong>
+                                        <p>Fight aliens, wear an AI, learn about screen peeking siblings</p>
+                                    </li>
+                                    <li>
+                                        <strong>Team Fortress 2</strong>
+                                        <p>Fight non-alien residents, wear hats, learn about teamwork</p>
+                                    </li>
+                                    <li>
+                                        <strong>Tribes</strong>
+                                        <p>Ski, slip, and slide your way to victory</p>
+                                    </li>
+                                </ol>
                             </div>
                         </div>
-                    </div>
-                    <div class="col s12 m5">
-                        <div class="card hoverable" data-aos="zoom-in-left">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img class="activator" src="/resources/images/relationship.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Relationship Coaching<i
-                                        class="material-icons right">more_vert</i></span>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">
-                                    RELATIONSHIP COACHING<i class="material-icons right">close</i></span>
-                                <p>Sometimes, it seems as if life just has it in for us and we can never catch a break.
-                                    In reality, there will always be moments we have little to no control over but,
-                                    what we can always control is how we react to those moments. With my Relationship
-                                    Coaching sessions, you’ll learn about acceptance and how to exert your power of
-                                    choice over whatever life may throw at you.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m4">
-                        <div class="card hoverable" data-aos="zoom-out-up">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img class="activator" src="/resources/images/life.jpg">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">Life Coaching<i
-                                        class="material-icons right">more_vert</i></span>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">LIFE COACHING<i
-                                        class="material-icons right">close</i></span>
-                                <p>Life Coaching can be one of the keys to a happier, healthier life. My job is to give
-                                    you the tools and techniques to achieve a balanced and fulfilling life. After
-                                    several Life Coaching sessions, you will become well-versed at handling issues
-                                    whenever and wherever they arise. Call now to schedule a session.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quote row -->
-        <div class="row row4">
-            <div class="container-flex">
-                <div class="row">
-                    <div class="col s12 m5 center quote" data-aos="fade-right">
-                        <h3>“Our life is what our thoughts make it”</h3>
-                        <p class="flow-text author">Marcus Aurelius</p>
-                    </div>
-                    <div class="col s12 m7" data-aos="fade-left">
-                        <img src="/resources/images/index-row-quote.jpg" alt="" srcset="">
                     </div>
                 </div>
             </div>
@@ -189,29 +132,24 @@ GitHub: https://github.com/i-shubhamprakash
     <!-- Footer -->
     <footer class="page-footer">
         <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos
-                        cum dolorem natus distinctio cumque, consequatur sed, vel voluptate suscipit soluta sint vero
-                        necessitatibus hic nisi! A vero nemo sapiente officia.</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                    </ul>
+            <div class="row center">
+                <div class="col s12">
+                    <h5 class="white-text">Alamat Kantor</h5>
+                    <p class="grey-text text-lighten-4">Jl KH WAHID HASYIM No.KM 2 Gudril Desa Buniwah Kecamatan
+                        Sirampog
+                        Kabupaten Brebes Jawa Tengah</p>
+                    <iframe width="100%" height="531" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        id="gmap_canvas"
+                        src="https://maps.google.com/maps?width=1455&amp;height=531&amp;hl=en&amp;q=R333+FM%20Buniwah%20Sirampog+(Balai%20Desa%20Buniwah)&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+
+
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
-            <div class="container">
-                Made with <i class="material-icons">favorite</i> by <a
-                    href="https://www.linkedin.com/in/ishubhamprakash/" targget="_blank">i-shubhamprakash</a>
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            <div class="container center">
+                SIPEDES @
+                <?= date("Y") ?>
             </div>
         </div>
     </footer>
@@ -227,7 +165,7 @@ GitHub: https://github.com/i-shubhamprakash
     <!-- AOS Script link -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init();
+    AOS.init();
     </script>
 </body>
 

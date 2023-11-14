@@ -79,6 +79,7 @@ class MigrateController extends Controller
             $table->string('password_hash')->nullable(false);
             $table->string('password_reset_token')->nullable();
             $table->string('name');
+            $table->longText('picture')->nullable();
             $table->unsignedInteger('status')->nullable(false)->default(10);
             $table->string('verification_token')->nullable();
             $table->timestamps();
@@ -165,7 +166,6 @@ class MigrateController extends Controller
         $auth->assign($pemohon, 4);
 
 
-        dd(Yii::$app->user->identity);
         return 'Migrasi telah berhasil, <a href="' . Yii::$app->homeUrl . '">Kembali</a>';
     }
 

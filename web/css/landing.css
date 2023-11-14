@@ -67,14 +67,13 @@ p {
   padding-top: 2em;
   padding-bottom: 2em;
   margin-bottom: 0;
-  background-image: url(/resources/background/footer-cta.svg), url(/resources/background/footer-cta-flipped.png);
   background-repeat: no-repeat, no-repeat;
   background-size: 100%;
   background-position-y: top, bottom;
 }
 
 .row2 img {
-  width: 380px !important;
+  width: 100% !important;
 }
 
 .row2 h1 {
@@ -209,10 +208,6 @@ p {
 @media only screen and (max-width: 480px) {
   .row2 h1 {
     font-size: 3em;
-  }
-
-  .row2 img {
-    width: 270px !important;
   }
 
   .row2 p {

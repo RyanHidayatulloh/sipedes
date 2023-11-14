@@ -72,6 +72,9 @@ $config = [
     ],
     'params' => $params,
     'modules' => [
+        'auth' => [
+            'class' => 'app\modules\auth\v1\Module',
+        ],
         'api' => [
             'class' => 'app\modules\api\v1\Module',
         ],
