@@ -2,6 +2,7 @@
 
 use app\libraries\Eloquent;
 use yii\rbac\DbManager;
+use yii\web\JsonParser;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -19,7 +20,7 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'sipedes123',
             'parsers' => [
-                'application/json' => 'yiiwebJsonParser',
+                'application/json' => JsonParser::class,
             ],
         ],
         'cache' => [
@@ -71,17 +72,7 @@ $config = [
         ],
     ],
     'params' => $params,
-    'modules' => [
-        'auth' => [
-            'class' => 'app\modules\auth\v1\Module',
-        ],
-        'api' => [
-            'class' => 'app\modules\api\v1\Module',
-        ],
-        'panel' => [
-            'class' => 'app\modules\panel\v1\Module',
-        ],
-    ],
+    'modules' => [],
 ];
 
 if (YII_ENV_DEV) {
