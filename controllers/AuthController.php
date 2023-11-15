@@ -1,9 +1,12 @@
 <?php
 namespace app\controllers;
 
+use app\models\LoginForm;
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\Response;
 
 class AuthController extends Controller
 {
@@ -51,14 +54,44 @@ class AuthController extends Controller
     }
     public function actionIndex()
     {
-        return $this->render('login');
+        return $this->redirect('/auth/login');
     }
     public function actionLogin()
     {
-        return $this->render('login');
+        // if (!Yii::$app->user->isGuest) {
+        //     return $this->goHome();
+        // }
+
+        // if (Yii::$app->request->post()) {
+        //     dd('a');
+        // }
+        $model = new LoginForm();
+        // if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        //     return $this->goBack();
+        // }
+
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
     public function actionRegister()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         return $this->render('register');
+    }
+
+    /**
+     * Logout action.
+     *
+     * @return Response
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
     }
 }

@@ -6,7 +6,7 @@ body {
 }
 body {
   vertical-align: middle;
-  background: #4ecdc4;
+  background: var(--main-color);
 }
 
 #login-page {

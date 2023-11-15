@@ -28,14 +28,19 @@
                 <a href="#!" class="brand-logo">SIPEDES</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="waves-effect waves-light"><i class="material-icons right">person</i>Login</a></li>
+                    <li><a class="waves-effect waves-light"
+                            href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
+                                class="material-icons right">person</i><?= Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->name ?></a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </div>
     <!-- Nav side bar for mobile -->
     <ul class="sidenav" id="mobile-demo">
-        <li><a class="waves-effect " href="#!"><i class="material-icons">person</i> Login</a></li>
+        <li><a class="waves-effect " href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
+                    class="material-icons">person</i>
+                <?= Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->name ?></a></li>
     </ul>
     <!-- /nav bar -->
     <div class="container-fluid">
@@ -190,7 +195,7 @@
     <!-- AOS Script link -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init();
+    AOS.init();
     </script>
 </body>
 
