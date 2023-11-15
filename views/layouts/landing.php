@@ -27,20 +27,14 @@
                 <a href="#!" class="brand-logo">SIPEDES</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li class="active"><a class="waves-effect waves-light" href="#">Home</a></li>
-                    <li><a class="waves-effect waves-light" href="about.html">About</a></li>
-                    <li><a class="waves-effect waves-light" href="team.html">Team</a></li>
-                    <li><a class="waves-effect waves-light" href="contact.html">Contact</a></li>
+                    <li><a class="waves-effect waves-light"><i class="material-icons right">person</i>Login</a></li>
                 </ul>
             </div>
         </nav>
     </div>
     <!-- Nav side bar for mobile -->
     <ul class="sidenav" id="mobile-demo">
-        <li class="active"><a class="waves-effect " href="#"><i class="material-icons">home</i> Home</a></li>
-        <li><a class="waves-effect " href="about.html"><i class="material-icons">person</i> About Us</a></li>
-        <li><a class="waves-effect " href="team.html"><i class="material-icons">wc</i> Meet the Team</a></li>
-        <li><a class="waves-effect " href="contact.html"><i class="material-icons">short_text</i> Contact Us</a></li>
+        <li><a class="waves-effect " href="#!"><i class="material-icons">person</i> Login</a></li>
     </ul>
     <!-- /nav bar -->
     <div class="container-fluid">
@@ -78,7 +72,21 @@
                             </div>
                             <div class="col s12 m6">
                                 <ul class="left flow-text grey-text text-lighten-5" data-aos="fade-left">
-                                    <li><b><i class="medium material-icons">schedule</i> asdasd</b></li>
+                                    <li><i class="medium material-icons">schedule</i>
+                                        <div style="display: inline-block;vertical-align: top;text-align: start;">
+                                            <b>SENIN - KAMIS</b><br><small>07.00 - 14.00 WIB</small>
+                                        </div>
+                                    </li>
+                                    <li><i class="medium material-icons">schedule</i>
+                                        <div style="display: inline-block;vertical-align: top;text-align: start;">
+                                            <b>JUM'AT</b><br><small>07.00 - 11.00 WIB</small>
+                                        </div>
+                                    </li>
+                                    <li><i class="medium material-icons">schedule</i>
+                                        <div style="display: inline-block;vertical-align: top;text-align: start;">
+                                            <b>SABTU - MINGGU</b><br><small>Libur</small>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -105,20 +113,36 @@
                                     Prosedur Pelayanan<i class="material-icons right">close</i></span>
                                 <ol>
                                     <li>
-                                        <strong>Half-Life 2</strong>
-                                        <p>Fight aliens, wear a head crab, learn about gravity</p>
+                                        <p><b>Mendaftar Akun</b><br>Pemohon membuat akun SIPEDES melalui halaman
+                                            registrasi
+                                            atau
+                                            login
+                                            jika sudah
+                                            memiliki akun.
+                                            <p />
                                     </li>
                                     <li>
-                                        <strong>Halo: Combat Evolved</strong>
-                                        <p>Fight aliens, wear an AI, learn about screen peeking siblings</p>
+                                        <p><b>Melengkapi Data Diri</b><br>Lengkapi semua data sesuai dengan KTP dan KK
+                                            serta
+                                            unggah dokumen-dokumen
+                                            yang
+                                            dibutuhkan.
+                                            <p />
                                     </li>
                                     <li>
-                                        <strong>Team Fortress 2</strong>
-                                        <p>Fight non-alien residents, wear hats, learn about teamwork</p>
+                                        <p><b>Mengajukan Surat Permohonan</b><br>Pemohon mengajukan surat melalui
+                                            halaman
+                                            permohonan dan mengisi keterangan
+                                            yang dibutuhkan kemudian menunggu konfirmasi dari staf dan kepala desa
+                                            <p />
                                     </li>
                                     <li>
-                                        <strong>Tribes</strong>
-                                        <p>Ski, slip, and slide your way to victory</p>
+                                        <p><b>Permohonan Disetujui</b><br>Setelah semua data yang dibutuhkan sudah
+                                            sesuai
+                                            dan terkonfirmasi oleh staf
+                                            dan kepala desa, selanjutnya surat dicetak dan dapat diambil oleh pemohon di
+                                            kantor kepala desa Buniwah
+                                            <p />
                                     </li>
                                 </ol>
                             </div>
@@ -165,7 +189,7 @@
     <!-- AOS Script link -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-    AOS.init();
+        AOS.init();
     </script>
 </body>
 
