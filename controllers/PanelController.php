@@ -8,7 +8,8 @@ use yii\web\Controller;
 
 class PanelController extends Controller
 {
-    // public $layout = 'panel';
+    public $layout = 'panel';
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
@@ -23,12 +24,6 @@ class PanelController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];

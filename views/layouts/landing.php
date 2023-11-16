@@ -47,7 +47,7 @@ use yii\helpers\Url;
     <ul class="sidenav" id="mobile-demo">
         <li><a class="waves-effect " href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
                     class="material-icons">person</i>
-                <?= Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->name ?>
+                <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nik) ?>
             </a></li>
     </ul>
     <!-- /nav bar -->
@@ -61,7 +61,9 @@ use yii\helpers\Url;
                                 id="main-head-blue"> BUNIWAH </span></h1>
                         <p class="flow-text" data-aos="fade-right">Hadir untuk membantu efektifitas dan efisiensi
                             pengelolaan proses pelayanan administrasi pembuatan surat-menyurat di desa buniwah</p>
-                        <a href="#!" class="btn">Daftar</a>
+                        <?php if (Yii::$app->user->isGuest): ?>
+                        <a href="<?= Url::to(['auth/register']) ?>" class="btn">Daftar</a>
+                        <?php endif; ?>
                     </div>
                     <div class="col m6" id="home-top-image" data-aos="fade-left">
                         <picture>
