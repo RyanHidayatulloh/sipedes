@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -16,9 +17,13 @@ class PanelController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'denyCallback' => function ($rule, $action) {
-                    return $this->redirect('/auth/login');
-                }
+                'only' => ['index'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
             ],
             'verbs' => [
                 'class' => VerbFilter::class,

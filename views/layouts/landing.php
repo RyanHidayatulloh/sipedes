@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -29,8 +34,10 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a class="waves-effect waves-light"
-                            href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
-                                class="material-icons right">person</i><?= Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->name ?></a>
+                            href="<?= Yii::$app->user->isGuest ? Url::to(['auth/login']) : Url::to(['panel/index']) ?>"><i
+                                class="material-icons right">person</i>
+                            <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nik) ?>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -40,7 +47,8 @@
     <ul class="sidenav" id="mobile-demo">
         <li><a class="waves-effect " href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
                     class="material-icons">person</i>
-                <?= Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->name ?></a></li>
+                <?= Yii::$app->user->isGuest ? 'Login' : Yii::$app->user->identity->name ?>
+            </a></li>
     </ul>
     <!-- /nav bar -->
     <div class="container-fluid">

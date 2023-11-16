@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
 <form method="POST" id="login-page">
     <div class="card-panel z-depth-5">
         <div class="row margin">
@@ -15,7 +20,7 @@
         <div class="col s12 m12 l12">
             <div class="input-field">
                 <i class="material-icons prefix">person</i>
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="username" id="username" value="<?= $data['username'] ?? '' ?>" required>
                 <label for="username">Email / NIK</label>
             </div>
         </div>
@@ -34,7 +39,7 @@
 
         <div class="left">
             <label>
-                <input type="checkbox" name="rememberMe" />
+                <input type="checkbox" name="rememberMe" <?= $data['rememberMe'] ?? '' ? 'checked' : '' ?> />
                 <span>Ingat Saya</span>
             </label>
         </div>
@@ -49,7 +54,7 @@
         <!-- Form "Register Now" And "Forgot Password" Link Section. -->
 
         <div class="" style="font-size:14px;"><br>
-            <a href="/auth/register" class="left">Buat Akun</a>
+            <a href="<?= Url::to(['auth/register']) ?>" class="left">Buat Akun</a>
             <a href="" class="right ">Lupa Password</a>
         </div><br>
     </div>
