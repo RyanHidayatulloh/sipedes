@@ -138,6 +138,45 @@ h6 {
   transition: 0.2s all ease-out;
 }
 
+.dashboard .staf {
+  position: relative;
+  width: 100%;
+  height: 5rem;
+}
+
+.dashboard .col {
+  position: relative;
+  width: 100%;
+  height: 25rem;
+}
+
+.dashboard .staf .card {
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  padding: 3rem 1rem 3rem;
+}
+
+.dashboard .staf .card h1 {
+  margin: 2rem auto;
+}
+
+.dashboard .staf .icon {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 4rem;
+  width: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  z-index: 10;
+  background-color: var(--main-color);
+  border-radius: 0.3rem;
+}
+
 @media only screen and (min-width: 993px) {
   .top-bar {
     height: 25%;

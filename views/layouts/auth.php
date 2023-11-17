@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/auth.css" />
 </head>
 
-<body class="cyan">
+<body>
 
 
     <!-- Form Section -->
