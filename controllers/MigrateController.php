@@ -115,7 +115,7 @@ class MigrateController extends Controller
 
         Pengguna::truncate();
         Pengguna::create([
-            'nik' => '123456',
+            'nik' => '654321',
             'email' => 'admin@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
@@ -123,7 +123,7 @@ class MigrateController extends Controller
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
-            'nik' => '654321',
+            'nik' => '123456',
             'email' => 'staf@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),

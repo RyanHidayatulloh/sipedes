@@ -1,3 +1,4 @@
+M.AutoInit();
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -199,4 +200,22 @@ $jscomp.polyfill(
 $(document).ready(function () {
   $(".datatables-init").DataTable();
   $("select").formSelect();
+});
+
+$("#logout-button").on("click", function (e) {
+  e.preventDefault();
+  Swal.fire({
+    title: "Keluar",
+    text: "Apakah anda yakin akan keluar?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Keluar",
+    cancelButtonText: "Batal",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $(location).prop("href", $(this).attr("href"));
+    }
+  });
 });

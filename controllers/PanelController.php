@@ -46,6 +46,27 @@ class PanelController extends Controller
     }
     public function actionIndex()
     {
-        return $this->render('index');
+        $this->view->title = 'dashboard';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/index');
+    }
+    public function actionPermohonan()
+    {
+        $this->view->title = 'permohonan';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/permohonan');
+    }
+    public function actionPemohon()
+    {
+        $this->view->title = 'pemohon';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/pemohon');
+    }
+    public function actionLaporan()
+    {
+        $this->view->title = 'laporan';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/laporan');
+    }
+    public function actionProfil()
+    {
+        $this->view->title = 'profil';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/profil');
     }
 }

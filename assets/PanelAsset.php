@@ -19,11 +19,13 @@ class PanelAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+    // public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
+
     public $css = [
         'dt/datatables.min.css',
         'css/materialize.min.css',
         'css/main.css',
-        'css/landing.css',
+        'css/panel.css',
     ];
     public $js = [
         'js/jquery-3.7.1.min.js',
