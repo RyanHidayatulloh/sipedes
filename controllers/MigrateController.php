@@ -79,7 +79,7 @@ class MigrateController extends Controller
             $table->string('password_hash')->nullable(false);
             $table->string('password_reset_token')->nullable();
             $table->string('name');
-            $table->longText('picture')->nullable();
+            $table->longText('picture')->nullable()->default('avatar.jpg');
             $table->unsignedInteger('status')->nullable(false)->default(10);
             $table->string('verification_token')->nullable();
             $table->timestamps();
@@ -111,6 +111,51 @@ class MigrateController extends Controller
             $table->text('data')->nullable();
             $table->integer('created_at')->nullable();
             $table->integer('updated_at')->nullable();
+        });
+
+        Yii::$app->eloquent->schema()->create('keluarga', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('id_user')->nullable(false);
+            $table->unsignedInteger('id_kepala_keluarga')->nullable(true);
+            $table->longText('alamat')->nullable(true);
+            $table->string('rt')->nullable(true);
+            $table->string('rw')->nullable(true);
+            $table->string('desa')->nullable(true);
+            $table->string('kecamatan')->nullable(true);
+            $table->string('kota')->nullable(true);
+            $table->string('provinsi')->nullable(true);
+            $table->string('kodepos')->nullable(true);
+            $table->longText('kk')->nullable(true);
+            $table->timestamps();
+        });
+
+        Yii::$app->eloquent->schema()->create('keluarga_anggota', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('id_keluarga')->nullable(true);
+            $table->string('nama')->nullable(false);
+            $table->string('nik')->unique()->nullable(false);
+            $table->string('jenis_kelamin')->nullable(false);
+            $table->string('tempat_lahir')->nullable(false);
+            $table->date('tgl_lahir')->nullable(false);
+            $table->string('pendidikan')->nullable(false);
+            $table->string('pekerjaan')->nullable(false);
+            $table->unsignedInteger('hubungan')->nullable(false);
+            $table->boolean('kawin')->nullable(false);
+            $table->string('kewarganegaraan')->nullable(false);
+            $table->string('agama')->nullable(false);
+            $table->longText('alamat')->nullable(true);
+            $table->string('rt')->nullable(false);
+            $table->string('rw')->nullable(false);
+            $table->string('desa')->nullable(false);
+            $table->string('kecamatan')->nullable(false);
+            $table->string('kota')->nullable(false);
+            $table->string('provinsi')->nullable(false);
+            $table->string('kodepos')->nullable(true);
+            $table->string('no_hp')->nullable(true);
+            $table->string('email')->nullable(true);
+            $table->longText('foto')->default('avatar.jpg');
+            $table->longText('ktp')->nullable(false);
+            $table->timestamps();
         });
 
         Pengguna::truncate();

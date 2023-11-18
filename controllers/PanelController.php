@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use Yii;
@@ -64,6 +65,13 @@ class PanelController extends Controller
         $this->view->title = 'laporan';
         return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/laporan');
     }
+
+    public function actionAnggota()
+    {
+        $this->view->title = 'anggota';
+        return $this->render('pemohon/anggota');
+    }
+
     public function actionProfil()
     {
         $this->view->title = 'profil';

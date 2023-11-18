@@ -29,7 +29,8 @@ $this->registerCsrfMetaTags();
     <div class="outside">
         <?= $this->render('panel-topbar') ?>
         <div class="inside">
-            <div class="container">
+            <div
+                class="container <?= key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) ?> <?= $this->title ?? 'dashboard' ?>">
                 <?= $content ?>
             </div>
         </div>

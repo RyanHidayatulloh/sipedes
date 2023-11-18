@@ -23,6 +23,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 
 .top-profile a {
@@ -118,6 +119,10 @@ h6 {
   font-size: 1.25rem;
 }
 
+.sidenav li.active {
+  width: 100%;
+}
+
 .sidenav li.active a {
   color: var(--main-color);
   font-weight: bold;
@@ -138,49 +143,192 @@ h6 {
   transition: 0.2s all ease-out;
 }
 
-.staf .dashboard {
+/* Pemohon */
+.pemohon.dashboard .row {
   position: relative;
-  width: 100%;
-  height: 5rem;
+  display: flex;
+  gap: 3rem;
+  flex-direction: column;
 }
 
-.dashboard .col {
-  position: relative;
-  width: 100%;
-  height: 25rem;
+.pemohon.dashboard .card.except {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.staf .dashboard .card {
+.pemohon.dashboard .card:not(.except) {
+  position: relative;
+  top: 3rem;
+  height: 20rem;
+  padding: 0 1rem;
+}
+
+.pemohon.dashboard .card:not(.except) .btn {
   position: absolute;
-  top: 2rem;
-  width: 100%;
-  padding: 3rem 1rem 3rem;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
 }
 
-.staf .dashboard .card h1 {
-  margin: 2rem auto;
-}
-
-.staf .dashboard .icon {
-  color: white;
+.pemohon.dashboard .icon {
+  border-radius: 0.5rem;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  height: 4rem;
-  width: 4rem;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  z-index: 10;
+  height: 2rem;
+  width: 2rem;
+  padding: 3rem;
   background-color: var(--main-color);
-  border-radius: 0.3rem;
+  color: white;
+  top: -3rem;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.pemohon.dashboard .icon i {
+  font-size: 3.5rem;
+}
+
+.pemohon.profil .card {
+  padding: 1rem;
+}
+
+.pemohon.profil .edit-button {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+}
+
+.pemohon.profil .button-bar {
+  position: relative;
+}
+
+.book {
+  position: relative;
+  height: 85vh;
+  padding: 1rem;
+}
+
+.paper-wrap {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.paper-main {
+  position: relative;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.paper-fold {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.paper-fold.from-right {
+  left: 100%;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.paper-fold.from-left {
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  top: 0;
+}
+
+.paper-fold.from-top {
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  top: 0;
+}
+
+.paper-fold.from-bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 100%;
+}
+
+.paper-fold.active {
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  top: 0 !important;
+}
+
+.collection span.pill {
+  padding: 4px 10px;
+  font-size: small;
+  color: white;
+  border-radius: 5rem;
+  background-color: var(--main-color);
+}
+
+.collection .collection-item.avatar {
+  padding-left: 92px;
+}
+
+.collection img.profil {
+  width: initial !important;
+  height: 80% !important;
+}
+
+@media only screen and (min-width: 600px) {
+  /* For tablets: */
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+
+  /* Pemohon */
+  .pemohon.dashboard .row {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .pemohon.dashboard .card:not(.except) {
+    flex: 1;
+    top: 2rem;
+  }
+
+  .pemohon.dashboard .icon {
+    padding: 2rem;
+    top: -2rem;
+  }
+
+  .pemohon.dashboard .icon i {
+    font-size: 2.5rem;
+  }
 }
 
 @media only screen and (min-width: 993px) {
+  /* For large: */
   .top-bar {
     height: 25%;
     padding: 1rem 3rem;
+  }
+
+  .top-profile {
+    height: 5rem;
   }
 
   .top-profile img {
@@ -201,11 +349,8 @@ h6 {
   .staf .content .col {
     padding: 1rem;
   }
-}
 
-/* media only screen on mobile device */
-@media only screen and (max-width: 992px) {
-  .top-profile {
-    height: 100%;
+  .book {
+    height: 60vh;
   }
 }

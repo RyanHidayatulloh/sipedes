@@ -197,6 +197,21 @@ $jscomp.polyfill(
   return d;
 });
 
+$.ajaxSetup({
+  headers: {
+    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+  },
+});
+
+$(".paper-trigger").on("click", function (e) {
+  e.preventDefault();
+  $(`#${$(this).attr("target")}`).addClass("active");
+});
+$(".paper-folder").on("click", function (e) {
+  e.preventDefault();
+  $(`.paper-fold`).removeClass("active");
+});
+
 $(document).ready(function () {
   $(".datatables-init").DataTable();
   $("select").formSelect();
