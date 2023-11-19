@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Keluarga extends Model
 {
@@ -20,4 +21,9 @@ class Keluarga extends Model
         'kodepos',
         'kk',
     ];
+
+    public function anggota(): HasMany
+    {
+        return $this->hasMany(KeluargaAnggota::class, 'id_keluarga', 'id');
+    }
 }

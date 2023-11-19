@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\libraries\Eloquent;
+use app\models\Keluarga;
 use app\models\Pengguna;
 use app\models\User;
 use Illuminate\Database\Capsule\Manager;
@@ -209,6 +210,10 @@ class MigrateController extends Controller
         $auth->assign($staff, 2);
         $auth->assign($kades, 3);
         $auth->assign($pemohon, 4);
+
+        Keluarga::create([
+            'id_user' => 4,
+        ]);
 
 
         return 'Migrasi telah berhasil, <a href="' . Yii::$app->homeUrl . '">Kembali</a>';

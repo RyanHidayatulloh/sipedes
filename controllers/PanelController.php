@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Keluarga;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -69,7 +70,9 @@ class PanelController extends Controller
     public function actionAnggota()
     {
         $this->view->title = 'anggota';
-        return $this->render('pemohon/anggota');
+        return $this->render('pemohon/anggota', [
+            'keluarga' => Keluarga::with('anggota')->get()
+        ]);
     }
 
     public function actionProfil()
