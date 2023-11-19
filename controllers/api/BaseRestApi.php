@@ -32,7 +32,7 @@ class BaseRestApi extends ActiveController
     public function actionIndex()
     {
         $data = $this->modelClass::all();
-        $this->beforeIndex($data);
+        $data = $this->beforeIndex($data);
         return $this->asJson($data);
     }
 

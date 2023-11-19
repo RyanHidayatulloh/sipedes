@@ -1,4 +1,15 @@
 M.AutoInit();
+$(".datepicker").datepicker({
+  format: "dd/mm/yyyy",
+  i18n: {
+    months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+    monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
+    weekdays: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"],
+    weekdaysShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+    weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
+  },
+  defaultDate: new Date("2000-01-10"),
+});
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",

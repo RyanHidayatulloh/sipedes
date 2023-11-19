@@ -71,7 +71,7 @@ class PanelController extends Controller
     {
         $this->view->title = 'anggota';
         return $this->render('pemohon/anggota', [
-            'keluarga' => Keluarga::with('anggota')->get()
+            'keluarga' => Keluarga::with('anggota')->where(['id_user' => Yii::$app->user->id])->first()
         ]);
     }
 

@@ -24,6 +24,6 @@ class Keluarga extends Model
 
     public function anggota(): HasMany
     {
-        return $this->hasMany(KeluargaAnggota::class, 'id_keluarga', 'id');
+        return $this->hasMany(KeluargaAnggota::class, 'id_keluarga', 'id')->orderBy('hubungan', 'asc');
     }
 }
