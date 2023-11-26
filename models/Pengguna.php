@@ -24,7 +24,7 @@ class Pengguna extends Model
 {
     public $table = "user";
     protected $fillable = [
-        'nik',
+        'nid',
         'name',
         'auth_key',
         'password_hash',

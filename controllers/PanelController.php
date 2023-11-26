@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Enums\JenisKelamin;
 use app\models\Keluarga;
 use Yii;
 use yii\filters\AccessControl;

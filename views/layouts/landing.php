@@ -36,7 +36,7 @@ use yii\helpers\Url;
                     <li><a class="waves-effect waves-light"
                             href="<?= Yii::$app->user->isGuest ? Url::to(['auth/login']) : Url::to(['panel/index']) ?>"><i
                                 class="material-icons right">person</i>
-                            <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nik) ?>
+                            <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid) ?>
                         </a>
                     </li>
                 </ul>
@@ -47,7 +47,7 @@ use yii\helpers\Url;
     <ul class="sidenav" id="mobile-demo">
         <li><a class="waves-effect " href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
                     class="material-icons">person</i>
-                <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nik) ?>
+                <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid) ?>
             </a></li>
     </ul>
     <!-- /nav bar -->

@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use app\libraries\Eloquent;
+use app\models\Enums\JenisKelamin;
+use app\models\Enums\Pekerjaan;
+use app\models\Enums\Pendidikan;
 use app\models\Keluarga;
 use app\models\Pengguna;
 use app\models\User;
@@ -74,7 +77,7 @@ class MigrateController extends Controller
 
         Yii::$app->eloquent->schema()->create('user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nik')->unique()->nullable(false);
+            $table->string('nid')->unique()->nullable(false);
             $table->string('email')->unique()->nullable(false);
             $table->string('auth_key');
             $table->string('password_hash')->nullable(false);
@@ -135,11 +138,11 @@ class MigrateController extends Controller
             $table->unsignedInteger('id_keluarga')->nullable(true);
             $table->string('nama')->nullable(false);
             $table->string('nik')->unique()->nullable(false);
-            $table->string('jenis_kelamin')->nullable(false);
+            $table->enum('jenis_kelamin', JenisKelamin::forSelect())->nullable(false);
             $table->string('tempat_lahir')->nullable(false);
             $table->date('tgl_lahir')->nullable(false);
-            $table->string('pendidikan')->nullable(false);
-            $table->string('pekerjaan')->nullable(false);
+            $table->enum('pendidikan', Pendidikan::forSelect())->nullable(false);
+            $table->enum('pekerjaan', Pekerjaan::forSelect())->nullable(false);
             $table->unsignedInteger('hubungan')->nullable(false);
             $table->boolean('kawin')->nullable(false);
             $table->string('kewarganegaraan')->nullable(false);
@@ -161,7 +164,7 @@ class MigrateController extends Controller
 
         Pengguna::truncate();
         Pengguna::create([
-            'nik' => '654321',
+            'nid' => '654321',
             'email' => 'admin@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
@@ -169,7 +172,7 @@ class MigrateController extends Controller
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
-            'nik' => '123456',
+            'nid' => '123456',
             'email' => 'staf@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
@@ -177,7 +180,7 @@ class MigrateController extends Controller
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
-            'nik' => '7890',
+            'nid' => '7890',
             'email' => 'kades@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
@@ -185,7 +188,7 @@ class MigrateController extends Controller
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
-            'nik' => '0987',
+            'nid' => '0987',
             'email' => 'pemohon@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),

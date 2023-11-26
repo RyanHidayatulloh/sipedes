@@ -1,6 +1,8 @@
 <?php
+
 namespace app\controllers;
 
+use app\models\Keluarga;
 use app\models\LoginForm;
 use app\models\Pengguna;
 use app\models\RegisterForm;
@@ -70,11 +72,11 @@ class AuthController extends Controller
 
         if (Yii::$app->request->isPost) {
             $data = Yii::$app->request->post();
-            $user = Pengguna::where('nik', $data['username'])
+            $user = Pengguna::where('nid', $data['username'])
                 ->orWhere('email', $data['username'])
                 ->first();
             if ($user) {
-                $validator = User::findByUsername($user->nik);
+                $validator = User::findByUsername($user->nid);
                 if ($validator->validatePassword($data['password'])) {
                     Yii::$app->user->login($validator, $data['rememberMe'] ?? false ? 3600 * 24 * 30 : 0);
                     return $this->goBack();
@@ -98,26 +100,47 @@ class AuthController extends Controller
 
         $data = Yii::$app->request->post();
         if (Yii::$app->request->isPost) {
-            $check = Pengguna::where('nik', $data['nik'])->orWhere('email', $data['email'])->first();
+            $check = Pengguna::where('nid', $data['nid'])->orWhere('email', $data['email'])->first();
             if ($check) {
-                Yii::$app->session->setFlash('error', 'Username / Email sudah terdaftar');
+                Yii::$app->session->setFlash('error', 'Username / Nomor KK sudah terdaftar');
+                return $this->render('register', [
+                    'data' => $data ?? [
+                        'nid' => '',
+                        'email' => '',
+                    ]
+                ]);
             }
             if ($data['password'] != $data['password_confirm']) {
                 Yii::$app->session->setFlash('error', 'Password tidak sesuai');
+                return $this->render('register', [
+                    'data' => $data ?? [
+                        'nid' => '',
+                        'email' => '',
+                    ]
+                ]);
             }
             $user = new Pengguna;
-            $user->nik = $data['nik'];
+            $user->nid = $data['nid'];
             $user->email = $data['email'];
             $user->password_hash = Yii::$app->security->generatePasswordHash($data['password']);
             $user->auth_key = Yii::$app->security->generateRandomString();
             $user->save();
-            Yii::$app->user->login(User::findByUsername($user->nik));
+
+            $auth = Yii::$app->authManager;
+            $auth->assign($auth->getRole('pemohon'), $user->id);
+
+            $keluarga = new Keluarga([
+                "id_user" => $user->id
+            ]);
+            $keluarga->save();
+
+            Yii::$app->user->login(User::findByUsername($user->nid));
             return $this->redirect(Url::to('panel/index'));
         }
 
         return $this->render('register', [
             'data' => $data ?? [
-                'nik' => '',
+                'nid' => '',
                 'email' => '',
             ]
         ]);

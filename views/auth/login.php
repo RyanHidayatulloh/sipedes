@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <div class="input-field">
                 <i class="material-icons prefix">person</i>
                 <input type="text" name="username" id="username" value="<?= $data['username'] ?? '' ?>" required>
-                <label for="username">Email / NIK</label>
+                <label for="username">Email / Nomor KK</label>
             </div>
         </div>
 

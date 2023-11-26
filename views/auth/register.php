@@ -27,8 +27,8 @@ use yii\helpers\Url;
         <div class="col s12 m12 l12">
             <div class="input-field">
                 <i class="material-icons prefix">credit_card</i>
-                <input type="text" name="nik" id="nik" value="<?= $data['nik'] ?? '' ?>" required>
-                <label for="nik">NIK</label>
+                <input type="text" name="nid" id="nid" value="<?= $data['nid'] ?? '' ?>" required>
+                <label for="nid">Nomor KK</label>
             </div>
         </div>
 

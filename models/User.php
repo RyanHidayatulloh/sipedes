@@ -12,7 +12,7 @@ use yii\web\IdentityInterface;
  * User model
  *
  * @property integer $id
- * @property string $nik
+ * @property string $nid
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $verification_token
@@ -77,12 +77,12 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Finds user by username
      *
-     * @param string $nik
+     * @param string $nid
      * @return static|null
      */
-    public static function findByUsername($nik)
+    public static function findByUsername($nid)
     {
-        return static::findOne(['nik' => $nik, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['nid' => $nid, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
