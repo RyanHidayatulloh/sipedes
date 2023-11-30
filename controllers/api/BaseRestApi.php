@@ -44,6 +44,19 @@ class BaseRestApi extends ActiveController
                 'data' => $data
             ]);
         }
+        if (Yii::$app->request->isDelete) {
+            $data = $this->modelClass::find(Yii::$app->request->getBodyParam('id'));
+            $this->beforeDelete($data);
+            $data->delete();
+            $this->afterDelete($data);
+            return $this->asJson([
+                'toast' => [
+                    'icon' => 'success',
+                    'title' => 'Data berhasil dihapus',
+                ],
+                'data' => $data
+            ]);
+        }
         $this->beforeIndex($data);
         return $this->asJson($data);
     }
@@ -56,6 +69,12 @@ class BaseRestApi extends ActiveController
     {
     }
     public function afterSave(&$data)
+    {
+    }
+    public function beforeDelete(&$data)
+    {
+    }
+    public function afterDelete(&$data)
     {
     }
 }

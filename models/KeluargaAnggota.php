@@ -5,9 +5,11 @@ namespace app\models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class KeluargaAnggota extends Model
 {
+    use SoftDeletes;
     public $table = "keluarga_anggota";
     protected $fillable = [
         'id_keluarga',

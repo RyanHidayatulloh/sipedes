@@ -92,6 +92,7 @@ class MigrateController extends Controller
             $table->unsignedInteger('status')->nullable(false)->default(10);
             $table->string('verification_token')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Yii::$app->eloquent->schema()->create('auth_assignment', function (Blueprint $table) {
@@ -136,6 +137,7 @@ class MigrateController extends Controller
             $table->string('kodepos')->nullable(true);
             $table->longText('kk')->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Yii::$app->eloquent->schema()->create('keluarga_anggota', function (Blueprint $table) {
@@ -165,6 +167,7 @@ class MigrateController extends Controller
             $table->longText('foto')->default('avatar.jpg');
             $table->longText('ktp')->nullable(false);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Yii::$app->eloquent->schema()->create('wilayah', function (Blueprint $table) {

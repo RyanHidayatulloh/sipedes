@@ -4,6 +4,7 @@ namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * This is the model class for table "pengguna".
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pengguna extends Model
 {
+
+    use SoftDeletes;
     public $table = "user";
     protected $fillable = [
         'nid',

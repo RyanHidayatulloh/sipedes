@@ -31,6 +31,14 @@ if (!Array.isArray(message)) {
   });
 }
 
+const capEachWord = (a) => {
+  return a
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 var $jscomp = $jscomp || {};
 $jscomp.scope = {};
 $jscomp.findInternal = function (a, b, c) {
@@ -257,78 +265,114 @@ async function getWilayah(q = null) {
   });
 }
 
-$(document).ready(function () {
-  if ($(`select[name=provinsi]`).length) {
-    $(`select[name=provinsi]`).empty().append($(`<option value="" disabled selected>Pilih Provinsi</option>`)).closest(".input-field").addClass("hide");
-    $(`select[name=kota]`).empty().closest(".input-field").addClass("hide");
-    $(`select[name=kecamatan]`).empty().closest(".input-field").addClass("hide");
-    $(`select[name=desa]`).empty().closest(".input-field").addClass("hide");
-    M.FormSelect.getInstance($(`select[name=provinsi]`)).destroy();
-    getWilayah().then((items) => {
-      $.each(items, function (i, item) {
-        $("select[name=provinsi]").append(
+const changeProvinsi = function (event) {
+  $(`select[name=kota]`).empty().append($(`<option value="" disabled selected>Pilih Kabupaten/Kota</option>`)).closest(".input-field").addClass("hide");
+  $(`select[name=kecamatan]`).empty().closest(".input-field").addClass("hide");
+  $(`select[name=desa]`).empty().closest(".input-field").addClass("hide");
+  M.FormSelect.getInstance($(`select[name=kota]`)).destroy();
+  getWilayah($(this).val()).then((items) => {
+    $.each(items, function (i, item) {
+      $("select[name=kota]").append(
+        $("<option>", {
+          value: item.kode,
+          text: item.nama,
+        })
+      );
+    });
+    $(`select[name=kota]`).closest(".input-field").removeClass("hide");
+    $("select[name=kota]").formSelect();
+  });
+};
+const changeKota = function (event) {
+  $(`select[name=kecamatan]`).empty().append($(`<option value="" disabled selected>Pilih Kecamatan</option>`)).closest(".input-field").addClass("hide");
+  $(`select[name=desa]`).empty().closest(".input-field").addClass("hide");
+  M.FormSelect.getInstance($(`select[name=kecamatan]`)).destroy();
+  getWilayah($(this).val()).then((items) => {
+    $.each(items, function (i, item) {
+      $("select[name=kecamatan]").append(
+        $("<option>", {
+          value: item.kode,
+          text: item.nama,
+        })
+      );
+    });
+    $(`select[name=kecamatan]`).closest(".input-field").removeClass("hide");
+    $("select[name=kecamatan]").formSelect();
+  });
+};
+const changeDesa = function (event) {
+  $(`select[name=desa]`).empty().append($(`<option value="" disabled selected>Pilih Desa</option>`)).closest(".input-field").addClass("hide");
+  M.FormSelect.getInstance($(`select[name=desa]`)).destroy();
+  getWilayah($(this).val()).then((items) => {
+    $.each(items, function (i, item) {
+      $("select[name=desa]").append(
+        $("<option>", {
+          value: item.kode,
+          text: item.nama,
+        })
+      );
+    });
+    $(`select[name=desa]`).closest(".input-field").removeClass("hide");
+    $("select[name=desa]").formSelect();
+  });
+};
+
+const setDaerah = function (...daerah) {
+  d = ["provinsi", "kota", "kecamatan", "desa"];
+  for (let i = 0; i < 4; i++) {
+    $("body").off("change", `select[name=${d[i]}]`);
+    $(`select[name=${d[i]}]`).closest(".input-field").removeClass("hide");
+    $(`select[name=${d[i]}]`).empty();
+    $(`select[name=${d[i]}]`).formSelect();
+    getWilayah(i == 0 ? null : daerah[i - 1]).then((items) => {
+      $.each(items, function (idx, item) {
+        $(`select[name=${d[i]}]`).append(
           $("<option>", {
+            selected: item.kode == daerah[i] ? true : false,
             value: item.kode,
             text: item.nama,
           })
         );
       });
-      $(`select[name=provinsi]`).closest(".input-field").removeClass("hide");
-      $("select[name=provinsi]").formSelect();
+      $(`select[name=${d[i]}]`).formSelect();
     });
   }
+  initDaerahFun();
+  console.log(daerah);
+};
 
-  $("body").on("change", "select[name=provinsi]", function (event) {
-    $(`select[name=kota]`).empty().append($(`<option value="" disabled selected>Pilih Kabupaten/Kota</option>`)).closest(".input-field").addClass("hide");
-    $(`select[name=kecamatan]`).empty().closest(".input-field").addClass("hide");
-    $(`select[name=desa]`).empty().closest(".input-field").addClass("hide");
-    M.FormSelect.getInstance($(`select[name=kota]`)).destroy();
-    getWilayah($(this).val()).then((items) => {
-      $.each(items, function (i, item) {
-        $("select[name=kota]").append(
-          $("<option>", {
-            value: item.kode,
-            text: item.nama,
-          })
-        );
-      });
-      $(`select[name=kota]`).closest(".input-field").removeClass("hide");
-      $("select[name=kota]").formSelect();
-    });
-  });
+function initDaerahFun() {
+  $("body").on("change", "select[name=provinsi]", changeProvinsi);
 
-  $("body").on("change", "select[name=kota]", function (event) {
-    $(`select[name=kecamatan]`).empty().append($(`<option value="" disabled selected>Pilih Kecamatan</option>`)).closest(".input-field").addClass("hide");
-    $(`select[name=desa]`).empty().closest(".input-field").addClass("hide");
-    M.FormSelect.getInstance($(`select[name=kecamatan]`)).destroy();
-    getWilayah($(this).val()).then((items) => {
-      $.each(items, function (i, item) {
-        $("select[name=kecamatan]").append(
-          $("<option>", {
-            value: item.kode,
-            text: item.nama,
-          })
-        );
-      });
-      $(`select[name=kecamatan]`).closest(".input-field").removeClass("hide");
-      $("select[name=kecamatan]").formSelect();
-    });
-  });
+  $("body").on("change", "select[name=kota]", changeKota);
 
-  $("body").on("change", "select[name=kecamatan]", function (event) {
-    $(`select[name=desa]`).empty().append($(`<option value="" disabled selected>Pilih Desa</option>`)).closest(".input-field").addClass("hide");
-    M.FormSelect.getInstance($(`select[name=desa]`)).destroy();
-    getWilayah($(this).val()).then((items) => {
-      $.each(items, function (i, item) {
-        $("select[name=desa]").append(
-          $("<option>", {
-            value: item.kode,
-            text: item.nama,
-          })
-        );
-      });
-      $(`select[name=desa]`).closest(".input-field").removeClass("hide");
-      $("select[name=desa]").formSelect();
+  $("body").on("change", "select[name=kecamatan]", changeDesa);
+}
+
+const initProvinsi = function () {
+  $(`select[name=provinsi]`).empty().append($(`<option value="" disabled selected>Pilih Provinsi</option>`)).closest(".input-field").addClass("hide");
+  $(`select[name=kota]`).empty().closest(".input-field").addClass("hide");
+  $(`select[name=kecamatan]`).empty().closest(".input-field").addClass("hide");
+  $(`select[name=desa]`).empty().closest(".input-field").addClass("hide");
+  M.FormSelect.getInstance($(`select[name=provinsi]`)).destroy();
+  getWilayah().then((items) => {
+    $.each(items, function (i, item) {
+      $("select[name=provinsi]").append(
+        $("<option>", {
+          value: item.kode,
+          text: item.nama,
+        })
+      );
     });
+    $(`select[name=provinsi]`).closest(".input-field").removeClass("hide");
+    $("select[name=provinsi]").formSelect();
   });
+};
+
+$(document).ready(function () {
+  if ($(`select[name=provinsi]`).length) {
+    initProvinsi();
+  }
+
+  initDaerahFun();
 });

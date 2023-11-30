@@ -35,14 +35,14 @@ use yii\helpers\Url;
                     <div class="row">
                         <div class="col s12">
                             <p class="left title">Tambah Anggota</p>
-                            <a class="btn-floating btn-small waves-effect waves-light paper-folder right"><i
-                                    class="material-icons">close</i></a>
+                            <a class="btn-floating btn-small waves-effect waves-light paper-folder right"><i class="material-icons">close</i></a>
                         </div>
                     </div>
                     <div class="row paper-content">
                         <div class="col s12">
                             <div class="container">
                                 <form id="form-anggota" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="id">
                                     <div class="row">
                                         <div class="col s12 m6">
                                             <div class="input-field">
@@ -65,19 +65,17 @@ use yii\helpers\Url;
                                                 <select name="jenis_kelamin">
                                                     <option value="" disabled selected>Jenis Kelamin</option>
                                                     <?php foreach (JenisKelamin::forSelect() as $v) : ?>
-                                                    <option value="<?= $v ?>"><?= $v ?></option>
+                                                        <option value="<?= $v ?>"><?= $v ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Jenis Kelamin</label>
                                             </div>
                                             <div class="input-field">
-                                                <input id="tempat_lahir" name="tempat_lahir" type="text"
-                                                    class="validate" required>
+                                                <input id="tempat_lahir" name="tempat_lahir" type="text" class="validate" required>
                                                 <label for="tempat_lahir">Tempat Lahir</label>
                                             </div>
                                             <div class="input-field">
-                                                <input type="text" id="tgl_lahir" name="tgl_lahir" class="datepicker"
-                                                    required>
+                                                <input type="text" id="tgl_lahir" name="tgl_lahir" class="datepicker" required>
                                                 <label for="tgl_lahir">Tanggal Lahir</label>
                                             </div>
                                             <div class="input-field">
@@ -85,7 +83,7 @@ use yii\helpers\Url;
                                                     <option value="" disabled selected>Pilih Pendidikan Terakhir
                                                     </option>
                                                     <?php foreach (Pendidikan::forSelect() as $v) : ?>
-                                                    <option value="<?= $v ?>"><?= $v ?></option>
+                                                        <option value="<?= $v ?>"><?= $v ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Pendidikan Terakhir</label>
@@ -94,7 +92,7 @@ use yii\helpers\Url;
                                                 <select name="pekerjaan">
                                                     <option value="" disabled selected>Pilih Pekerjaan</option>
                                                     <?php foreach (Pekerjaan::forSelect() as $v) : ?>
-                                                    <option value="<?= $v ?>"><?= $v ?></option>
+                                                        <option value="<?= $v ?>"><?= $v ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Pekerjaan</label>
@@ -104,7 +102,7 @@ use yii\helpers\Url;
                                                     <option value="" disabled selected>Pilih Hubungan Dalam Keluarga
                                                     </option>
                                                     <?php foreach (Hubungan::forSelect() as $v) : ?>
-                                                    <option value="<?= $v ?>"><?= $v ?></option>
+                                                        <option value="<?= $v ?>"><?= $v ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Hubungan Dalam Keluarga</label>
@@ -121,7 +119,7 @@ use yii\helpers\Url;
                                                 <select name="kewarganegaraan">
                                                     <option value="" disabled selected>Pilih Kewarganegaraan</option>
                                                     <?php foreach (Kewarganegaraan::forSelect() as $v) : ?>
-                                                    <option value="<?= $v ?>"><?= $v ?></option>
+                                                        <option value="<?= $v ?>"><?= $v ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Status Kewarganegaraan</label>
@@ -130,7 +128,7 @@ use yii\helpers\Url;
                                                 <select name="agama">
                                                     <option value="" disabled selected>Pilih Agama</option>
                                                     <?php foreach (Agama::forSelect() as $v) : ?>
-                                                    <option value="<?= $v ?>"><?= $v ?></option>
+                                                        <option value="<?= $v ?>"><?= $v ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                                 <label>Agama</label>
@@ -138,8 +136,7 @@ use yii\helpers\Url;
                                         </div>
                                         <div class="col s12 m6">
                                             <div class="input-field">
-                                                <textarea id="alamat" name="alamat" class="materialize-textarea"
-                                                    data-length="128" required></textarea>
+                                                <textarea id="alamat" name="alamat" class="materialize-textarea" data-length="128" required></textarea>
                                                 <label for="alamat">Alamat</label>
                                             </div>
                                             <div class="row">
@@ -177,18 +174,14 @@ use yii\helpers\Url;
                                                 <label>Desa</label>
                                             </div>
                                             <div class="input-field">
-                                                <input id="kodepos" name="kodepos" type="number" class="validate"
-                                                    required>
+                                                <input id="kodepos" name="kodepos" type="number" class="validate" required>
                                                 <label for="kodepos">Kode Pos</label>
                                             </div>
 
                                             <div class="row preview-container hide">
-                                                <div class="col s6"><img src="" alt="foto" id="foto-preview"
-                                                        width="100">
+                                                <div class="col s6"><img src="" alt="foto" id="foto-preview" width="100">
                                                 </div>
-                                                <div class="col s6 center preview-ktp hide"><a href="#!"
-                                                        class="preview-card-link"><i
-                                                            class="material-icons">visibility</i>
+                                                <div class="col s6 center preview-ktp hide"><a href="#!" class="preview-card-link" target="_blank"><i class="material-icons">visibility</i>
                                                         KTP</a><small>Lihat
                                                         File
                                                         KTP</small></div>
@@ -198,14 +191,11 @@ use yii\helpers\Url;
                                             <div class="file-field input-field">
                                                 <div class="btn">
                                                     <span>Pilih</span>
-                                                    <input type="file" name="foto"
-                                                        accept="image/png, image/gif, image/jpeg"
-                                                        onchange="loadFile(event)" required />
+                                                    <input type="file" name="foto" accept="image/png, image/gif, image/jpeg" onchange="loadFile(event)" required />
                                                 </div>
 
                                                 <div class="file-path-wrapper">
-                                                    <input class="file-path validate" type="text"
-                                                        placeholder="Upload file" />
+                                                    <input class="file-path validate" type="text" placeholder="Upload file" />
                                                 </div>
                                             </div>
 
@@ -213,14 +203,11 @@ use yii\helpers\Url;
                                             <div class="file-field input-field">
                                                 <div class="btn">
                                                     <span>Pilih</span>
-                                                    <input type="file" name="ktp"
-                                                        accept="image/png, image/gif, image/jpeg, application/pdf"
-                                                        required />
+                                                    <input type="file" name="ktp" accept="image/png, image/gif, image/jpeg, application/pdf" required />
                                                 </div>
 
                                                 <div class="file-path-wrapper">
-                                                    <input class="file-path validate" type="text"
-                                                        placeholder="Upload file" />
+                                                    <input class="file-path validate" type="text" placeholder="Upload file" />
                                                 </div>
                                             </div>
                                         </div>
@@ -228,8 +215,7 @@ use yii\helpers\Url;
                                     <div class="row">
                                         <div class="col s12">
                                             <div class="center">
-                                                <button type="submit"
-                                                    class="btn waves-effect waves-light">Simpan</button>
+                                                <button type="submit" class="btn waves-effect waves-light">Simpan</button>
                                             </div>
                                         </div>
                                     </div>
@@ -249,10 +235,8 @@ use yii\helpers\Url;
         <p>3328162711010002
         </p>
         <div class="secondary-content">
-            <a class="btn-floating btn-small waves-effect waves-light yellow darken-3 paper-trigger btn-edit"
-                target="paper1"><i class="material-icons">edit</i></a>
-            <a class="btn-floating btn-small waves-effect waves-light red btn-delete"><i
-                    class="material-icons">delete</i></a>
+            <a class="btn-floating btn-small waves-effect waves-light yellow darken-3 paper-trigger btn-edit" target="paper1"><i class="material-icons">edit</i></a>
+            <a class="btn-floating btn-small waves-effect waves-light red btn-delete"><i class="material-icons">delete</i></a>
         </div>
     </li>
 </template>
@@ -260,123 +244,171 @@ use yii\helpers\Url;
 <?php $this->beginBlock('script'); ?>
 
 <script>
-function refreshData() {
-    $.getJSON(`<?= Url::to(['api/keluarga']) ?>`, {
-            id_user: '<?= Yii::$app->user->identity->id ?>',
-        },
-        function(data, textStatus, jqXHR) {
-            $('.collection').empty();
-            if (data.anggota.length > 0) {
-                console.log(data.anggota);
-                $.each(data.anggota, function(i, anggota) {
-                    let te = $($('#anggota-item').html())
-                    te.find('.title').text(anggota.nama);
-                    te.find('p').text(anggota.nik).after(
-                        `<span class="pill blue">${anggota.hubungan}</span>`);
-                    te.find('.btn-edit').attr('data-id', anggota.id);
-                    te.find('.btn-delete').attr('data-id', anggota.id);
-                    $('.collection').append(te);
-                });
-                $('.nothing').addClass('hide');
-            } else {
-                $('.nothing').removeClass('hide');
-            }
-        }
-    );
-}
-
-function loadFile(event) {
-    $(`.preview-container`).removeClass('hide');
-    var reader = new FileReader();
-    reader.onload = function() {
-        var output = document.getElementById('foto-preview');
-        output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-$('#form-anggota').on('submit', function(e) {
-    e.preventDefault();
-    let formData = new FormData(this);
-    let valid = true;
-    $.each($(".input-field:not(.hide) select"), function(i, el) {
-        if (el.value == '') {
-            valid = false;
-            Toast.fire({
-                icon: 'error',
-                title: $(el).attr('name') + ' Harus Di isi'
-            });
-        }
-    });
-    if (!valid) {
-        return false;
-    }
-    $.ajax({
-        type: "POST",
-        url: baseUrl + '/api/anggota',
-        data: formData,
-        contentType: false,
-        processData: false,
-        error: function(jqXHR, textStatus, errorThrown) {
-            Toast.fire({
-                icon: "error",
-                title: "Gagal"
-            });
-            console.log(textStatus, errorThrown);
-        },
-        success: function(data, textStatus, jqXHR) {
-            Toast.fire({
-                icon: data.toast.icon,
-                title: data.toast.title
-            });
-            refreshData();
-            console.log(data);
-        }
-    });
-});
-
-$("body").on("click", ".paper-trigger", function(e) {
-    $('#form-anggota')[0].reset();
-    if ($(this).hasClass("btn-edit")) {
-        $.ajax({
-            type: "GET",
-            url: baseUrl + "/api/anggota",
-            data: {
-                id: $(this).data("id"),
+    function refreshData() {
+        $.getJSON(`<?= Url::to(['api/keluarga']) ?>`, {
+                id_user: '<?= Yii::$app->user->identity->id ?>',
             },
-            success: function(res) {
-                console.log(res);
-                ['nama', 'nik', 'email', 'no_hp', 'tempat_lahir', 'rt', 'rw',
-                    'kodepos',
-                ].map((k) => {
-                    $(`input[name=${k}]`).val(res[k]);
+            function(data, textStatus, jqXHR) {
+                $('.collection').empty();
+                if (data.anggota.length > 0) {
+                    console.log(data.anggota);
+                    $.each(data.anggota, function(i, anggota) {
+                        let te = $($('#anggota-item').html())
+                        te.find('.profil').attr('src', baseUrl + '/uploads/foto/anggota/' + anggota.foto);
+                        te.find('.title').text(anggota.nama);
+                        te.find('p').text(anggota.nik).after(
+                            `<span class="pill blue">${anggota.hubungan}</span>`);
+                        te.find('.btn-edit').attr('data-id', anggota.id);
+                        te.find('.btn-delete').attr('data-id', anggota.id);
+                        $('.collection').append(te);
+                    });
+                    $('.nothing').addClass('hide');
+                } else {
+                    $('.nothing').removeClass('hide');
+                }
+            }
+        );
+    }
+
+    function loadFile(event) {
+        $(`.preview-container`).removeClass('hide');
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('foto-preview');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    $('#form-anggota').on('submit', function(e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        let valid = true;
+        $.each($(".input-field:not(.hide) select"), function(i, el) {
+            if (el.value == '') {
+                valid = false;
+                Toast.fire({
+                    icon: 'error',
+                    title: $(el).attr('name') + ' Harus Di isi'
                 });
-                ['hubungan', 'kawin', 'jenis_kelamin', 'kewarganegaraan', 'agama', 'pendidikan',
-                    'pekerjaan'
-                ].map((k) => {
-                    $(`select[name=${k}]`).val(res[k]);
-                    $(`select[name=${k}]`).formSelect();
-                });
-                ['provinsi', 'kota', 'kecamatan', 'desa'].map((k, i) => {
-                    setTimeout(() => {
-                        $(`select[name=${k}]`).val(res[k]);
-                        $(`select[name=${k}]`).formSelect();
-                        $(`select[name=${k}]`).trigger("change");
-                    }, 1000 + (i * 2000));
-                });
-                $('[name=alamat]').val(res.alamat);
-                $('[name=tgl_lahir]').val(new Date(res.tgl_lahir).toLocaleDateString('en-GB'));
-                M.textareaAutoResize($('[name=alamat]'));
-                M.updateTextFields();
             }
         });
-        $('.left.title').text("Edit Anggota");
-    } else {
-        $('.left.title').text("Tambah Anggota");
-    }
-});
+        if (!valid) {
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: baseUrl + '/api/anggota',
+            data: formData,
+            contentType: false,
+            processData: false,
+            error: function(jqXHR, textStatus, errorThrown) {
+                Toast.fire({
+                    icon: "error",
+                    title: "Gagal"
+                });
+                console.log(textStatus, errorThrown);
+            },
+            success: function(data, textStatus, jqXHR) {
+                Toast.fire({
+                    icon: data.toast.icon,
+                    title: data.toast.title
+                });
+                $('.paper-folder').trigger('click');
+                refreshData();
+                console.log(data);
+            }
+        });
+    });
 
-refreshData();
+    $("body").on("click", ".btn-delete", function(e) {
+        e.preventDefault();
+        let id = $(this).data("id");
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Data yang di hapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: baseUrl + "/api/anggota",
+                    data: {
+                        id: id
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        Toast.fire({
+                            icon: "error",
+                            title: "Gagal"
+                        });
+                        console.log(textStatus, errorThrown);
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        Toast.fire({
+                            icon: data.toast.icon,
+                            title: data.toast.title
+                        });
+                        refreshData();
+                        console.log(data);
+                    }
+                });
+            }
+        })
+    });
+
+    $("body").on("click", ".paper-trigger", function(e) {
+        $('#form-anggota')[0].reset();
+        if ($(this).hasClass("btn-edit")) {
+            $(`input:file[name=foto]`).attr('required', false);
+            $(`input:file[name=ktp]`).attr('required', false);
+            $.ajax({
+                type: "GET",
+                url: baseUrl + "/api/anggota",
+                data: {
+                    id: $(this).data("id"),
+                },
+                success: function(res) {
+                    console.log(res);
+                    $(`input:hidden[name=id]`).val(res.id);
+                    $(`.preview-container`).removeClass('hide');
+                    $(`.preview-ktp`).removeClass('hide').find('.preview-card-link').attr('href',
+                        baseUrl + "/uploads/ktp/anggota/" + res.ktp);
+                    $(`#foto-preview`).attr('src', baseUrl + "/uploads/foto/anggota/" + res.foto);
+                    ['nama', 'nik', 'email', 'no_hp', 'tempat_lahir', 'rt', 'rw',
+                        'kodepos',
+                    ].map((k) => {
+                        $(`input[name=${k}]`).val(res[k]);
+                    });
+                    ['hubungan', 'kawin', 'jenis_kelamin', 'kewarganegaraan', 'agama', 'pendidikan',
+                        'pekerjaan'
+                    ].map((k) => {
+                        $(`select[name=${k}]`).val(res[k]);
+                        $(`select[name=${k}]`).formSelect();
+                    });
+                    setDaerah(res.provinsi, res.kota, res.kecamatan, res.desa);
+                    $('[name=alamat]').val(res.alamat);
+                    $('[name=tgl_lahir]').val(new Date(res.tgl_lahir).toLocaleDateString('en-GB'));
+                    M.textareaAutoResize($('[name=alamat]'));
+                    M.updateTextFields();
+                }
+            });
+            $('.left.title').text("Edit Anggota");
+        } else {
+            $('.left.title').text("Tambah Anggota");
+            $(`.preview-ktp`).addClass('hide');
+            $(`.preview-container`).addClass('hide');
+            $(`input:file[name=foto]`).attr('required', true);
+            $(`input:file[name=ktp]`).attr('required', true);
+            $(`input:hidden[name=id]`).val('');
+            initProvinsi();
+        }
+    });
+
+    refreshData();
 </script>
 
 <?php $this->endBlock(); ?>

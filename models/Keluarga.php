@@ -4,9 +4,11 @@ namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Keluarga extends Model
 {
+    use SoftDeletes;
     public $table = "keluarga";
     protected $fillable = [
         'id_user',
