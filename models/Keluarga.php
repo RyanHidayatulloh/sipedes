@@ -4,6 +4,7 @@ namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Keluarga extends Model
@@ -27,5 +28,10 @@ class Keluarga extends Model
     public function anggota(): HasMany
     {
         return $this->hasMany(KeluargaAnggota::class, 'id_keluarga', 'id')->orderBy('hubungan', 'asc');
+    }
+
+    public function kepala(): HasOne
+    {
+        return $this->hasOne(KeluargaAnggota::class, 'id', 'id_kepala_keluarga');
     }
 }

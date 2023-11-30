@@ -317,14 +317,14 @@ const changeDesa = function (event) {
   });
 };
 
-const setDaerah = function (...daerah) {
+const setDaerah = async function (...daerah) {
   d = ["provinsi", "kota", "kecamatan", "desa"];
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < daerah.length; i++) {
     $("body").off("change", `select[name=${d[i]}]`);
     $(`select[name=${d[i]}]`).closest(".input-field").removeClass("hide");
     $(`select[name=${d[i]}]`).empty();
     $(`select[name=${d[i]}]`).formSelect();
-    getWilayah(i == 0 ? null : daerah[i - 1]).then((items) => {
+    await getWilayah(i == 0 ? null : daerah[i - 1]).then((items) => {
       $.each(items, function (idx, item) {
         $(`select[name=${d[i]}]`).append(
           $("<option>", {
@@ -335,6 +335,25 @@ const setDaerah = function (...daerah) {
         );
       });
       $(`select[name=${d[i]}]`).formSelect();
+    });
+  }
+  if (daerah.length < 4) {
+    $("body").off("change", `select[name=${d[daerah.length]}]`);
+    $(`select[name=${d[daerah.length]}]`).closest(".input-field").removeClass("hide");
+    $(`select[name=${d[daerah.length]}]`)
+      .empty()
+      .append($(`<option value="" disabled selected>Pilih ${d[daerah.length]}</option>`));
+    await getWilayah(daerah[daerah.length - 1]).then((items) => {
+      $.each(items, function (idx, item) {
+        $(`select[name=${d[daerah.length]}]`).append(
+          $("<option>", {
+            selected: item.kode == daerah[daerah.length] ? true : false,
+            value: item.kode,
+            text: item.nama,
+          })
+        );
+      });
+      $(`select[name=${d[daerah.length]}]`).formSelect();
     });
   }
   initDaerahFun();

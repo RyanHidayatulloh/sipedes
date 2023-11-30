@@ -79,6 +79,9 @@ class PanelController extends Controller
     public function actionProfil()
     {
         $this->view->title = 'profil';
-        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/profil');
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/profil', [
+            'user' => Yii::$app->user->identity,
+            'keluarga' => Keluarga::where(['id_user' => Yii::$app->user->id])->first()->load('anggota'),
+        ]);
     }
 }
