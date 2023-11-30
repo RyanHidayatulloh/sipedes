@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class KeluargaAnggota extends Model
@@ -30,7 +32,15 @@ class KeluargaAnggota extends Model
         'kodepos',
         'no_hp',
         'email',
-        'fotos',
+        'foto',
         'ktp',
     ];
+
+    protected function tglLahir(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => $value,
+            set: fn (string $value) => Carbon::createFromFormat("d/m/Y", $value),
+        );
+    }
 }

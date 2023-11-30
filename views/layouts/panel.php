@@ -1,5 +1,7 @@
 <?php
+
 use app\assets\PanelAsset;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var string $content */
@@ -19,7 +21,7 @@ $this->registerCsrfMetaTags();
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <?php $this->head() ?>
     <!-- Compiled and minified CSS -->
-    <?php if (isset($this->blocks['style'])): ?>
+    <?php if (isset($this->blocks['style'])) : ?>
     <?= $this->blocks['style'] ?>
     <?php endif; ?>
 </head>
@@ -36,13 +38,14 @@ $this->registerCsrfMetaTags();
         </div>
     </div>
     <script>
+    const baseUrl = '<?= Url::base('http') ?>';
     let message = <?= json_encode(Yii::$app->session->getAllFlashes()) ?>;
     let page = '<?= $this->title ?? 'dashboard' ?>';
     </script>
-    <?php if (isset($this->blocks['script'])): ?>
+    <?php $this->endBody() ?>
+    <?php if (isset($this->blocks['script'])) : ?>
     <?= $this->blocks['script'] ?>
     <?php endif; ?>
-    <?php $this->endBody() ?>
 </body>
 
 </html>

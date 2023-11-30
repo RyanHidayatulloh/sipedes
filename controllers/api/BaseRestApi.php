@@ -31,13 +31,31 @@ class BaseRestApi extends ActiveController
 
     public function actionIndex()
     {
-        $data = $this->modelClass::all();
-        $data = $this->beforeIndex($data);
+        if (Yii::$app->request->isPost) {
+            $data = new $this->modelClass(Yii::$app->request->post());
+            $this->beforeSave($data);
+            $data->save();
+            $this->afterSave($data);
+            return $this->asJson([
+                'toast' => [
+                    'icon' => 'success',
+                    'title' => 'Data berhasil disimpan',
+                ],
+                'data' => $data
+            ]);
+        }
+        $this->beforeIndex($data);
         return $this->asJson($data);
     }
 
-    public function beforeIndex($data)
+    public function beforeIndex(&$data)
     {
-        return $data;
+        $data = $this->modelClass::all();
+    }
+    public function beforeSave(&$data)
+    {
+    }
+    public function afterSave(&$data)
+    {
     }
 }

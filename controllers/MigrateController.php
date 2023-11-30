@@ -3,14 +3,19 @@
 namespace app\controllers;
 
 use app\libraries\Eloquent;
+use app\models\Enums\Agama;
+use app\models\Enums\Hubungan;
 use app\models\Enums\JenisKelamin;
+use app\models\Enums\Kewarganegaraan;
 use app\models\Enums\Pekerjaan;
 use app\models\Enums\Pendidikan;
 use app\models\Keluarga;
 use app\models\Pengguna;
 use app\models\User;
+use app\models\Wilayah;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
@@ -143,10 +148,10 @@ class MigrateController extends Controller
             $table->date('tgl_lahir')->nullable(false);
             $table->enum('pendidikan', Pendidikan::forSelect())->nullable(false);
             $table->enum('pekerjaan', Pekerjaan::forSelect())->nullable(false);
-            $table->unsignedInteger('hubungan')->nullable(false);
+            $table->enum('hubungan', Hubungan::forSelect())->nullable(false);
             $table->boolean('kawin')->nullable(false);
-            $table->string('kewarganegaraan')->nullable(false);
-            $table->string('agama')->nullable(false);
+            $table->enum('kewarganegaraan', Kewarganegaraan::forSelect())->nullable(false);
+            $table->enum('agama', Agama::forSelect())->nullable(false);
             $table->longText('alamat')->nullable(true);
             $table->string('rt')->nullable(false);
             $table->string('rw')->nullable(false);
@@ -159,6 +164,12 @@ class MigrateController extends Controller
             $table->string('email')->nullable(true);
             $table->longText('foto')->default('avatar.jpg');
             $table->longText('ktp')->nullable(false);
+            $table->timestamps();
+        });
+
+        Yii::$app->eloquent->schema()->create('wilayah', function (Blueprint $table) {
+            $table->string('kode');
+            $table->string('nama');
             $table->timestamps();
         });
 
@@ -218,6 +229,9 @@ class MigrateController extends Controller
             'id_user' => 4,
         ]);
 
+        foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/wilayah.json'), true), 1000) as $t) {
+            Wilayah::upsert($t, ['kode'], ['nama']);
+        }
 
         return 'Migrasi telah berhasil, <a href="' . Yii::$app->homeUrl . '">Kembali</a>';
     }
