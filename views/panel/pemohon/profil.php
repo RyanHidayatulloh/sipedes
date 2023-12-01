@@ -203,24 +203,7 @@ use yii\helpers\Url;
 <?php $this->beginBlock('script'); ?>
 
 <script>
-const daerah = [];
-
-<?php if ($keluarga->provinsi): ?>
-daerah.push('<?= $keluarga->provinsi ?>');
-<?php endif; ?>
-<?php if ($keluarga->kota): ?>
-daerah.push('<?= $keluarga->kota ?>');
-<?php endif; ?>
-<?php if ($keluarga->kecamatan): ?>
-daerah.push('<?= $keluarga->kecamatan ?>');
-<?php endif; ?>
-<?php if ($keluarga->desa): ?>
-daerah.push('<?= $keluarga->desa ?>');
-<?php endif; ?>
-
-if (daerah.length > 0) {
-    setDaerah(...daerah);
-}
+const cloud = new Puller();
 
 function loadFile(event) {
     const reader = new FileReader();
@@ -230,6 +213,26 @@ function loadFile(event) {
     };
     reader.readAsDataURL(event.target.files[0]);
 }
+
+$(document).ready(async function() {
+    await cloud.add("http://sipedes.project/api/wilayah", {
+        name: "wilayah",
+        data: {
+            q: "all"
+        }
+    });
+    await cloud.add("http://sipedes.project/api/keluarga", {
+        name: "keluarga",
+        data: {
+            id_user: true
+        }
+    });
+    W.init({
+        dataset: cloud.get("wilayah")
+    });
+    let keluarga = cloud.get("keluarga");
+    W.set(keluarga.provinsi, keluarga.kota, keluarga.kecamatan, keluarga.desa);
+});
 
 $('.form-profil').on('submit', function(e) {
     e.preventDefault();
