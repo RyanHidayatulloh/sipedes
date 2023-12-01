@@ -32,6 +32,8 @@ class PanelAsset extends AssetBundle
         'js/swal.js',
         'dt/datatables.min.js',
         'js/materialize.min.js',
+        'js/utils/wilayah.js',
+        'js/utils/puller.js',
         'js/main.js',
         'js/panel.js',
     ];

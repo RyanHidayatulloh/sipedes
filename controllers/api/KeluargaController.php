@@ -13,7 +13,11 @@ class KeluargaController extends BaseRestApi
     public function beforeIndex(&$data)
     {
         $id = Yii::$app->request->get('id_user');
-        $data = $id ? $this->modelClass::with('anggota', 'kepala')->where('id_user', $id)->first() : $this->modelClass::with('anggota', 'kepala')->get();
+        if ($id) {
+            $data = $this->modelClass::with('anggota', 'kepala')->where('id_user', $id == true ? Yii::$app->user->getId() : $id)->first();
+        } else {
+            $data = $this->modelClass::with('anggota', 'kepala')->get();
+        }
     }
 
     public function beforeSave(&$data)

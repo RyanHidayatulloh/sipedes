@@ -13,12 +13,16 @@ class WilayahController extends BaseRestApi
     public function actionIndex()
     {
         $q = Yii::$app->request->get('q');
-        $data = $this->modelClass::all()->filter(function (Model $wilayah) use ($q) {
-            if ($q == null) {
-                return strlen($wilayah->kode) == 2;
-            }
-            return strlen($q) == 8 ? str_contains($wilayah->kode, "$q.") : str_contains($wilayah->kode, "$q.") && (strlen($wilayah->kode) == (strlen($q) + 3));
-        })->values()->all();
+        if ($q == "all") {
+            $data = json_decode(file_get_contents(Yii::$app->basePath . '/wilayah.json'), true);
+        } else {
+            $data = $this->modelClass::all()->filter(function (Model $wilayah) use ($q) {
+                if ($q == null) {
+                    return strlen($wilayah->kode) == 2;
+                }
+                return strlen($q) == 8 ? str_contains($wilayah->kode, "$q.") : str_contains($wilayah->kode, "$q.") && (strlen($wilayah->kode) == (strlen($q) + 3));
+            })->values()->all();
+        }
         return $this->asJson($data);
     }
 }
