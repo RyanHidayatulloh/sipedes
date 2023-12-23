@@ -325,6 +325,34 @@ h6 {
   }
 }
 
+.sbs-wrapper {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  gap: 1rem;
+  width: 90%;
+  max-width: 70rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition: all ease 0.3s;
+}
+
+.sbs-main {
+  background-color: blanchedalmond;
+  width: 100%;
+  transition: all ease 0.3s;
+}
+
+.sbs-sub {
+  background-color: aqua;
+  width: 100%;
+  transition: all ease 0.3s;
+}
+
 @media only screen and (min-width: 993px) {
   /* For large: */
   .top-bar {
@@ -357,5 +385,19 @@ h6 {
 
   .book {
     height: 60vh;
+  }
+
+  .sbs-wrapper {
+    flex-direction: row;
+  }
+
+  .sbs-main {
+    flex-grow: 1;
+    width: auto;
+  }
+
+  .sbs-sub {
+    background-color: aqua;
+    width: 20rem;
   }
 }

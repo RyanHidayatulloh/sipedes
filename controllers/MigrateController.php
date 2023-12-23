@@ -9,6 +9,8 @@ use app\models\Enums\JenisKelamin;
 use app\models\Enums\Kewarganegaraan;
 use app\models\Enums\Pekerjaan;
 use app\models\Enums\Pendidikan;
+use app\models\Enums\JenisSurat;
+use app\models\Enums\StatusSurat;
 use app\models\Keluarga;
 use app\models\Pengguna;
 use app\models\User;
@@ -176,6 +178,21 @@ class MigrateController extends Controller
             $table->timestamps();
         });
 
+        Yii::$app->eloquent->schema()->create('permohonan', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('id_pemohon')->nullable(false);
+            $table->unsignedInteger('id_anggota')->nullable(false);
+            $table->enum('jenis', JenisSurat::forSelect())->nullable(false);
+            $table->longText('nomor')->nullable(true);
+            $table->longText('keterangan')->nullable(true);
+            $table->longText('keperluan')->nullable(true);
+            $table->enum('status', StatusSurat::forSelect())->default(0);
+            $table->date('tgl_surat')->nullable(true);
+            $table->date('tgl_ttd')->nullable(true);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Pengguna::truncate();
         Pengguna::create([
             'nid' => '654321',
@@ -202,6 +219,14 @@ class MigrateController extends Controller
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
+            'nid' => '123',
+            'email' => 'rt@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
             'nid' => '0987',
             'email' => 'pemohon@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
@@ -218,6 +243,8 @@ class MigrateController extends Controller
         $auth->add($staff);
         $kades = $auth->createRole('kades');
         $auth->add($kades);
+        $rt = $auth->createRole('rt');
+        $auth->add($rt);
         $pemohon = $auth->createRole('pemohon');
         $auth->add($pemohon);
 
@@ -226,7 +253,8 @@ class MigrateController extends Controller
         $auth->assign($admin, 1);
         $auth->assign($staff, 2);
         $auth->assign($kades, 3);
-        $auth->assign($pemohon, 4);
+        $auth->assign($rt, 4);
+        $auth->assign($pemohon, 5);
 
         Keluarga::create([
             'id_user' => 4,
