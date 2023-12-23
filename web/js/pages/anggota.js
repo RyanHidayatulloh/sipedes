@@ -2,11 +2,18 @@ const cloud = new Puller();
 
 function addAnggota(anggota, keluarga) {
   let te = $($("#anggota-item").html());
-  te.find(".profil").attr("src", baseUrl + "/uploads/foto/anggota/" + anggota.foto);
+  te.find(".profil").attr(
+    "src",
+    baseUrl + "/uploads/foto/anggota/" + anggota.foto
+  );
   te.find(".title").text(anggota.nama);
-  te.find("p").text(anggota.nik).after(`<span class="pill blue">${anggota.hubungan}</span>`);
+  te.find("p")
+    .text(anggota.nik)
+    .after(`<span class="pill blue">${anggota.hubungan}</span>`);
   if (anggota.id == keluarga.id_kepala_keluarga) {
-    te.find("p").text(anggota.nik).after(`<span class="pill green">Kepala Keluarga</span>`);
+    te.find("p")
+      .text(anggota.nik)
+      .after(`<span class="pill green">Kepala Keluarga</span>`);
   }
   te.find(".btn-edit").attr("data-id", anggota.id);
   te.find(".btn-delete").attr("data-id", anggota.id);
@@ -24,12 +31,20 @@ function loadFile(event) {
 }
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/wilayah", { name: "wilayah", data: { q: "all" } });
-  await cloud.add("http://sipedes.project/api/keluarga", { name: "keluarga", data: { id_user: true } });
+  await cloud.add("http://sipedes.project/api/wilayah", {
+    name: "wilayah",
+    data: { q: "all" },
+  });
+  await cloud.add("http://sipedes.project/api/keluarga", {
+    name: "keluarga",
+    data: { id_user: true },
+  });
   cloud
     .addCallback("keluarga", (data) => {
       $(".collection").empty();
-      data.anggota.length > 0 ? $(".nothing").addClass("hide") : $(".nothing").removeClass("hide");
+      data.anggota.length > 0
+        ? $(".nothing").addClass("hide")
+        : $(".nothing").removeClass("hide");
       data.anggota.forEach((anggota) => addAnggota(anggota, data));
     })
     .pull("keluarga");
@@ -81,21 +96,29 @@ $("body").on("click", ".paper-trigger", function (e) {
   W.reset();
   $(`input:file[name=foto]`).attr("required", !$(this).hasClass("btn-edit"));
   $(`input:file[name=ktp]`).attr("required", !$(this).hasClass("btn-edit"));
-  $(".left.title").text($(this).hasClass("btn-edit") ? "Edit Anggota" : "Tambah Anggota");
+  $(".left.title").text(
+    $(this).hasClass("btn-edit") ? "Edit Anggota" : "Tambah Anggota"
+  );
   if ($(this).hasClass("btn-edit")) {
-    let anggota = cloud.get("keluarga").anggota.find((a) => a.id == $(this).data("id"));
+    let anggota = cloud
+      .get("keluarga")
+      .anggota.find((a) => a.id == $(this).data("id"));
     $(`.preview-container`).removeClass("hide");
     $(`.preview-ktp`)
       .removeClass("hide")
       .find(".preview-card-link")
       .attr("href", baseUrl + "/uploads/ktp/anggota/" + anggota.ktp);
-    $(`#foto-preview`).attr("src", baseUrl + "/uploads/foto/anggota/" + anggota.foto);
+    $(`#foto-preview`).attr(
+      "src",
+      baseUrl + "/uploads/foto/anggota/" + anggota.foto
+    );
     Object.entries(anggota).forEach(([i, v]) => {
       if (["tgl_lahir"].includes(i)) {
         $(`input[name=${i}]`).val(new Date(v).toLocaleDateString("en-GB"));
         return;
       }
-      if (["provinsi", "kota", "kecamatan", "desa", "foto", "ktp"].includes(i)) return;
+      if (["provinsi", "kota", "kecamatan", "desa", "foto", "ktp"].includes(i))
+        return;
       $(`input[name=${i}], select[name=${i}], textarea[name=${i}]`).val(v);
     });
     $(`select`).formSelect();

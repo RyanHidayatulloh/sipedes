@@ -11,188 +11,139 @@ use yii\helpers\Url;
         <div class="card book">
             <div class="paper-wrap">
                 <div class="paper-main">
-                    <form action="<?= Url::to(['api/keluarga']) ?>" class="form-profil" method="POST"
-                        enctype="multipart/form-data" style="height: inherit;">
-                        <input type="hidden" name="id_user" value="<?= Yii::$app->user->identity->id ?>">
-                        <div class="row center">
-                            <div class="col s12">
-                                <button type="submit" class="waves-effect waves-light btn">
-                                    <i class="material-icons">save</i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row paper-content">
-                            <div class="col center l6 s12">
-                                <div class="row" style="padding: 0 3.5rem;">
-                                    <div class="input-field col s12">
-                                        <input disabled value="<?= Yii::$app->user->identity->email ?>" type="text"
-                                            id="email">
-                                        <label for="email">Email</label>
-                                    </div>
-                                    <div class="col input-field s12">
-                                        <input disabled value="<?= Yii::$app->user->identity->nid ?>" type="text"
-                                            id="nid">
-                                        <label for="nid">Nomor KK</label>
-                                    </div>
-                                    <div class="col input-field s10">
-                                        <input disabled value="<?= Yii::$app->user->identity->name ?>" type="text"
-                                            id="name">
-                                        <label for="name">Nama Lengkap</label>
-                                    </div>
-                                    <div class="col button-bar s2">
-                                        <a class="waves-effect waves-light btn-small paper-trigger" target="paper1">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                    </div>
-                                    <div class="col input-field s12">
-                                        <select name="id_kepala_keluarga">
-                                            <option value="" disabled selected>Pilih Kepala Keluarga</option>
-                                            <?php foreach ($keluarga->anggota as $a): ?>
-                                            <option value="<?= $a->id ?>"
-                                                <?= $keluarga->id_kepala_keluarga == $a->id ? 'selected' : '' ?>>
-                                                <?= $a->nama ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                        <label>Kepala Keluarga</label>
-                                    </div>
-                                    <?php if ($keluarga->kk): ?>
-                                    <div class="col s12">
-                                        <a href="<?= Url::to('@web/uploads/kk/' . $keluarga->kk) ?>"
-                                            class="preview-card-link" target="_blank">
-                                            <i class="material-icons">visibility</i>
-                                            Lihat File KK</a>
-                                    </div>
-                                    <?php endif ?>
-                                </div>
-                            </div>
-                            <div class="col l6 s12">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <div class="input-field">
-                                                <textarea id="alamat" name="alamat" class="materialize-textarea"
-                                                    data-length="128"><?= $keluarga->alamat ?></textarea>
-                                                <label for="alamat">Alamat</label>
-                                            </div>
-                                            <div class="row">
-                                                <div class="input-field col s6">
-                                                    <input id="rt" name="rt" type="text" class="validate"
-                                                        value="<?= $keluarga->rt ?>">
-                                                    <label for="rt">RT</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="rw" name="rw" type="text" class="validate"
-                                                        value="<?= $keluarga->rw ?>">
-                                                    <label for="rw">RW</label>
-                                                </div>
-                                            </div>
-                                            <div class="input-field">
-                                                <select name="provinsi">
-                                                    <option value="" disabled selected>Pilih Provinsi</option>
-                                                </select>
-                                                <label>Provinsi</label>
-                                            </div>
-                                            <div class="input-field">
-                                                <select name="kota">
-                                                    <option value="" disabled selected>Pilih Kabupaten/Kota</option>
-                                                </select>
-                                                <label>Kabupaten / Kota</label>
-                                            </div>
-                                            <div class="input-field">
-                                                <select name="kecamatan">
-                                                    <option value="" disabled selected>Pilih Kecamatan</option>
-                                                </select>
-                                                <label>Kecamatan</label>
-                                            </div>
-                                            <div class="input-field">
-                                                <select name="desa">
-                                                    <option value="" disabled selected>Pilih Desa</option>
-                                                </select>
-                                                <label>Desa</label>
-                                            </div>
-                                            <div class="input-field">
-                                                <input id="kodepos" name="kodepos" type="number" class="validate"
-                                                    value="<?= $keluarga->kodepos ?>">
-                                                <label for="kodepos">Kode Pos</label>
-                                            </div>
-                                            <label>Input File KK</label>
-                                            <div class="file-field input-field">
-                                                <div class="btn">
-                                                    <span>Pilih</span>
-                                                    <input type="file" name="kk"
-                                                        accept="image/png, image/gif, image/jpeg, application/pdf" />
-                                                </div>
-
-                                                <div class="file-path-wrapper">
-                                                    <input class="file-path validate" type="text"
-                                                        placeholder="Upload file" />
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="scaffold">
+                        <div class="content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="container">
+                                        <table class="biodata">
+                                            <tr>
+                                                <th>Nama</th>
+                                                <td>: <span class="nama"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>NIK</th>
+                                                <td>: <span class="nik"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>No. KK</th>
+                                                <td>: <span class=" nokk"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jenis Kelamin</th>
+                                                <td>: <span class="jenis_kelamin"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Tempat, Tgl. Lahir</th>
+                                                <td>: <span class="tempat_lahir"></span>, <span
+                                                        class="tgl_lahir"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pendidikan</th>
+                                                <td>: <span class="pendidikan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pekerjaan</th>
+                                                <td>: <span class="pekerjaan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hubungan</th>
+                                                <td>: <span class="hubungan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status Perkawinan</th>
+                                                <td>: <span class="status_perkawinan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kewarganegaraan</th>
+                                                <td>: <span class="kewarganegaraan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Agama</th>
+                                                <td>: <span class="agama"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Alamat</th>
+                                                <td>: <span class="alamat"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>RT</th>
+                                                <td>: <span class="rt"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>RW</th>
+                                                <td>: <span class="rw"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Desa</th>
+                                                <td>: <span class="desa"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kecamatan</th>
+                                                <td>: <span class="kecamatan"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kota</th>
+                                                <td>: <span class="kota"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Provinsi</th>
+                                                <td>: <span class="provinsi"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kode Pos</th>
+                                                <td>: <span class="kodepos"></span></td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        <div class="nav flex-center"><a class="waves-effect waves-light btn-small paper-trigger"
+                                target="paper1">
+                                <i class="material-icons">key</i> Ubah Kata Sandi
+                            </a></div>
+                    </div>
                 </div>
                 <div class="paper-fold from-bottom" id="paper1">
                     <div class="row">
                         <div class="col s12">
-                            <p class="left title">Atur Info Pengguna</p>
+                            <p class="left title">Ubah Kata Sandi</p>
                             <a class="btn-floating btn-small waves-effect waves-light paper-folder right">
                                 <i class="material-icons">close</i>
                             </a>
                         </div>
                     </div>
                     <div class="row paper-content">
-                        <form action="<?= Url::to(['api/user']) ?>" class="form-profil" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="col s12">
-                                <div class="container">
+                        <div class="col s12">
+                            <div class="container">
+                                <form id="form-password" action="" method="POST">
                                     <div class="row">
-                                        <div class="col center l6 s12">
-                                            <div>
-                                                <img src="<?= Url::to('@web/img/profil/' . $user->picture) ?>"
-                                                    class="circle" alt="profil" height="200" id="foto-preview">
-                                            </div>
-                                        </div>
-                                        <div class="col l6 s12">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <input id="name" name="name" type="text" class="validate"
-                                                            value="<?= $user->name ?>">
-                                                        <label for="name">Nama Pengguna</label>
-                                                    </div>
-                                                    <label>Input Foto</label>
-                                                    <div class="file-field input-field">
-                                                        <div class="btn">
-                                                            <span>Pilih</span>
-                                                            <input type="file" name="picture"
-                                                                accept="image/png, image/gif, image/jpeg"
-                                                                onchange="loadFile(event)" />
-                                                        </div>
-
-                                                        <div class="file-path-wrapper">
-                                                            <input class="file-path validate" type="text"
-                                                                placeholder="Upload file" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock</i>
+                                            <input id="password" name="password" type="password" class="validate"
+                                                required>
+                                            <label for="password">Password</label>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col s12">
-                                            <div class="center">
-                                                <button type="submit"
-                                                    class="btn waves-effect waves-light">Simpan</button>
-                                            </div>
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock</i>
+                                            <input id="password2" name="password2" type="password" class="validate"
+                                                required>
+                                            <label for="password2">Konfirmasi Password</label>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <button class="btn waves-effect waves-light right" type="submit"
+                                                name="action"> Simpan <i class="material-icons right">send</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,67 +152,5 @@ use yii\helpers\Url;
 </div>
 
 <?php $this->beginBlock('script'); ?>
-
-<script>
-const cloud = new Puller();
-
-function loadFile(event) {
-    const reader = new FileReader();
-    reader.onload = function() {
-        const output = document.getElementById('foto-preview');
-        output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-$(document).ready(async function() {
-    await cloud.add("http://sipedes.project/api/wilayah", {
-        name: "wilayah",
-        data: {
-            q: "all"
-        }
-    });
-    await cloud.add("http://sipedes.project/api/keluarga", {
-        name: "keluarga",
-        data: {
-            id_user: true
-        }
-    });
-    W.init({
-        dataset: cloud.get("wilayah")
-    });
-    let keluarga = cloud.get("keluarga");
-    W.set(keluarga.provinsi, keluarga.kota, keluarga.kecamatan, keluarga.desa);
-});
-
-$('.form-profil').on('submit', function(e) {
-    e.preventDefault();
-    let formData = new FormData(this);
-    $.ajax({
-        type: "POST",
-        url: $(this).attr('action'),
-        data: formData,
-        contentType: false,
-        processData: false,
-        error: function(jqXHR, textStatus, errorThrown) {
-            Toast.fire({
-                icon: "error",
-                title: "Gagal"
-            });
-            console.log(textStatus, errorThrown);
-        },
-        success: function(data, textStatus, jqXHR) {
-            Toast.fire({
-                icon: data.toast.icon,
-                title: data.toast.title
-            });
-            console.log(data);
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
-        }
-    });
-});
-</script>
-
+<script src="<?= Url::to('@web/js/pages/pemohon/profil.js') ?>"></script>
 <?php $this->endBlock(); ?>

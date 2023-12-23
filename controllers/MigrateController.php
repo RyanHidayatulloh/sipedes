@@ -12,11 +12,14 @@ use app\models\Enums\Pendidikan;
 use app\models\Enums\JenisSurat;
 use app\models\Enums\StatusSurat;
 use app\models\Keluarga;
+use app\models\Penduduk;
 use app\models\Pengguna;
 use app\models\User;
 use app\models\Wilayah;
+use DateTime;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -125,35 +128,19 @@ class MigrateController extends Controller
             $table->integer('updated_at')->nullable();
         });
 
-        Yii::$app->eloquent->schema()->create('keluarga', function (Blueprint $table) {
+        Yii::$app->eloquent->schema()->create('penduduk', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('id_user')->nullable(false);
-            $table->unsignedInteger('id_kepala_keluarga')->nullable(true);
-            $table->longText('alamat')->nullable(true);
-            $table->string('rt')->nullable(true);
-            $table->string('rw')->nullable(true);
-            $table->string('desa')->nullable(true);
-            $table->string('kecamatan')->nullable(true);
-            $table->string('kota')->nullable(true);
-            $table->string('provinsi')->nullable(true);
-            $table->string('kodepos')->nullable(true);
-            $table->longText('kk')->nullable(true);
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Yii::$app->eloquent->schema()->create('keluarga_anggota', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('id_keluarga')->nullable(true);
             $table->string('nama')->nullable(false);
             $table->string('nik')->unique()->nullable(false);
+            $table->string('nokk')->nullable(false);
             $table->enum('jenis_kelamin', JenisKelamin::forSelect())->nullable(false);
             $table->string('tempat_lahir')->nullable(false);
             $table->date('tgl_lahir')->nullable(false);
-            $table->enum('pendidikan', Pendidikan::forSelect())->nullable(false);
-            $table->enum('pekerjaan', Pekerjaan::forSelect())->nullable(false);
+            $table->enum('pendidikan', Pendidikan::forSelect())->nullable(true);
+            $table->enum('pekerjaan', Pekerjaan::forSelect())->nullable(true);
             $table->enum('hubungan', Hubungan::forSelect())->nullable(false);
-            $table->boolean('kawin')->nullable(false);
+            $table->boolean('status_perkawinan')->nullable(false);
             $table->enum('kewarganegaraan', Kewarganegaraan::forSelect())->nullable(false);
             $table->enum('agama', Agama::forSelect())->nullable(false);
             $table->longText('alamat')->nullable(true);
@@ -164,10 +151,11 @@ class MigrateController extends Controller
             $table->string('kota')->nullable(false);
             $table->string('provinsi')->nullable(false);
             $table->string('kodepos')->nullable(true);
-            $table->string('no_hp')->nullable(true);
-            $table->string('email')->nullable(true);
-            $table->longText('foto')->default('avatar.jpg');
-            $table->longText('ktp')->nullable(false);
+            // $table->string('no_hp')->nullable(true);
+            // $table->string('email')->nullable(true);
+            // $table->longText('foto')->default('avatar.jpg');
+            // $table->longText('ktp')->nullable(false);
+            // $table->longText('kk')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -181,8 +169,7 @@ class MigrateController extends Controller
         Yii::$app->eloquent->schema()->create('permohonan', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('id_pemohon')->nullable(false);
-            $table->unsignedInteger('id_anggota')->nullable(false);
-            $table->enum('jenis', JenisSurat::forSelect())->nullable(false);
+            $table->enum('jenis', array_keys(JenisSurat::forSelect()))->nullable(false);
             $table->longText('nomor')->nullable(true);
             $table->longText('keterangan')->nullable(true);
             $table->longText('keperluan')->nullable(true);
@@ -235,6 +222,30 @@ class MigrateController extends Controller
             'status' => User::STATUS_ACTIVE,
         ]);
 
+        Penduduk::create([
+            "id_user" => 5,
+            "nama" => "Rian Hidayatullah",
+            "nik" => "3329162711010002",
+            "nokk" => "33291627",
+            "jenis_kelamin" => JenisKelamin::Pria->value,
+            "tempat_lahir" => "Brebes",
+            "tgl_lahir" => DateTime::createFromFormat("Y-m-d", "1999-01-01"),
+            "pendidikan" => Pendidikan::S1->value,
+            "pekerjaan" => Pekerjaan::Petani->value,
+            "hubungan" => Hubungan::Anak,
+            "status_perkawinan" => 0,
+            "kewarganegaraan" => Kewarganegaraan::WNI->name,
+            "agama" => Agama::Islam->value,
+            "alamat" => "Jl. Raya Buniwah",
+            "rt" => "01",
+            "rw" => "01",
+            "desa" => "Buniwah",
+            "kecamatan" => "Sirampog",
+            "kota" => "Brebes",
+            "provinsi" => "Jawa Tengah",
+            "kodepos" => 52272,
+        ]);
+
         $auth = Yii::$app->authManager;
 
         $admin = $auth->createRole('admin');
@@ -255,10 +266,6 @@ class MigrateController extends Controller
         $auth->assign($kades, 3);
         $auth->assign($rt, 4);
         $auth->assign($pemohon, 5);
-
-        Keluarga::create([
-            'id_user' => 4,
-        ]);
 
         foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/wilayah.json'), true), 1000) as $t) {
             Wilayah::upsert($t, ['kode'], ['nama']);

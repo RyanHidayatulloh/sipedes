@@ -4,7 +4,7 @@ namespace app\models\Enums;
 
 enum StatusSurat: int
 {
-    // Belum Dibuat, ACC RT, Sudah Diagendakan, Tertandatangani dan Tercetak
+        // Belum Dibuat, ACC RT, Sudah Diagendakan, Tertandatangani dan Tercetak
     case BelumDibuat = 0;
     case AccRT = 1;
     case SudahDiagendakan = 2;

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Enums\JenisKelamin;
+use app\models\Enums\JenisSurat;
 use app\models\Keluarga;
 use Yii;
 use yii\filters\AccessControl;
@@ -68,20 +69,11 @@ class PanelController extends Controller
         return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/laporan');
     }
 
-    public function actionAnggota()
-    {
-        $this->view->title = 'anggota';
-        return $this->render('pemohon/anggota', [
-            'keluarga' => Keluarga::with('anggota')->where(['id_user' => Yii::$app->user->id])->first()
-        ]);
-    }
-
     public function actionProfil()
     {
         $this->view->title = 'profil';
         return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/profil', [
             'user' => Yii::$app->user->identity,
-            'keluarga' => Keluarga::where(['id_user' => Yii::$app->user->id])->first()->load('anggota'),
         ]);
     }
 }

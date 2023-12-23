@@ -4,6 +4,7 @@ namespace app\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -42,5 +43,10 @@ class Pengguna extends Model
     public function assignments(): HasMany
     {
         return $this->hasMany(Assignment::class, 'user_id', 'id');
+    }
+
+    public function biodata(): HasOne
+    {
+        return $this->hasOne(Penduduk::class, 'id_user', 'id');
     }
 }
