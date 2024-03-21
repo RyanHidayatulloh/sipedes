@@ -20,6 +20,8 @@ class PenggunaController extends BaseRestApi
         } else {
             $data = $this->modelClass::find($id);
         }
+
+        return $this->asJson($data);
     }
 
     public function beforeSave(&$data)

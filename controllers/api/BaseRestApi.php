@@ -2,7 +2,6 @@
 
 namespace app\controllers\api;
 
-use Illuminate\Database\Eloquent\Model;
 use Yii;
 use yii\rest\ActiveController;
 use yii\web\Response;
@@ -41,7 +40,7 @@ class BaseRestApi extends ActiveController
                     'icon' => 'success',
                     'title' => 'Data berhasil disimpan',
                 ],
-                'data' => $data
+                'data' => $data,
             ]);
         }
         if (Yii::$app->request->isDelete) {
@@ -54,16 +53,54 @@ class BaseRestApi extends ActiveController
                     'icon' => 'success',
                     'title' => 'Data berhasil dihapus',
                 ],
-                'data' => $data
+                'data' => $data,
             ]);
         }
-        $this->beforeIndex($data);
-        return $this->asJson($data);
+
+        // Get data
+        $data = $this->modelClass::all();
+
+        $executor = $this->beforeIndex($data);
+        
+        if ($executor instanceof Response) {
+            return $executor;
+        }
+
+        // Cek query field
+        $q = Yii::$app->request->get();
+        if (!$this->checkQueryField($q)) {
+            return $this->asJson([
+                'toast' => [
+                    'icon' => 'error',
+                    'title' => 'Kesalahan query field',
+                ]]);
+        }
+
+        // get data by query jika ada query yang dikirim
+        if (!empty($q)) {
+            // gunakan find hanya menggunakan primary key
+            if (count(array_keys($q)) == 1 && key_exists((new $this->modelClass())->getKeyName(), $q)) {
+                $data = $this->modelClass::find($q[(new $this->modelClass())->getKeyName()]);
+            } else {
+                // gunakan query
+                $data = $this->modelClass::where($q)->first();
+            }
+        }
+        
+        if (!empty($data) || empty($q)) {
+            return $this->asJson($data);
+        }
+        return $this->asJson([
+            'toast' => [
+                'icon' => 'info',
+                'title' => 'Data tidak ditemukan',
+            ],
+        ]);
     }
 
     public function beforeIndex(&$data)
     {
-        $data = $this->modelClass::all();
+        return false;
     }
     public function beforeSave(&$data)
     {
@@ -76,5 +113,15 @@ class BaseRestApi extends ActiveController
     }
     public function afterDelete(&$data)
     {
+    }
+
+    protected function checkQueryField($q): bool
+    {
+        foreach (array_keys($q) as $key) {
+            if (!in_array($key, [(new $this->modelClass())->getKeyName(), ...(new $this->modelClass())->getFillable()])) {
+                return false;
+            }
+        }
+        return true;
     }
 }

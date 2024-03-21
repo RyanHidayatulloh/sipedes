@@ -11,12 +11,6 @@ class AnggotaController extends BaseRestApi
 {
     public $modelClass = Model::class;
 
-    public function beforeIndex(&$data)
-    {
-        $id = Yii::$app->request->get("id");
-        $data = $id ? $this->modelClass::find($id) : $this->modelClass::all();
-    }
-
     public function beforeSave(&$data)
     {
         if ($id = Yii::$app->request->post('id')) {

@@ -10,7 +10,7 @@ class WilayahController extends BaseRestApi
 {
     public $modelClass = Model::class;
 
-    public function actionIndex()
+    public function beforeIndex(&$data)
     {
         $q = Yii::$app->request->get('q');
         if ($q == "all") {

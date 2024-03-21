@@ -24,6 +24,8 @@ class PermohonanController extends BaseRestApi
         }
         $data = $data->get();
         if ($wrap != null) $data = [$wrap => $data];
+
+        return $this->asJson($data);
     }
 
     public function beforeSave(&$data)

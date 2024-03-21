@@ -58,7 +58,7 @@ $config = [
         ],
         'authManager' => [
             'class' => DbManager::class,
-            'defaultRoles' => ['admin', 'staff', 'kades', 'pemohon'],
+            'defaultRoles' => ['admin', 'staff', 'kades', 'rt', 'pemohon'],
         ],
         'eloquent' => [
             'class' => Eloquent::class,
