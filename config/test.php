@@ -1,4 +1,6 @@
 <?php
+use app\libraries\Eloquent;
+use yii\rbac\DbManager;
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/test_db.php';
 
@@ -30,6 +32,8 @@ return [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
+            'loginUrl' => ['auth/login'],
         ],
         'request' => [
             'cookieValidationKey' => 'test',
@@ -40,6 +44,21 @@ return [
                 'domain' => 'localhost',
             ],
             */
+        ],
+        'authManager' => [
+            'class' => DbManager::class,
+            'defaultRoles' => ['admin', 'staff', 'kades', 'rt', 'pemohon'],
+        ],
+        'eloquent' => [
+            'class' => Eloquent::class,
+            'driver' => 'mysql',
+            'database' => 'db_sipedes_test',
+            'prefix' => '',
+            'host' => 'localhost',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
         ],
     ],
     'params' => $params,

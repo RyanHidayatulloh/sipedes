@@ -13,7 +13,7 @@ class PendudukController extends BaseRestApi
 
     public function beforeIndex(&$data)
     {
-        $id = Yii::$app->request->get('id_user');
+        $id = Yii::$app->request->get('bylogin');
         if ($id == true) {
             $data = $this->modelClass::where('id_user', Yii::$app->user->getId())->first();
             if (empty($data)) {
