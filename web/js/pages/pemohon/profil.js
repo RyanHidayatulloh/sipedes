@@ -41,10 +41,11 @@ $("body").on("submit", "#form-password", function (e) {
 $(document).ready(async function () {
   await cloud.add("http://sipedes.project/api/pengguna", { name: "profil" });
   $.each(cloud.get("profil").biodata, function (k, v) {
-    if (v == null || v == "" || v == undefined) {
-      $(`.biodata span.${k}`).text("-");
-      return;
-    }
-    $(`.biodata span.${k}`).text(v);
+    $(`input[name=${k}]`).val(v);
+    $(`textarea[name=${k}]`)?.val(v);
+    $(`select[name=${k}]`)?.val(v);
   });
+  M.updateTextFields();
+  M.textareaAutoResize($(`textarea`));
+  $('select').formSelect();
 });

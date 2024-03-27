@@ -1,5 +1,12 @@
 <?php
 
+use app\models\Enums\Agama;
+use app\models\Enums\Hubungan;
+use app\models\Enums\JenisKelamin;
+use app\models\Enums\Kewarganegaraan;
+use app\models\Enums\Pekerjaan;
+use app\models\Enums\Pendidikan;
+use app\models\Enums\StatusPerkawinan;
 use app\models\Keluarga;
 use yii\helpers\Url;
 
@@ -18,107 +25,133 @@ use yii\helpers\Url;
                                     <div class="container">
                                         <h4 class="center" style="margin-bottom: 1rem">Biodata</h4>
                                         <div class="row">
-                                            <div class="col s12 m6">6-columns (one-half)</div>
-                                            <div class="col s12 m6">6-columns (one-half)</div>
+                                            <div class="col s12 m6">
+                                                <div class="input-field col s12">
+                                                    <input id="nama" type="text" name="nama" class="validate" required>
+                                                    <label for="nama">Nama</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input id="nik" type="text" name="nik" class="validate" required>
+                                                    <label for="nik">NIK</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input id="nokk" type="text" name="nokk" class="validate" required>
+                                                    <label for="nokk">Nomor KK</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <select name="jenis_kelamin">
+                                                        <option value="" disabled selected>Jenis Kelamin</option>
+                                                        <?php foreach (JenisKelamin::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Jenis Surat</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input id="tempat_lahir" type="text" name="tempat_lahir"
+                                                        class="validate" required>
+                                                    <label for="tempat_lahir">Tempat Lahir</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input id="tgl_lahir" type="text" name="tgl_lahir"
+                                                        class="validate datepicker" required>
+                                                    <label for="tgl_lahir">Tanggal Lahir</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <select name="pendidikan">
+                                                        <option value="" disabled selected>Pilih Pendidikan Terakhir
+                                                        </option>
+                                                        <?php foreach (Pendidikan::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Pendidikan Terakhir</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <select name="pekerjaan">
+                                                        <option value="" disabled selected>Pilih Pekerjaan</option>
+                                                        <?php foreach (Pekerjaan::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Pekerjaan</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <select name="hubungan">
+                                                        <option value="" disabled selected>Pilih Hubungan</option>
+                                                        <?php foreach (Hubungan::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Hubungan dalam KK</label>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 m6">
+                                                <div class="input-field col s12">
+                                                    <select name="status_perkawinan">
+                                                        <option value="" disabled selected>Pilih Status Perkawinan
+                                                        </option>
+                                                        <?php foreach (StatusPerkawinan::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Status Perkawinan</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <select name="kewarganegaraan">
+                                                        <option value="" disabled selected>Pilih Kewarganegaraan
+                                                        </option>
+                                                        <?php foreach (Kewarganegaraan::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Kewarganegaraan</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <select name="agama">
+                                                        <option value="" disabled selected>Pilih Agama
+                                                        </option>
+                                                        <?php foreach (Agama::forSelect() as $k => $v) : ?>
+                                                        <option value="<?= $k ?>"><?= $v ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <label>Agama</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <textarea id="alamat" name="alamat"
+                                                        class="materialize-textarea" required></textarea>
+                                                    <label for="alamat">Alamat</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="rt" type="text" name="rt" class="validate" required>
+                                                    <label for="rt">RT</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="rw" type="text" name="rw" class="validate" required>
+                                                    <label for="rw">RW</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="desa" type="text" name="desa" class="validate" required>
+                                                    <label for="desa">Desa</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="kecamatan" type="text" name="kecamatan" class="validate" required>
+                                                    <label for="kecamatan">Kecamatan</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="kota" type="text" name="kota" class="validate" required>
+                                                    <label for="kota">Kota/Kabupaten</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="provinsi" type="text" name="provinsi" class="validate" required>
+                                                    <label for="provinsi">Provinsi</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input id="kodepos" type="text" name="kodepos" class="validate" required>
+                                                    <label for="kodepos">Kode POS</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <table class="biodata">
-                                            <tr>
-                                                <th>Nama</th>
-                                                <td>:</td>
-                                                <td class="field"><input type="text" name="" id=""></td>
-                                            </tr>
-                                            <tr>
-                                                <th>NIK</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="nik"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>No. KK</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="nokk"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Jenis Kelamin</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="jenis_kelamin"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Tempat, Tgl. Lahir</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="tempat_lahir"></span>, <span
-                                                        class="tgl_lahir"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Pendidikan</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="pendidikan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Pekerjaan</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="pekerjaan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Hubungan</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="hubungan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Status Perkawinan</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="status_perkawinan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kewarganegaraan</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="kewarganegaraan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Agama</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="agama"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Alamat</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="alamat"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>RT</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="rt"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>RW</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="rw"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Desa</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="desa"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kecamatan</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="kecamatan"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kota</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="kota"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Provinsi</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="provinsi"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Kode Pos</th>
-                                                <td>:</td>
-                                                <td class="field"><span class="kodepos"></span></td>
-                                            </tr>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
