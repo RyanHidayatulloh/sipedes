@@ -10,6 +10,7 @@ use app\models\Enums\Kewarganegaraan;
 use app\models\Enums\Pekerjaan;
 use app\models\Enums\Pendidikan;
 use app\models\Enums\JenisSurat;
+use app\models\Enums\StatusPerkawinan;
 use app\models\Enums\StatusSurat;
 use app\models\Keluarga;
 use app\models\Penduduk;
@@ -140,7 +141,7 @@ class MigrateController extends Controller
             $table->enum('pendidikan', Pendidikan::forSelect())->nullable(true);
             $table->enum('pekerjaan', Pekerjaan::forSelect())->nullable(true);
             $table->enum('hubungan', Hubungan::forSelect())->nullable(false);
-            $table->boolean('status_perkawinan')->nullable(false);
+            $table->enum('status_perkawinan', StatusPerkawinan::forSelect())->nullable(false);
             $table->enum('kewarganegaraan', Kewarganegaraan::forSelect())->nullable(false);
             $table->enum('agama', Agama::forSelect())->nullable(false);
             $table->longText('alamat')->nullable(true);
@@ -151,11 +152,11 @@ class MigrateController extends Controller
             $table->string('kota')->nullable(false);
             $table->string('provinsi')->nullable(false);
             $table->string('kodepos')->nullable(true);
+            $table->longText('kk')->nullable(true);
+            $table->longText('ktp')->nullable(true);
             // $table->string('no_hp')->nullable(true);
             // $table->string('email')->nullable(true);
             // $table->longText('foto')->default('avatar.jpg');
-            // $table->longText('ktp')->nullable(false);
-            // $table->longText('kk')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -233,7 +234,7 @@ class MigrateController extends Controller
             "pendidikan" => Pendidikan::S1->value,
             "pekerjaan" => Pekerjaan::Petani->value,
             "hubungan" => Hubungan::Anak,
-            "status_perkawinan" => 0,
+            "status_perkawinan" => StatusPerkawinan::BelumKawin->value,
             "kewarganegaraan" => Kewarganegaraan::WNI->name,
             "agama" => Agama::Islam->value,
             "alamat" => "Jl. Raya Buniwah",

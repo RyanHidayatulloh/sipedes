@@ -10,12 +10,10 @@ use yii\helpers\Url;
         <a class="waves-effect waves-light btn">Buat</a>
     </div>
 </div>
-<div class="row" style="gap: 0; margin-bottom: 0;">
-    <div class="col s12">
-        <div class="card except">
-            <p>Jumlah Permohonan Selesai</p>
-            <p><b class="count-selesai">0</b></p>
-        </div>
+<div class="row" style="margin-bottom: 0;">
+    <div class="card except">
+        <p>Jumlah Permohonan Selesai</p>
+        <p><b class="count-selesai">0</b></p>
     </div>
 </div>
 

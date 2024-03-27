@@ -41,7 +41,10 @@ $("body").on("submit", "#form-password", function (e) {
 $(document).ready(async function () {
   await cloud.add("http://sipedes.project/api/pengguna", { name: "profil" });
   $.each(cloud.get("profil").biodata, function (k, v) {
-    console.log(k, v);
+    if (v == null || v == "" || v == undefined) {
+      $(`.biodata span.${k}`).text("-");
+      return;
+    }
     $(`.biodata span.${k}`).text(v);
   });
 });
