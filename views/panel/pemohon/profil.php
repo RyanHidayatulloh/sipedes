@@ -23,8 +23,15 @@ use yii\helpers\Url;
                             <div class="row">
                                 <div class="col s12">
                                     <div class="container">
-                                        <h4 class="center" style="margin-bottom: 1rem">Biodata</h4>
-                                        <div class="row">
+                                        <div class="form-autosave-loader">
+                                            <img src="<?=Url::to('@web/img/spinner.gif')?>" alt="spinner"><i
+                                                class="material-icons">check_circle</i><span>Simpan Otomatis</span>
+                                        </div>
+                                        <h4 class="center" style="margin-bottom: 1rem">Profil</h4>
+                                        <div class="round-title">
+                                            <span>Biodata</span>
+                                        </div>
+                                        <form action="" method="POST" class="form-autosave" class="row">
                                             <div class="col s12 m6">
                                                 <div class="input-field col s12">
                                                     <input id="nama" type="text" name="nama" class="validate" required>
@@ -41,9 +48,9 @@ use yii\helpers\Url;
                                                 <div class="input-field col s12">
                                                     <select name="jenis_kelamin">
                                                         <option value="" disabled selected>Jenis Kelamin</option>
-                                                        <?php foreach (JenisKelamin::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (JenisKelamin::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Jenis Surat</label>
                                                 </div>
@@ -61,27 +68,27 @@ use yii\helpers\Url;
                                                     <select name="pendidikan">
                                                         <option value="" disabled selected>Pilih Pendidikan Terakhir
                                                         </option>
-                                                        <?php foreach (Pendidikan::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (Pendidikan::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Pendidikan Terakhir</label>
                                                 </div>
                                                 <div class="input-field col s12">
                                                     <select name="pekerjaan">
                                                         <option value="" disabled selected>Pilih Pekerjaan</option>
-                                                        <?php foreach (Pekerjaan::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (Pekerjaan::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Pekerjaan</label>
                                                 </div>
                                                 <div class="input-field col s12">
                                                     <select name="hubungan">
                                                         <option value="" disabled selected>Pilih Hubungan</option>
-                                                        <?php foreach (Hubungan::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (Hubungan::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Hubungan dalam KK</label>
                                                 </div>
@@ -91,9 +98,9 @@ use yii\helpers\Url;
                                                     <select name="status_perkawinan">
                                                         <option value="" disabled selected>Pilih Status Perkawinan
                                                         </option>
-                                                        <?php foreach (StatusPerkawinan::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (StatusPerkawinan::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Status Perkawinan</label>
                                                 </div>
@@ -101,9 +108,9 @@ use yii\helpers\Url;
                                                     <select name="kewarganegaraan">
                                                         <option value="" disabled selected>Pilih Kewarganegaraan
                                                         </option>
-                                                        <?php foreach (Kewarganegaraan::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (Kewarganegaraan::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Kewarganegaraan</label>
                                                 </div>
@@ -111,15 +118,15 @@ use yii\helpers\Url;
                                                     <select name="agama">
                                                         <option value="" disabled selected>Pilih Agama
                                                         </option>
-                                                        <?php foreach (Agama::forSelect() as $k => $v) : ?>
-                                                        <option value="<?= $k ?>"><?= $v ?></option>
-                                                        <?php endforeach; ?>
+                                                        <?php foreach (Agama::forSelect() as $k => $v): ?>
+                                                        <option value="<?=$v?>"><?=$v?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                     <label>Agama</label>
                                                 </div>
                                                 <div class="input-field col s12">
-                                                    <textarea id="alamat" name="alamat"
-                                                        class="materialize-textarea" required></textarea>
+                                                    <textarea id="alamat" name="alamat" class="materialize-textarea"
+                                                        required></textarea>
                                                     <label for="alamat">Alamat</label>
                                                 </div>
                                                 <div class="input-field col s6">
@@ -131,35 +138,35 @@ use yii\helpers\Url;
                                                     <label for="rw">RW</label>
                                                 </div>
                                                 <div class="input-field col s6">
-                                                    <input id="desa" type="text" name="desa" class="validate" required>
-                                                    <label for="desa">Desa</label>
-                                                </div>
-                                                <div class="input-field col s6">
-                                                    <input id="kecamatan" type="text" name="kecamatan" class="validate" required>
-                                                    <label for="kecamatan">Kecamatan</label>
+                                                    <input id="provinsi" type="text" name="provinsi" class="validate"
+                                                        required>
+                                                    <label for="provinsi">Provinsi</label>
                                                 </div>
                                                 <div class="input-field col s6">
                                                     <input id="kota" type="text" name="kota" class="validate" required>
                                                     <label for="kota">Kota/Kabupaten</label>
                                                 </div>
                                                 <div class="input-field col s6">
-                                                    <input id="provinsi" type="text" name="provinsi" class="validate" required>
-                                                    <label for="provinsi">Provinsi</label>
+                                                    <input id="kecamatan" type="text" name="kecamatan" class="validate"
+                                                        required>
+                                                    <label for="kecamatan">Kecamatan</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="desa" type="text" name="desa" class="validate" required>
+                                                    <label for="desa">Desa</label>
                                                 </div>
                                                 <div class="input-field col s12">
-                                                    <input id="kodepos" type="text" name="kodepos" class="validate" required>
+                                                    <input id="kodepos" type="text" name="kodepos" class="validate"
+                                                        required>
                                                     <label for="kodepos">Kode POS</label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="nav flex-center">
-                            <a class="waves-effect waves-light btn-small paper-trigger nv-button green" target="paper2">
-                                <i class="material-icons">description</i> Ubah Biodata
-                            </a>
                             <a class="waves-effect waves-light btn-small paper-trigger nv-button" target="paper1">
                                 <i class="material-icons">key</i> Ubah Kata Sandi
                             </a>
@@ -179,47 +186,6 @@ use yii\helpers\Url;
                         <div class="col s12">
                             <div class="container">
                                 <form id="form-password" action="" method="POST">
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix">lock</i>
-                                            <input id="password" name="password" type="password" class="validate"
-                                                required>
-                                            <label for="password">Password</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix">lock</i>
-                                            <input id="password2" name="password2" type="password" class="validate"
-                                                required>
-                                            <label for="password2">Konfirmasi Password</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <button class="btn waves-effect waves-light right" type="submit"
-                                                name="action"> Simpan <i class="material-icons right">send</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="paper-fold from-bottom" id="paper2">
-                    <div class="row">
-                        <div class="col s12">
-                            <p class="left title">Ubah Biodata</p>
-                            <a class="btn-floating btn-small waves-effect waves-light paper-folder right">
-                                <i class="material-icons">close</i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row paper-content">
-                        <div class="col s12">
-                            <div class="container">
-                                <form id="form-biodata" action="" method="POST">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">lock</i>

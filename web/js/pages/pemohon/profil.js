@@ -43,9 +43,37 @@ $(document).ready(async function () {
   $.each(cloud.get("profil").biodata, function (k, v) {
     $(`input[name=${k}]`).val(v);
     $(`textarea[name=${k}]`)?.val(v);
-    $(`select[name=${k}]`)?.val(v);
+    const select = $(`select[name=${k}] option`);
+    if (select.length > 0) {
+      $.each(select, function (i, s) {
+        if ($(s).text() == v) $(`select[name=${k}]`).val($(s).val());
+      });
+    }
   });
   M.updateTextFields();
   M.textareaAutoResize($(`textarea`));
-  $('select').formSelect();
+  $("select").formSelect();
+
+  $("body").on("saving", ".form-autosave", function (e, el, form) {
+    const user = cloud.get("profil");
+    const data = {
+      id: user.id,
+    };
+    data[el.attr("name")] = el.val().trim();
+    $.ajax({
+      type: "POST",
+      url: baseUrl + `/api/pengguna`,
+      data: data,
+      success: function (response) {
+        $(".form-autosave").trigger("saved", [el, form]);
+        console.log(response);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        Toast.fire({
+          icon: "error",
+          title: "Gagal",
+        });
+      },
+    });
+  });
 });

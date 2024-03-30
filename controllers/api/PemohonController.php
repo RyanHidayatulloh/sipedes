@@ -2,11 +2,11 @@
 
 namespace app\controllers\api;
 
-use app\models\Pengguna as Model;
+use app\models\Pemohon as Model;
 use Yii;
 // use yii\web\UploadedFile;
 
-class PenggunaController extends BaseRestApi
+class PemohonController extends BaseRestApi
 {
     public $modelClass = Model::class;
 
@@ -27,8 +27,8 @@ class PenggunaController extends BaseRestApi
     public function beforeSave(&$data)
     {
         $post = Yii::$app->request->post();
-        $data = $this->modelClass::with('biodata')->find($post['id']);
-        $data->biodata->fill($post)->save();
+        $data = $this->modelClass::find($post['id']);
+        $data = $data->fill($post);
         if (isset($post['password'])) {
             $data->password_hash = Yii::$app->security->generatePasswordHash($post['password']);
         }

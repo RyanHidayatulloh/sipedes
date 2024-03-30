@@ -1,6 +1,6 @@
 M.AutoInit();
 $(".datepicker").datepicker({
-  format: "dd/mm/yyyy",
+  format: "yyyy-mm-dd",
   i18n: {
     months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
     monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
@@ -9,6 +9,9 @@ $(".datepicker").datepicker({
     weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
   },
   defaultDate: new Date("2000-01-10"),
+  onSelect: function () {
+    $(".form-autosave").trigger("saving", [$(this.el)]);
+  }
 });
 const Toast = Swal.mixin({
   toast: true,
@@ -252,6 +255,43 @@ $("#logout-button").on("click", function (e) {
       $(location).prop("href", $(this).attr("href"));
     }
   });
+});
+
+let timeTrigger = 0;
+
+$("body").on("saved", ".form-autosave", function () {
+  $(".form-autosave-loader").removeClass("active");
+  $(".form-autosave-loader").addClass("saved");
+  $(".form-autosave-loader span").text("Tersimpan");
+});
+$("body").on("saving", ".form-autosave", function (e, el, form) {
+  $(".form-autosave-loader").addClass("active");
+  $(".form-autosave-loader span").text("Menyimpan...");
+});
+
+$("body").on("keyup", ".form-autosave input", function (e) {
+  clearTimeout(timeTrigger);
+  const form = $(this).closest("form");
+  const el = $(this);
+  $(".form-autosave-loader").removeClass("saved");
+  $(".form-autosave-loader").removeClass("active");
+  $(".form-autosave-loader span").text("Simpan Otomatis");
+
+  timeTrigger = setTimeout(function () {
+    $(".form-autosave").trigger("saving", [el, form]);
+  }, 1000);
+});
+$("body").on("change", ".form-autosave select", function (e) {
+  clearTimeout(timeTrigger);
+  const form = $(this).closest("form");
+  const el = $(this);
+  $(".form-autosave-loader").removeClass("saved");
+  $(".form-autosave-loader").removeClass("active");
+  $(".form-autosave-loader span").text("Simpan Otomatis");
+
+  timeTrigger = setTimeout(function () {
+    $(".form-autosave").trigger("saving", [el, form]);
+  }, 1000);
 });
 
 $(document).ready(function () {});
