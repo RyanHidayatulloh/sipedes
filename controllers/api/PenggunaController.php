@@ -4,6 +4,8 @@ namespace app\controllers\api;
 
 use app\models\Pengguna as Model;
 use Yii;
+use yii\web\UploadedFile;
+
 // use yii\web\UploadedFile;
 
 class PenggunaController extends BaseRestApi
@@ -31,6 +33,31 @@ class PenggunaController extends BaseRestApi
         $data->biodata->fill($post)->save();
         if (isset($post['password'])) {
             $data->password_hash = Yii::$app->security->generatePasswordHash($post['password']);
+        }
+        $files = [
+            "avatar" => UploadedFile::getInstanceByName('avatar'),
+            "ktp" => UploadedFile::getInstanceByName('ktp'),
+            "kk" => UploadedFile::getInstanceByName('kk'),
+        ];
+        foreach ($files as $k => $f) {
+            if ($f) {
+                $ext = $f->getExtension();
+                $filename = $post['id'] . '.' . $ext;
+                switch ($k) {
+                    case 'avatar':
+                        $f->saveAs("uploads/foto/$filename");
+                        $data->fill([
+                            "picture" => $filename,
+                        ])->save();
+                        break;
+                    default:
+                        $save = $f->saveAs("uploads/$k/$filename");
+                        $data->biodata->fill([
+                            $k => $filename,
+                        ])->save();
+                        break;
+                }
+            }
         }
     }
 }

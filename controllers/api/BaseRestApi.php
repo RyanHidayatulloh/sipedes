@@ -5,6 +5,7 @@ namespace app\controllers\api;
 use Yii;
 use yii\rest\ActiveController;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 class BaseRestApi extends ActiveController
 {

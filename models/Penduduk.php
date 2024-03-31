@@ -2,8 +2,10 @@
 
 namespace app\models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use yii\helpers\Url;
 
 class Penduduk extends Model
 {
@@ -31,6 +33,21 @@ class Penduduk extends Model
         "kecamatan",
         "kota",
         "provinsi",
-        "kodepos"
+        "kodepos",
+        "ktp",
+        "kk",
     ];
+    
+    protected function ktp(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $value) => $value ? Url::to("@web/uploads/ktp/$value") : null,
+        );
+    }
+    protected function kk(): Attribute
+    {
+        return Attribute::make(
+            get: fn (?string $value) => $value ? Url::to("@web/uploads/kk/$value") : null,
+        );
+    }
 }

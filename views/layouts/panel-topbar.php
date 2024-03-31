@@ -23,7 +23,7 @@ use yii\helpers\Url;
             </div>
             <div class="profile-image">
                 <a class='dropdown-trigger' href='#' data-target='dropdown-profile'><img class="circle"
-                        src="<?= Url::to('@web/img/profil/' . Yii::$app->user->identity->picture) ?>" alt="avatar"></a>
+                        src="<?= Url::to('@web/uploads/foto/' . Yii::$app->user->identity->picture) ?>" alt="avatar"></a>
                 <ul id='dropdown-profile' class='dropdown-content'>
                     <li>
                         <a id="logout-button" href="<?= Url::to(['auth/logout']) ?>">Keluar</a>

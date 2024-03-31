@@ -2,10 +2,12 @@
 
 namespace app\models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "pengguna".
@@ -34,11 +36,19 @@ class Pengguna extends Model
         'password_hash',
         'password_reset_token',
         'email',
+        'picture',
         'status',
         'created_at',
         'updated_at',
         'verification_token',
     ];
+    
+    protected function picture(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Url::to("@web/uploads/foto/$value"),
+        );
+    }
 
     public function assignments(): HasMany
     {

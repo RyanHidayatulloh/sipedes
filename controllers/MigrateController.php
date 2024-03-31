@@ -242,7 +242,7 @@ class MigrateController extends Controller
             "rw" => "01",
             "desa" => "Buniwah",
             "kecamatan" => "Sirampog",
-            "kota" => "Brebes",
+            "kota" => "Kab. Brebes",
             "provinsi" => "Jawa Tengah",
             "kodepos" => 52272,
         ]);

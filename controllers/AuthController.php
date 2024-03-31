@@ -67,7 +67,7 @@ class AuthController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(Url::to('@web/panel/index'));
         }
 
         if (Yii::$app->request->isPost) {
@@ -79,7 +79,7 @@ class AuthController extends Controller
                 $validator = User::findByUsername($user->nid);
                 if ($validator->validatePassword($data['password'])) {
                     Yii::$app->user->login($validator, $data['rememberMe'] ?? false ? 3600 * 24 * 30 : 0);
-                    return $this->goBack();
+                    return $this->redirect(Url::to('@web/panel/index'));
                 }
             }
             Yii::$app->session->setFlash('error', 'Username / Password tidak sesuai');

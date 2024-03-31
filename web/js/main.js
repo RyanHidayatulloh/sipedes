@@ -9,9 +9,9 @@ $(".datepicker").datepicker({
     weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
   },
   defaultDate: new Date("2000-01-10"),
-  onSelect: function () {
-    $(".form-autosave").trigger("saving", [$(this.el)]);
-  }
+  onSelect: function (v) {
+    $(".form-autosave").trigger("saving", [$(this.el), formatDate(v)]);
+  },
 });
 const Toast = Swal.mixin({
   toast: true,
@@ -35,11 +35,14 @@ if (!Array.isArray(message)) {
 }
 
 const capEachWord = (a) => {
-  return a
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  if (a) {
+    return a
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+  return "";
 };
 
 var $jscomp = $jscomp || {};
@@ -219,6 +222,113 @@ $jscomp.polyfill(
   return d;
 });
 
+function formatDate(date) {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+}
+
+const wVar = {
+  provinsi: "Provinsi",
+  kota: "Kota/Kabupaten",
+  kecamatan: "Kecamatan",
+  desa: "Desa",
+};
+const wLength = {
+  provinsi: 2,
+  kota: 5,
+  kecamatan: 8,
+  desa: 13,
+};
+const listData = {};
+const selectedW = {};
+
+function initWilayah(data) {
+  const wilayah = cloud.get("wilayah");
+  $.each(wVar, function (k, s) {
+    listData[k] = wilayah
+      .filter((x) => x.kode.length === wLength[k])
+      .map((x) => {
+        x.nama = capEachWord(x.nama);
+        return x;
+      });
+    $(`select.wilayah[name=${k}]`).empty().append(`<option value="" disabled selected>Pilih ${s}</option>`);
+    if (k == "provinsi") {
+      console.log(listData[k]);
+      listData[k].forEach((x) => {
+        $("select[name=" + k + "]").append(`<option value="${x.kode}">${x.nama}</option>`);
+      });
+    }
+    $("select").formSelect();
+    $(".wilayah[name=" + k + "]")
+      .closest(".select-wrapper")
+      .slideDown("normal", function () {
+        switch (k) {
+          case "provinsi":
+            selectedW[k] = listData[k].find((x) => x.nama == capEachWord(data[k]));
+            if (selectedW[k]) {
+              $("select[name=" + k + "]").val(selectedW[k].kode);
+            }
+            break;
+          case "kota":
+            if (selectedW.provinsi) {
+              const opts = listData[k].filter((x) => x.kode.substring(0, 2) == selectedW.provinsi.kode);
+              selectedW[k] = opts.find((x) => x.nama == capEachWord(data[k]));
+              opts.forEach((x) => {
+                $("select[name=" + k + "]").append(`<option value="${x.kode}">${x.nama}</option>`);
+              });
+              if (selectedW[k]) {
+                console.log(selectedW[k]);
+                $("select[name=" + k + "]").val(selectedW[k].kode);
+              }
+            }
+            break;
+          case "kecamatan":
+            if (selectedW.provinsi && selectedW.kota) {
+              const opts = listData[k].filter((x) => x.kode.substring(0, 5) == selectedW.kota.kode);
+              selectedW[k] = opts.find((x) => x.nama == capEachWord(data[k]) && x.kode.substring(0, 5) == selectedW.kota.kode);
+              opts.forEach((x) => {
+                $("select[name=" + k + "]").append(`<option value="${x.kode}">${x.nama}</option>`);
+              });
+              if (selectedW[k]) {
+                console.log(selectedW[k]);
+                $("select[name=" + k + "]").val(selectedW[k].kode);
+              }
+            }
+            break;
+          case "desa":
+            if (selectedW.provinsi && selectedW.kota && selectedW.kecamatan) {
+              const opts = listData[k].filter((x) => x.kode.substring(0, 8) == selectedW.kecamatan.kode);
+              selectedW[k] = opts.find((x) => x.nama == capEachWord(data[k]) && x.kode.substring(0, 8) == selectedW.kecamatan.kode);
+              opts.forEach((x) => {
+                $("select[name=" + k + "]").append(`<option value="${x.kode}">${x.nama}</option>`);
+              });
+              if (selectedW[k]) {
+                console.log(selectedW[k]);
+                $("select[name=" + k + "]").val(selectedW[k].kode);
+              }
+            }
+            break;
+          default:
+            break;
+        }
+        $("select").formSelect();
+      });
+  });
+}
+
+function changeWilayah(data) {
+  $("select.wilayah").empty();
+  $("select").formSelect();
+  initWilayah(data);
+}
+
 $.ajaxSetup({
   headers: {
     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -257,7 +367,7 @@ $("#logout-button").on("click", function (e) {
   });
 });
 
-let timeTrigger = 0;
+let timeTrigger = {};
 
 $("body").on("saved", ".form-autosave", function () {
   $(".form-autosave-loader").removeClass("active");
@@ -265,33 +375,81 @@ $("body").on("saved", ".form-autosave", function () {
   $(".form-autosave-loader span").text("Tersimpan");
 });
 $("body").on("saving", ".form-autosave", function (e, el, form) {
+  if ($(el).prop("tagName") == "SELECT") {
+    $(el).closest(".select-wrapper").find("input.select-dropdown").addClass("update");
+  } else {
+    $(el).addClass("update");
+  }
   $(".form-autosave-loader").addClass("active");
   $(".form-autosave-loader span").text("Menyimpan...");
 });
 
 $("body").on("keyup", ".form-autosave input", function (e) {
-  clearTimeout(timeTrigger);
   const form = $(this).closest("form");
   const el = $(this);
+  const key = $(el).attr("name");
+  clearTimeout(timeTrigger[key]);
   $(".form-autosave-loader").removeClass("saved");
   $(".form-autosave-loader").removeClass("active");
   $(".form-autosave-loader span").text("Simpan Otomatis");
 
-  timeTrigger = setTimeout(function () {
+  timeTrigger[key] = setTimeout(function () {
     $(".form-autosave").trigger("saving", [el, form]);
   }, 1000);
 });
 $("body").on("change", ".form-autosave select", function (e) {
-  clearTimeout(timeTrigger);
   const form = $(this).closest("form");
   const el = $(this);
+  const key = $(el).attr("name");
+  if ($(el).hasClass("wilayah")) {
+    return;
+  }
+  clearTimeout(timeTrigger[key]);
   $(".form-autosave-loader").removeClass("saved");
   $(".form-autosave-loader").removeClass("active");
   $(".form-autosave-loader span").text("Simpan Otomatis");
 
-  timeTrigger = setTimeout(function () {
+  timeTrigger[key] = setTimeout(function () {
     $(".form-autosave").trigger("saving", [el, form]);
   }, 1000);
 });
 
-$(document).ready(function () {});
+$("body").on("change", "select.wilayah", function (e) {
+  e.preventDefault();
+  console.log("change");
+  selectedW[$(this).attr("name")] = {
+    kode: $(this).find("option:selected").val(),
+    nama: $(this).find("option:selected").text(),
+  };
+  const data = {};
+  switch ($(this).attr("name")) {
+    case "provinsi":
+      data.provinsi = $(this).find("option:selected").text();
+      changeWilayah(data);
+      return;
+    case "kota":
+      data.provinsi = $("select[name=provinsi]").find("option:selected").text();
+      data.kota = $(this).find("option:selected").text();
+      changeWilayah(data);
+      return;
+    case "kecamatan":
+      data.provinsi = $("select[name=provinsi]").find("option:selected").text();
+      data.kota = $("select[name=kota]").find("option:selected").text();
+      data.kecamatan = $(this).find("option:selected").text();
+      changeWilayah(data);
+      return;
+    case "desa":
+      data.provinsi = $("select[name=provinsi]").find("option:selected").text();
+      data.kota = $("select[name=kota]").find("option:selected").text();
+      data.kecamatan = $("select[name=kecamatan]").find("option:selected").text();
+      data.desa = $(this).find("option:selected").text();
+      changeWilayah(data);
+      return;
+    default:
+      break;
+  }
+});
+
+$(document).ready(function () {
+  $(".wilayah").closest(".select-wrapper").hide();
+});

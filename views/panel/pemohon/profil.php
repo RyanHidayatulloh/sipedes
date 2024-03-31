@@ -7,11 +7,12 @@ use app\models\Enums\Kewarganegaraan;
 use app\models\Enums\Pekerjaan;
 use app\models\Enums\Pendidikan;
 use app\models\Enums\StatusPerkawinan;
-use app\models\Keluarga;
+use app\models\Pengguna;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var Keluarga $keluarga */
+
+$pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
 ?>
 <div class="row">
     <div class="col s12">
@@ -28,6 +29,52 @@ use yii\helpers\Url;
                                                 class="material-icons">check_circle</i><span>Simpan Otomatis</span>
                                         </div>
                                         <h4 class="center" style="margin-bottom: 1rem">Profil</h4>
+                                        <div class="profil-avatar">
+                                            <img src="<?=Url::to('@web/uploads/foto/' . $user->picture)?>" alt="avatar">
+                                            <div class="file-field input-field">
+                                                <div class="btn btn-small">
+                                                    <span><i class="material-icons">upload</i></span>
+                                                    <input type="file" id="avatar" name="avatar" accept="image/*">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text"
+                                                        placeholder="Unggah Foto Profil">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="round-title">
+                                            <span>Dokumen</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="list-card">
+                                                    <p>KTP</p>
+                                                    <div class="btn-wrapper">
+                                                        <a target="_blank" href="<?=$pengguna->biodata->ktp ?? "#!"?>"
+                                                            class="btn btn-small waves-effect waves-light blue <?=$pengguna->biodata->ktp ? "" : "hide"?>">
+                                                            <span><i class="material-icons">visibility</i></span>
+                                                        </a>
+                                                        <button class="btn btn-small waves-effect waves-light green" data-name="ktp">
+                                                            <span><i class="material-icons">upload</i></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col s12">
+                                                <div class="list-card">
+                                                    <p>Kartu Keluarga</p>
+                                                    <div class="btn-wrapper">
+                                                        <a target="_blank" href="<?=$pengguna->biodata->kk ?? "#!"?>"
+                                                            class="btn btn-small waves-effect waves-light blue <?=$pengguna->biodata->kk ? "" : "hide"?>">
+                                                            <span><i class="material-icons">visibility</i></span>
+                                                        </a>
+                                                        <button class="btn btn-small waves-effect waves-light green" data-name="kk">
+                                                            <span><i class="material-icons">upload</i></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="round-title">
                                             <span>Biodata</span>
                                         </div>
@@ -92,8 +139,6 @@ use yii\helpers\Url;
                                                     </select>
                                                     <label>Hubungan dalam KK</label>
                                                 </div>
-                                            </div>
-                                            <div class="col s12 m6">
                                                 <div class="input-field col s12">
                                                     <select name="status_perkawinan">
                                                         <option value="" disabled selected>Pilih Status Perkawinan
@@ -104,6 +149,8 @@ use yii\helpers\Url;
                                                     </select>
                                                     <label>Status Perkawinan</label>
                                                 </div>
+                                            </div>
+                                            <div class="col s12 m6">
                                                 <div class="input-field col s12">
                                                     <select name="kewarganegaraan">
                                                         <option value="" disabled selected>Pilih Kewarganegaraan
@@ -137,23 +184,29 @@ use yii\helpers\Url;
                                                     <input id="rw" type="text" name="rw" class="validate" required>
                                                     <label for="rw">RW</label>
                                                 </div>
-                                                <div class="input-field col s6">
-                                                    <input id="provinsi" type="text" name="provinsi" class="validate"
-                                                        required>
-                                                    <label for="provinsi">Provinsi</label>
+                                                <div class="input-field col s12">
+                                                    <select name="provinsi" class="wilayah">
+                                                        <option value="" disabled selected>Pilih Provinsi</option>
+                                                    </select>
+                                                    <label>Provinsi</label>
                                                 </div>
-                                                <div class="input-field col s6">
-                                                    <input id="kota" type="text" name="kota" class="validate" required>
-                                                    <label for="kota">Kota/Kabupaten</label>
+                                                <div class="input-field col s12">
+                                                    <select name="kota" class="wilayah">
+                                                        <option value="" disabled selected>Pilih Kota/Kabupaten</option>
+                                                    </select>
+                                                    <label>Kota/Kabupaten</label>
                                                 </div>
-                                                <div class="input-field col s6">
-                                                    <input id="kecamatan" type="text" name="kecamatan" class="validate"
-                                                        required>
-                                                    <label for="kecamatan">Kecamatan</label>
+                                                <div class="input-field col s12">
+                                                    <select name="kecamatan" class="wilayah">
+                                                        <option value="" disabled selected>Pilih Kecamatan</option>
+                                                    </select>
+                                                    <label>Kecamatan</label>
                                                 </div>
-                                                <div class="input-field col s6">
-                                                    <input id="desa" type="text" name="desa" class="validate" required>
-                                                    <label for="desa">Desa</label>
+                                                <div class="input-field col s12">
+                                                    <select name="desa" class="wilayah">
+                                                        <option value="" disabled selected>Pilih Desa</option>
+                                                    </select>
+                                                    <label>Desa</label>
                                                 </div>
                                                 <div class="input-field col s12">
                                                     <input id="kodepos" type="text" name="kodepos" class="validate"
