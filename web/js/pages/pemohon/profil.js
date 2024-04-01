@@ -76,10 +76,20 @@ function uploadBtnClick(e) {
       $(".profile-image img").attr("src", baseUrl + response.data.picture + "?timestamp=" + timestamp);
       $(".profil-avatar img").attr("src", baseUrl + response.data.picture + "?timestamp=" + timestamp);
       if (response.data.biodata.ktp) {
-        $(".list-card button[data-name=ktp]").closest(".btn-wrapper").find("a").removeClass("hide").attr("href", response.data.biodata.ktp);
+        $(".list-card button[data-name=ktp]")
+          .closest(".btn-wrapper")
+          .find("a")
+          .fadeIn("normal", function () {
+            $(this).attr("href", response.data.biodata.ktp);
+          });
       }
       if (response.data.biodata.kk) {
-        $(".list-card button[data-name=kk]").closest(".btn-wrapper").find("a").removeClass("hide").attr("href", response.data.biodata.kk);
+        $(".list-card button[data-name=kk]")
+          .closest(".btn-wrapper")
+          .find("a")
+          .fadeIn("normal", function () {
+            $(this).attr("href", response.data.biodata.kk);
+          });
       }
       Toast.fire({
         icon: "success",
@@ -120,6 +130,7 @@ $(document).ready(async function () {
     }
 
     saveProfil(data, function (response) {
+      $(".profile-view .name").text(response.data.name);
       $(".form-autosave").trigger("saved", [el, form]);
       if ($(el).prop("tagName") == "SELECT") {
         $(el).closest(".select-wrapper").find("input.select-dropdown").removeClass("update");

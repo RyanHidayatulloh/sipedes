@@ -31,6 +31,9 @@ class PenggunaController extends BaseRestApi
         $post = Yii::$app->request->post();
         $data = $this->modelClass::with('biodata')->find($post['id']);
         $data->biodata->fill($post)->save();
+        if (isset($post['nama'])) {
+            $data->name = $post['nama'];
+        }
         if (isset($post['password'])) {
             $data->password_hash = Yii::$app->security->generatePasswordHash($post['password']);
         }

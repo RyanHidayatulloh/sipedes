@@ -1,7 +1,9 @@
 <?php
 
+use app\models\Pengguna;
 use yii\helpers\Url;
 
+$pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
 ?>
 <div class="top-bar">
     <div class="top-profile">
@@ -15,7 +17,7 @@ use yii\helpers\Url;
         <div class="profile-view">
             <div class="profile-detail hide-on-med-and-down">
                 <p class="name">
-                    <?= Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid ?>
+                    <?= $pengguna->name != '' ? $pengguna->name : $pengguna->nid ?>
                 </p>
                 <p class="role">
                     <?= key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) ?>

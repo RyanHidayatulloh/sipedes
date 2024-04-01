@@ -51,7 +51,7 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
                                                     <p>KTP</p>
                                                     <div class="btn-wrapper">
                                                         <a target="_blank" href="<?=$pengguna->biodata->ktp ?? "#!"?>"
-                                                            class="btn btn-small waves-effect waves-light blue <?=$pengguna->biodata->ktp ? "" : "hide"?>">
+                                                            class="btn btn-small waves-effect waves-light blue" <?=$pengguna->biodata->ktp ? "" : "style='display: none'"?>>
                                                             <span><i class="material-icons">visibility</i></span>
                                                         </a>
                                                         <button class="btn btn-small waves-effect waves-light green" data-name="ktp">
@@ -65,7 +65,7 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
                                                     <p>Kartu Keluarga</p>
                                                     <div class="btn-wrapper">
                                                         <a target="_blank" href="<?=$pengguna->biodata->kk ?? "#!"?>"
-                                                            class="btn btn-small waves-effect waves-light blue <?=$pengguna->biodata->kk ? "" : "hide"?>">
+                                                            class="btn btn-small waves-effect waves-light blue" <?=$pengguna->biodata->kk ? "" : "style='display: none'"?>>
                                                             <span><i class="material-icons">visibility</i></span>
                                                         </a>
                                                         <button class="btn btn-small waves-effect waves-light green" data-name="kk">

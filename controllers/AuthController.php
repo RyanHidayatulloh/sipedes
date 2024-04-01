@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Keluarga;
 use app\models\LoginForm;
+use app\models\Penduduk;
 use app\models\Pengguna;
 use app\models\RegisterForm;
 use app\models\User;
@@ -102,7 +103,7 @@ class AuthController extends Controller
         if (Yii::$app->request->isPost) {
             $check = Pengguna::where('nid', $data['nid'])->orWhere('email', $data['email'])->first();
             if ($check) {
-                Yii::$app->session->setFlash('error', 'Username / Nomor KK sudah terdaftar');
+                Yii::$app->session->setFlash('error', 'Username / NIK sudah terdaftar');
                 return $this->render('register', [
                     'data' => $data ?? [
                         'nid' => '',
@@ -129,13 +130,13 @@ class AuthController extends Controller
             $auth = Yii::$app->authManager;
             $auth->assign($auth->getRole('pemohon'), $user->id);
 
-            $keluarga = new Keluarga([
+            $penduduk = new Penduduk([
                 "id_user" => $user->id
             ]);
-            $keluarga->save();
+            $penduduk->save();
 
             Yii::$app->user->login(User::findByUsername($user->nid));
-            return $this->redirect(Url::to('panel/index'));
+            return $this->redirect(Url::to(['panel/index']));
         }
 
         return $this->render('register', [

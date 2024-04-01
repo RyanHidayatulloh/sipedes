@@ -4,6 +4,7 @@ namespace app\controllers\api;
 
 use app\models\Permohonan as Model;
 use Yii;
+use yii\web\UploadedFile;
 
 class PermohonanController extends BaseRestApi
 {
@@ -23,7 +24,9 @@ class PermohonanController extends BaseRestApi
             $data = strlen($status) == 1 ? $data->where('status', $status) : $data->where('status', explode(' ', $status)[0], explode(' ', $status)[1]);
         }
         $data = $data->get();
-        if ($wrap != null) $data = [$wrap => $data];
+        if ($wrap != null) {
+            $data = [$wrap => $data];
+        }
 
         return $this->asJson($data);
     }
@@ -39,5 +42,17 @@ class PermohonanController extends BaseRestApi
             $data->id_pemohon = Yii::$app->user->id;
         }
         $data->fill($post);
+    }
+    public function afterSave(&$data)
+    {
+        $file = UploadedFile::getInstanceByName('file');
+        if ($file) {
+            $ext = $file->getExtension();
+            $filename = $data->id . '.' . $ext;
+            $file->saveAs("uploads/permohonan/$filename");
+            $data->fill([
+                "file" => $filename,
+            ])->save();
+        }
     }
 }

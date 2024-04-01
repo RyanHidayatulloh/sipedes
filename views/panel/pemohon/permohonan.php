@@ -1,36 +1,118 @@
 <?php
 
 use app\models\Enums\JenisSurat;
+use app\models\Pengguna;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
+
+$pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId())->append("completed");
 ?>
 
+<?php if (!$pengguna->completed): ?>
+<div class="row">
+    <div class="list-card">
+        <p>Anda Belum Melengkapi seluruh data, Harap lengkapi seluruh data terlebih dahulu!</p>
+        <div class="btn-wrapper">
+            <a href="<?=Url::to(['panel/profil'])?>" class="waves-effect waves-light btn green"><i
+                    class="material-icons">edit</i></a>
+        </div>
+    </div>
+</div>
+<?php else: ?>
 <div class="row">
     <div class="col s12">
         <div class="sbs-wrapper">
             <div class="sbs-sub">
                 <h4>Ajukan Permohonan Baru</h4>
-                <form action="" method="post" id="form-ajuan">
-                    <div class="input-field">
-                        <select name="jenis">
-                            <option value="" disabled selected>Jenis Surat</option>
-                            <?php foreach (JenisSurat::forSelect() as $k => $v) : ?>
-                            <option value="<?= $k ?>"><?= $v ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <label>Jenis Surat</label>
+                <div class="permohonan-slider-wrapper">
+                    <div class="screen add" data-screen="1">
+                        <small>Buat <br> Permohonan Baru</small>
+                        <button class="btn waves-effect waves-light green add" type="button"><i
+                                class="material-icons">note_add</i></button>
                     </div>
-                    <div class="input-field">
-                        <textarea id="keperluan" name="keperluan" class="materialize-textarea" required></textarea>
-                        <label for="keperluan">Keperluan</label>
+                    <div class="screen" data-screen="2">
+                        <small>Pilih Jenis Surat</small>
+                        <div class="main">
+                            <?php foreach (JenisSurat::forSelect() as $k => $v): ?>
+                            <p>
+                                <label>
+                                    <input name="jenis" type="radio" data-value="<?=$k?>" />
+                                    <span><?=$v?></span>
+                                </label>
+                            </p>
+                            <?php endforeach;?>
+                        </div>
+                        <div class="slide-nav">
+                            <button class="btn waves-effect waves-light blue prev" type="button"><i
+                                    class="material-icons">chevron_left</i></button>
+                            <button class="btn waves-effect waves-light blue next" type="button"><i
+                                    class="material-icons">chevron_right</i></button>
+                        </div>
                     </div>
-                    <div class="input-field">
-                        <textarea id="keterangan" name="keterangan" class="materialize-textarea" required></textarea>
-                        <label for="keterangan">Keterangan</label>
+                    <div class="screen" data-screen="3">
+                        <small>Keperluan</small>
+                        <div class="main row">
+                            <div class="input-field col s12">
+                                <textarea id="keperluan" name="keperluan" type="text"
+                                    class="materialize-textarea validate" placeholder="Keperluan ..."></textarea>
+                            </div>
+                        </div>
+                        <div class="slide-nav">
+                            <button class="btn waves-effect waves-light blue prev" type="button"><i
+                                    class="material-icons">chevron_left</i></button>
+                            <button class="btn waves-effect waves-light blue next" type="button"><i
+                                    class="material-icons">chevron_right</i></button>
+                        </div>
                     </div>
-                    <button type="submit" class="btn">Ajukan</button>
-                </form>
+                    <div class="screen" data-screen="4">
+                        <small>Keterangan</small>
+                        <div class="main row">
+                            <div class="input-field col s12">
+                                <textarea id="keterangan" name="keterangan" type="text"
+                                    class="materialize-textarea validate" placeholder="keterangan ..."></textarea>
+                            </div>
+                        </div>
+                        <div class="slide-nav">
+                            <button class="btn waves-effect waves-light blue prev" type="button"><i
+                                    class="material-icons">chevron_left</i></button>
+                            <button class="btn waves-effect waves-light blue next" type="button"><i
+                                    class="material-icons">chevron_right</i></button>
+                        </div>
+                    </div>
+                    <div class="screen" data-screen="5">
+                        <small>Foto</small>
+                        <div class="main">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file" name="file" accept="image/*, application/pdf">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide-nav">
+                            <button class="btn waves-effect waves-light blue prev" type="button"><i
+                                    class="material-icons">chevron_left</i></button>
+                            <button class="btn waves-effect waves-light blue next" type="button"><i
+                                    class="material-icons">chevron_right</i></button>
+                        </div>
+                    </div>
+                    <div class="screen" data-screen="6">
+                        <small>Kirim</small>
+                        <div class="main">
+                            <p>Sebelum mengirim, pastikan semua data sudah benar</p>
+                        </div>
+                        <div class="slide-nav">
+                            <button class="btn waves-effect waves-light blue prev" type="button"><i
+                                    class="material-icons">chevron_left</i></button>
+                            <button class="btn waves-effect waves-light green send" type="button"><i
+                                    class="material-icons" style="font-size: small">send</i></button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="sbs-main">
                 <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
@@ -66,7 +148,7 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
-
-<?php $this->beginBlock('script'); ?>
-<script src="<?= Url::to('@web/js/pages/pemohon/permohonan.js') ?>"></script>
-<?php $this->endBlock(); ?>
+<?php endif?>
+<?php $this->beginBlock('script');?>
+<script src="<?=Url::to('@web/js/pages/pemohon/permohonan.js')?>"></script>
+<?php $this->endBlock();?>

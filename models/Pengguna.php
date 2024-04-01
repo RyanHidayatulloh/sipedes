@@ -11,7 +11,7 @@ use yii\helpers\Url;
 
 /**
  * This is the model class for table "pengguna".
- * 
+ *
  * @property int $id
  * @property string $username
  * @property string $auth_key
@@ -42,11 +42,17 @@ class Pengguna extends Model
         'updated_at',
         'verification_token',
     ];
-    
+
     protected function picture(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Url::to("@web/uploads/foto/$value"),
+            get: fn(string $value) => Url::to("@web/uploads/foto/$value"),
+        );
+    }
+    protected function completed(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => !in_array(true, collect($this->biodata->getFillable())->map(fn($key) => empty($this->biodata->$key))->toArray()),
         );
     }
 

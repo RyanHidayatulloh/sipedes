@@ -22,6 +22,7 @@ class PanelAsset extends AssetBundle
     // public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
     public $css = [
+        'jquery-ui/jquery-ui.min.css',
         'dt/datatables.min.css',
         'css/materialize.min.css',
         'css/main.css',
@@ -29,6 +30,7 @@ class PanelAsset extends AssetBundle
     ];
     public $js = [
         'js/jquery-3.7.1.min.js',
+        'jquery-ui/jquery-ui.min.js',
         'js/swal.js',
         'dt/datatables.min.js',
         'js/materialize.min.js',

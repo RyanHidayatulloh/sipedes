@@ -7,7 +7,7 @@ use yii\helpers\Url;
         <div class="icon"><i class="material-icons">email</i></div>
         <h1 class="count-berjalan">0</h1>
         <h5>Permohonan Surat</h5>
-        <a class="waves-effect waves-light btn">Buat</a>
+        <a href="<?=Url::to(['panel/permohonan'])?>" class="waves-effect waves-light btn">Buat</a>
     </div>
 </div>
 <div class="row" style="margin-bottom: 0;">
