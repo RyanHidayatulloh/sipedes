@@ -34,6 +34,10 @@ if (!Array.isArray(message)) {
   });
 }
 
+Fancybox.bind("[data-fancybox]", {
+  // Your custom options
+});
+
 const capEachWord = (a) => {
   if (a) {
     return a
@@ -397,6 +401,19 @@ $("body").on("keyup", ".form-autosave input", function (e) {
     $(".form-autosave").trigger("saving", [el, form]);
   }, 1000);
 });
+$("body").on("keyup", ".form-autosave textarea", function (e) {
+  const form = $(this).closest("form");
+  const el = $(this);
+  const key = $(el).attr("name");
+  clearTimeout(timeTrigger[key]);
+  $(".form-autosave-loader").removeClass("saved");
+  $(".form-autosave-loader").removeClass("active");
+  $(".form-autosave-loader span").text("Simpan Otomatis");
+
+  timeTrigger[key] = setTimeout(function () {
+    $(".form-autosave").trigger("saving", [el, form]);
+  }, 1000);
+});
 $("body").on("change", ".form-autosave select", function (e) {
   const form = $(this).closest("form");
   const el = $(this);
@@ -449,6 +466,26 @@ $("body").on("change", "select.wilayah", function (e) {
       break;
   }
 });
+
+function getJenisSurat(code) {
+  const JenisSurat = {
+    1: "Surat Pengantar",
+    2: "Surat Keterangan",
+    3: "Surat Keterangan Usaha",
+    4: "Surat Pengantar Catatan Kepolisian",
+    5: "Surat Keterangan Tidak Mampu",
+    6: "Surat Keterangan Domisili Tempat Tinggal",
+  };
+  return JenisSurat[parseInt(code)];
+}
+function getStatusSurat(code) {
+  const StatusSurat = ["Belum Berjalan", "Menunggu Acc RT", "Aksi Pra RT", "ACC RT", "Aksi Pra Agenda", "Menunggu Agenda Staff", "Tertandatangani", "Tercetak"];
+  const WarnaStatus = ["gray", "orange", "red", "orange", "red", "orange", "purple", "green"];
+  return {
+    text: StatusSurat[parseInt(code)],
+    color: WarnaStatus[parseInt(code)],
+  };
+}
 
 $(document).ready(function () {
   $(".wilayah").closest(".select-wrapper").hide();

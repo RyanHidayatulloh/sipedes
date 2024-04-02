@@ -16,9 +16,9 @@ class PermohonanController extends BaseRestApi
         $wrap = Yii::$app->request->get('wrap');
         $status = Yii::$app->request->get('status');
         if ($id) {
-            $data = $this->modelClass::with('pemohon')->where('id_pemohon', $id);
+            $data = $this->modelClass::with('pemohon.biodata')->where('id_pemohon', $id);
         } else {
-            $data = $this->modelClass::with('pemohon');
+            $data = $this->modelClass::with('pemohon.biodata');
         }
         if ($status) {
             $data = strlen($status) == 1 ? $data->where('status', $status) : $data->where('status', explode(' ', $status)[0], explode(' ', $status)[1]);

@@ -172,9 +172,10 @@ class MigrateController extends Controller
             $table->longText('keterangan')->nullable(true);
             $table->longText('keperluan')->nullable(true);
             $table->longText('file')->nullable(true);
-            $table->enum('status', StatusSurat::forSelect())->default(0);
+            $table->enum('status', StatusSurat::forSelect())->default(1);
             $table->date('tgl_surat')->nullable(true);
             $table->date('tgl_ttd')->nullable(true);
+            $table->longText('catatan')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

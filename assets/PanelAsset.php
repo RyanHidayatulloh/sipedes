@@ -23,7 +23,8 @@ class PanelAsset extends AssetBundle
 
     public $css = [
         'jquery-ui/jquery-ui.min.css',
-        'dt/datatables.min.css',
+        'css/lightbox.min.css',
+        'css/fancybox.css',
         'css/materialize.min.css',
         'css/main.css',
         'css/panel.css',
@@ -31,9 +32,13 @@ class PanelAsset extends AssetBundle
     public $js = [
         'js/jquery-3.7.1.min.js',
         'jquery-ui/jquery-ui.min.js',
+        'js/lightbox.min.js',
+        'js/fancybox.umd.js',
+        'js/moment.js',
+        'js/moment-timezone.js',
         'js/swal.js',
-        'dt/datatables.min.js',
         'js/materialize.min.js',
+        'dt/datatables.min.js',
         'js/utils/wilayah.js',
         'js/utils/puller.js',
         'js/main.js',

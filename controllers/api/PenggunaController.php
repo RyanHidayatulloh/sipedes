@@ -30,37 +30,53 @@ class PenggunaController extends BaseRestApi
     {
         $post = Yii::$app->request->post();
         $data = $this->modelClass::with('biodata')->find($post['id']);
-        $data->biodata->fill($post)->save();
-        if (isset($post['nama'])) {
-            $data->name = $post['nama'];
-        }
         if (isset($post['password'])) {
             $data->password_hash = Yii::$app->security->generatePasswordHash($post['password']);
         }
-        $files = [
-            "avatar" => UploadedFile::getInstanceByName('avatar'),
-            "ktp" => UploadedFile::getInstanceByName('ktp'),
-            "kk" => UploadedFile::getInstanceByName('kk'),
-        ];
-        foreach ($files as $k => $f) {
-            if ($f) {
-                $ext = $f->getExtension();
-                $filename = $post['id'] . '.' . $ext;
-                switch ($k) {
-                    case 'avatar':
-                        $f->saveAs("uploads/foto/$filename");
-                        $data->fill([
-                            "picture" => $filename,
-                        ])->save();
-                        break;
-                    default:
-                        $save = $f->saveAs("uploads/$k/$filename");
-                        $data->biodata->fill([
-                            $k => $filename,
-                        ])->save();
-                        break;
+        if ($data->assignments[0]->item_name === 'pemohon') {
+            $data->biodata->fill($post)->save();
+            if (isset($post['nama'])) {
+                $data->name = $post['nama'];
+            }
+            if (isset($post['nik'])) {
+                $data->nid = $post['nik'];
+            }
+            $files = [
+                "avatar" => UploadedFile::getInstanceByName('avatar'),
+                "ktp" => UploadedFile::getInstanceByName('ktp'),
+                "kk" => UploadedFile::getInstanceByName('kk'),
+            ];
+            foreach ($files as $k => $f) {
+                if ($f) {
+                    $ext = $f->getExtension();
+                    $filename = $post['id'] . '.' . $ext;
+                    switch ($k) {
+                        case 'avatar':
+                            $f->saveAs("uploads/foto/$filename");
+                            $data->fill([
+                                "picture" => $filename,
+                            ])->save();
+                            break;
+                        default:
+                            $save = $f->saveAs("uploads/$k/$filename");
+                            $data->biodata->fill([
+                                $k => $filename,
+                            ])->save();
+                            break;
+                    }
                 }
             }
+        } else {
+            $picture = UploadedFile::getInstanceByName('avatar');
+            if ($picture) {
+                $ext = $picture->getExtension();
+                $filename = $post['id'] . '.' . $ext;
+                $picture->saveAs("uploads/foto/$filename");
+                $data->fill([
+                    "picture" => $filename,
+                ])->save();
+            }
+            $data->fill($post);
         }
     }
 }

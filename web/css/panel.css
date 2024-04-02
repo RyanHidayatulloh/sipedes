@@ -309,9 +309,13 @@ h6 {
 
 .scaffold .content {
   width: 100%;
-  height: 60rem;
+  max-height: 60rem;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.scaffold .content table {
+  width: 100% !important;
 }
 
 .scaffold .nav {
@@ -331,7 +335,22 @@ h6 {
   position: relative;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.paper-fold p {
+  text-align: justify;
+}
+.paper-fold .detail-permohonan img {
+  width: 100%;
+}
+
+.paper-fold button {
+  padding: 0 2rem;
+  font-size: small;
+  margin: 1rem 0;
+  border-radius: 2rem;
 }
 
 .round-title::after {
@@ -371,7 +390,7 @@ h6 {
   border-radius: 1rem;
   padding: 0 1rem;
   cursor: pointer;
-  gap: .25rem;
+  gap: 0.25rem;
 }
 .form-autosave-loader:hover {
   opacity: 1;
@@ -400,7 +419,7 @@ h6 {
 }
 
 .profil-avatar {
-  position:0 relative;
+  position: 0 relative;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -418,7 +437,7 @@ h6 {
   padding-right: 1rem;
 }
 
-.list-card{
+.list-card {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -429,13 +448,13 @@ h6 {
   padding: 1rem;
   transition: all ease 0.3s;
 }
-.list-card .btn-wrapper{
+.list-card .btn-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   gap: 0.35rem;
 }
-.list-card .btn{
+.list-card .btn {
   position: relative;
   display: flex;
   justify-content: center;
@@ -514,6 +533,16 @@ h6 {
   align-items: center;
   border-radius: 2rem;
 }
+
+table tbody .btn {
+  padding: 0;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media only screen and (min-width: 600px) {
   /* For tablets: */
 }
@@ -569,6 +598,10 @@ h6 {
   width: 100%;
   padding: 1rem;
   transition: all ease 0.3s;
+  overflow: hidden;
+}
+.sbs-main .paper-fold {
+  padding: 1rem;
 }
 
 .sbs-sub {
@@ -590,7 +623,7 @@ h6 {
   /* For large: */
 
   .scaffold .content {
-    height: 40rem;
+    max-height: 40rem;
   }
   .top-bar {
     height: 25%;

@@ -21,7 +21,7 @@ use yii\helpers\Url;
             <div class="input-field">
                 <i class="material-icons prefix">person</i>
                 <input type="text" name="username" id="username" value="<?= $data['username'] ?? '' ?>" required>
-                <label for="username">Email / Nomor KK</label>
+                <label for="username">Email / NIK</label>
             </div>
         </div>
 
@@ -53,9 +53,9 @@ use yii\helpers\Url;
 
         <!-- Form "Register Now" And "Forgot Password" Link Section. -->
 
-        <div class="" style="font-size:14px;"><br>
-            <a href="<?= Url::to(['auth/register']) ?>" class="left">Buat Akun</a>
-            <a href="" class="right ">Lupa Password</a>
-        </div><br>
+        <div class="center" style="font-size:14px;"><br>
+            Belum memiliki akun ?
+            <a href="<?= Url::to(['auth/register']) ?>">Buat Akun</a>
+        </div>
     </div>
 </form>

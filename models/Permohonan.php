@@ -23,12 +23,26 @@ class Permohonan extends Model
         'tgl_surat',
         'tgl_ttd',
         'file',
+        'catatan',
     ];
+
+    protected function jenis(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value) => $value ? intval($value) : null,
+        );
+    }
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value) => $value ? intval($value) : null,
+        );
+    }
 
     protected function file(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => Url::to("@web/uploads/permohonan/$value"),
+            get: fn(?string $value) => $value ? Url::to("@web/uploads/permohonan/$value") : null,
         );
     }
 

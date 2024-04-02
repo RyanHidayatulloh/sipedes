@@ -123,9 +123,10 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId())->append("c
                     <table class="striped highlight" style="width: 100%;">
                         <thead>
                             <tr>
+                                <th>Tanggal</th>
                                 <th>Jenis Surat</th>
-                                <th>Nomor Surat</th>
                                 <th>Status</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -143,6 +144,74 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId())->append("c
                         <tbody>
                         </tbody>
                     </table>
+                </div>
+                <div class="paper-fold from-right" id="paper-action">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="left title">Tindak Lanjut Penolakan Permohonan</p>
+                            <a class="btn-floating btn-small waves-effect waves-light paper-folder red right">
+                                <i class="material-icons">close</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row paper-content">
+                        <div class="container">
+                            <div class="form-autosave-loader" style="z-index: 2; margin-top: 1rem; margin-right: 4rem">
+                                <img src="<?=Url::to('@web/img/spinner.gif')?>" alt="spinner"><i
+                                    class="material-icons">check_circle</i><span>Simpan Otomatis</span>
+                            </div>
+                            <input type="hidden" name="id">
+                            <div class="row">
+                                <div class="col m6 s12">
+                                    <div class="round-title"><span>Jenis Surat</span></div>
+                                    <p id="detail-jenis"></p>
+                                    <div class="detail-dokumen">
+                                    </div>
+                                </div>
+                                <div class="col m6 s12">
+                                    <div class="round-title"><span>Catatan</span></div>
+                                    <p id="detail-catatan"></p>
+                                    <div class="detail-permohonan">
+                                    </div>
+                                    <div class="center">
+                                        <button class="btn waves-effect waves-light" type="button" id="action-send"
+                                            style="margin: 0;">Kirim</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="paper-fold from-right" id="paper-detail">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="left title">Detail Permohonan</p>
+                            <a class="btn-floating btn-small waves-effect waves-light paper-folder red right">
+                                <i class="material-icons">close</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row paper-content">
+                        <div class="container">
+                            <input type="hidden" name="id">
+                            <div class="row">
+                                <div class="col m6 s12">
+                                    <div class="round-title"><span>Jenis Surat</span></div>
+                                    <p id="detail-jenis"></p>
+                                    <div class="detail-dokumen">
+                                    </div>
+                                </div>
+                                <d class="col m6 s12">
+                                    <div class="round-title"><span>Status</span></div>
+                                    <div id="detail-status" class="center"></div>
+                                    <div class="round-title"><span>Catatan</span></div>
+                                    <p id="detail-catatan"></p>
+                                    <div class="detail-permohonan">
+                                    </div>
+                                </d>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
