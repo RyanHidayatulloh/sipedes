@@ -59,7 +59,7 @@ class PenggunaController extends BaseRestApi
         }
 
         $data = new $this->modelClass();
-        $data->password_hash = $post['password'];
+        $data->password_hash = Yii::$app->security->generatePasswordHash($post['password']);
         $data->fill($post)->save();
 
         $auth = Yii::$app->authManager;

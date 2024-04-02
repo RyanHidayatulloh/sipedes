@@ -1,5 +1,12 @@
 <?php
 
+use app\models\Enums\Agama;
+use app\models\Enums\Hubungan;
+use app\models\Enums\JenisKelamin;
+use app\models\Enums\Kewarganegaraan;
+use app\models\Enums\Pekerjaan;
+use app\models\Enums\Pendidikan;
+use app\models\Enums\StatusPerkawinan;
 use yii\helpers\Url;
 ?>
 <div class="row">
@@ -63,15 +70,15 @@ use yii\helpers\Url;
                                     </div>
                                 </div>
                                 <div class="input-field col m6 s12">
-                                    <input id="name" type="text" name="name" class="validate" required>
+                                    <input type="text" name="name" class="validate" required>
                                     <label for="name">Nama</label>
                                 </div>
                                 <div class="input-field col m6 s12">
-                                    <input id="email" type="email" name="email" class="validate" required>
+                                    <input type="email" name="email" class="validate" required>
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field col m6 s12">
-                                    <input id="nid" type="text" name="nid" class="validate" required>
+                                    <input type="text" name="nid" class="validate" required>
                                     <label for="nid">NIDN / NIK</label>
                                 </div>
                                 <div class="input-field col m6 s12">
@@ -89,7 +96,8 @@ use yii\helpers\Url;
                                     <label for="password">Kata Sandi</label>
                                 </div>
                                 <div class="input-field col m6 s12">
-                                    <input id="password_confirm" type="password" name="password_confirm" class="validate" required>
+                                    <input id="password_confirm" type="password" name="password_confirm"
+                                        class="validate" required>
                                     <label for="password_confirm">Konfirmasi Kata Sandi</label>
                                 </div>
                                 <div class="input-field col s12 center">
@@ -99,7 +107,7 @@ use yii\helpers\Url;
                         </div>
                     </div>
                 </div>
-                <div class="paper-fold from-right" id="paper-action">
+                <div class="paper-fold from-right" id="paper-admin">
                     <div class="row">
                         <div class="col s12">
                             <p class="left title">Detail Pengguna</p>
@@ -110,59 +118,292 @@ use yii\helpers\Url;
                     </div>
                     <div class="row paper-content">
                         <div class="container">
-                            <input type="hidden" name="id">
-                            <div class="row">
-                                <div class="col m6 s12">
-                                    <div class="round-title"><span>Detail Pemohon</span></div>
-                                    <table>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <td>: <span class="detail-nama"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>NIK</th>
-                                            <td>: <span class="detail-nik"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Jenis Kelamin</th>
-                                            <td>: <span class="detail-jenis_kelamin"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Alamat</th>
-                                            <td>: <span class="detail-alamat"></span></td>
-                                        </tr>
-                                    </table>
-                                    <div class="detail-dokumen">
+                            <form action="" method="POST" class="form-autosave">
+                                <div class="form-autosave-loader" style="margin-right: 3rem">
+                                    <img src="<?=Url::to('@web/img/spinner.gif')?>" alt="spinner"><i
+                                        class="material-icons">check_circle</i><span>Simpan Otomatis</span>
+                                </div>
+                                <h4 class="center" style="margin-bottom: 1rem">Profil</h4>
+                                <div class="profil-avatar">
+                                    <img src="<?=Url::to('@web/uploads/foto/avatar.jpg')?>" alt="avatar">
+                                    <div class="file-field input-field">
+                                        <div class="btn btn-small">
+                                            <span><i class="material-icons">upload</i></span>
+                                            <input type="file" name="avatar" accept="image/*">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text"
+                                                placeholder="Unggah Foto Profil">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col m6 s12">
-                                    <div class="detail-permohonan">
+                                <div class="round-title">
+                                    <span>Biodata</span>
+                                </div>
+                                <div class="row">
+                                    <input type="hidden" name="id">
+                                    <div class="col s12">
+                                        <div class="input-field col m6 s12">
+                                            <input type="text" name="name" class="validate" required>
+                                            <label for="name">Nama</label>
+                                        </div>
+                                        <div class="input-field col m6 s12">
+                                            <input type="email" name="email" class="validate" required>
+                                            <label for="email">Email</label>
+                                        </div>
+                                        <div class="input-field col m6 s12">
+                                            <input type="text" name="nid" class="validate" required>
+                                            <label for="nid">NIDN</label>
+                                        </div>
                                     </div>
-                                    <div class="round-title"><span>Tindak Lanjut</span></div>
-                                    <form action="" class="row" method="POST">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="paper-fold from-right" id="paper-pemohon">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="left title">Detail Pengguna</p>
+                            <a class="btn-floating btn-small waves-effect waves-light paper-folder red right">
+                                <i class="material-icons">close</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row paper-content">
+                        <div class="container">
+                            <form action="" method="POST" class="form-autosave">
+                                <div class="form-autosave-loader" style="margin-right: 3rem">
+                                    <img src="<?=Url::to('@web/img/spinner.gif')?>" alt="spinner"><i
+                                        class="material-icons">check_circle</i><span>Simpan Otomatis</span>
+                                </div>
+                                <h4 class="center" style="margin-bottom: 1rem">Profil</h4>
+                                <div class="profil-avatar">
+                                    <img src="<?=Url::to('@web/uploads/foto/avatar.jpg')?>" alt="avatar">
+                                    <div class="file-field input-field">
+                                        <div class="btn btn-small">
+                                            <span><i class="material-icons">upload</i></span>
+                                            <input type="file" name="avatar" accept="image/*">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text"
+                                                placeholder="Unggah Foto Profil">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="round-title">
+                                    <span>Dokumen</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="list-card">
+                                            <p>KTP</p>
+                                            <div class="btn-wrapper">
+                                                <a href="#!" class="btn btn-small waves-effect waves-light blue" data-fancybox data-type="image">
+                                                    <span><i class="material-icons">visibility</i></span>
+                                                </a>
+                                                <button class="btn btn-small waves-effect waves-light green" type="button" data-name="ktp">
+                                                    <span><i class="material-icons">upload</i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12">
+                                        <div class="list-card">
+                                            <p>Kartu Keluarga</p>
+                                            <div class="btn-wrapper">
+                                                <a href="#!" class="btn btn-small waves-effect waves-light blue" data-fancybox data-type="image">
+                                                    <span><i class="material-icons">visibility</i></span>
+                                                </a>
+                                                <button class="btn btn-small waves-effect waves-light green" type="button" data-name="kk">
+                                                    <span><i class="material-icons">upload</i></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="round-title">
+                                    <span>Biodata</span>
+                                </div>
+                                <div class="row">
+                                    <input type="hidden" name="id">
+                                    <div class="col s12 m6">
                                         <div class="input-field col s12">
-                                            <textarea id="catatan" name="catatan"
-                                                class="materialize-textarea"></textarea>
-                                            <label for="catatan">Catatan</label>
+                                            <input id="nama" type="text" name="nama" class="validate" required>
+                                            <label for="nama">Nama</label>
                                         </div>
-                                        <div class="switch center">
-                                            <label>
-                                                Tolak
-                                                <input type="checkbox" name="aksi">
-                                                <span class="lever"></span>
-                                                Terima
-                                            </label>
+                                        <div class="input-field col s12">
+                                            <input id="nik" type="text" name="nik" class="validate" required>
+                                            <label for="nik">NIK</label>
                                         </div>
-                                        <div class="input-field col s12" style="display: none">
-                                            <input id="nomor" name="nomor" class="validate" type="text"></input>
-                                            <label for="nomor">Nomor Surat</label>
+                                        <div class="input-field col s12">
+                                            <input id="nokk" type="text" name="nokk" class="validate" required>
+                                            <label for="nokk">Nomor KK</label>
                                         </div>
-                                        <div class="center">
-                                            <button class="btn waves-effect waves-light" type="button"
-                                                id="action-send">Kirim</button>
+                                        <div class="input-field col s12">
+                                            <select name="jenis_kelamin">
+                                                <option value="" disabled selected>Jenis Kelamin</option>
+                                                <?php foreach (JenisKelamin::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Jenis Surat</label>
                                         </div>
-                                    </form>
+                                        <div class="input-field col s12">
+                                            <input id="tempat_lahir" type="text" name="tempat_lahir" class="validate"
+                                                required>
+                                            <label for="tempat_lahir">Tempat Lahir</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input id="tgl_lahir" type="text" name="tgl_lahir"
+                                                class="validate datepicker" required>
+                                            <label for="tgl_lahir">Tanggal Lahir</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="pendidikan">
+                                                <option value="" disabled selected>Pilih Pendidikan Terakhir
+                                                </option>
+                                                <?php foreach (Pendidikan::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Pendidikan Terakhir</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="pekerjaan">
+                                                <option value="" disabled selected>Pilih Pekerjaan</option>
+                                                <?php foreach (Pekerjaan::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Pekerjaan</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="hubungan">
+                                                <option value="" disabled selected>Pilih Hubungan</option>
+                                                <?php foreach (Hubungan::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Hubungan dalam KK</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="status_perkawinan">
+                                                <option value="" disabled selected>Pilih Status Perkawinan
+                                                </option>
+                                                <?php foreach (StatusPerkawinan::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Status Perkawinan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <div class="input-field col s12">
+                                            <select name="kewarganegaraan">
+                                                <option value="" disabled selected>Pilih Kewarganegaraan
+                                                </option>
+                                                <?php foreach (Kewarganegaraan::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Kewarganegaraan</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="agama">
+                                                <option value="" disabled selected>Pilih Agama
+                                                </option>
+                                                <?php foreach (Agama::forSelect() as $k => $v): ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <label>Agama</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <textarea id="alamat" name="alamat" class="materialize-textarea"
+                                                required></textarea>
+                                            <label for="alamat">Alamat</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="rt" type="text" name="rt" class="validate" required>
+                                            <label for="rt">RT</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="rw" type="text" name="rw" class="validate" required>
+                                            <label for="rw">RW</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="provinsi" class="wilayah">
+                                                <option value="" disabled selected>Pilih Provinsi</option>
+                                            </select>
+                                            <label>Provinsi</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="kota" class="wilayah">
+                                                <option value="" disabled selected>Pilih Kota/Kabupaten</option>
+                                            </select>
+                                            <label>Kota/Kabupaten</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="kecamatan" class="wilayah">
+                                                <option value="" disabled selected>Pilih Kecamatan</option>
+                                            </select>
+                                            <label>Kecamatan</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <select name="desa" class="wilayah">
+                                                <option value="" disabled selected>Pilih Desa</option>
+                                            </select>
+                                            <label>Desa</label>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input id="kodepos" type="text" name="kodepos" class="validate" required>
+                                            <label for="kodepos">Kode POS</label>
+                                        </div>
+                                    </div>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="paper-fold from-bottom" id="paper-password">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="left title">Ubah Kata Sandi <span id="nama-password"></span></p>
+                            <a class="btn-floating btn-small waves-effect waves-light paper-folder right">
+                                <i class="material-icons">close</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row paper-content">
+                        <div class="col s12">
+                            <div class="container">
+                                <form id="form-password" action="" method="POST">
+                                    <input type="hidden" name="id">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock</i>
+                                            <input id="passwordch" name="passwordch" type="password" class="validate"
+                                                required>
+                                            <label for="passwordch">Kata Sandi Baru</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">lock</i>
+                                            <input id="passwordch_confirm" name="passwordch_confirm" type="password"
+                                                class="validate" required>
+                                            <label for="passwordch_confirm">Konfirmasi Kata Sandi Baru</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <button class="btn waves-effect waves-light right" type="submit"
+                                                name="action"> Simpan <i class="material-icons right">send</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

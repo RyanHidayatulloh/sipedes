@@ -115,7 +115,7 @@ $(document).ready(async function () {
     }
   });
   M.updateTextFields();
-  M.textareaAutoResize($(`textarea`));
+  M.textareaAutoResize($("textarea"));
   $("select").formSelect();
 
   $("body").on("saving", ".form-autosave", function (e, el, form) {
