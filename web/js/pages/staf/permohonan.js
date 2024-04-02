@@ -1,5 +1,15 @@
 const cloud = new Puller();
 
+$("body").on("change", "#paper-action .paper-content .switch input", function () {
+  const acc = $(this).is(":checked");
+  const numInput = $(this).closest("form").find("input[name=nomor]").closest(".input-field");
+  if (acc) {
+    numInput.slideDown();
+  } else {
+    numInput.slideUp();
+  }
+});
+
 $("body").on("click", "#paper-action .paper-content .btn#action-send", function (e) {
   const paper = $(this).closest(".paper-fold");
   const catatan = paper.find("textarea[name=catatan]");
@@ -7,8 +17,16 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
     catatan.closest(".input-field").effect("shake");
     return;
   }
-  const aksi = paper.find("input[name=aksi]").is(":checked") ? "Menyetujui" : "Menolak";
-  const status = paper.find("input[name=aksi]").is(":checked") ? 3 : 2;
+
+  const acc = paper.find("input[name=aksi]").is(":checked");
+  const numInput = paper.find("input[name=nomor]");
+  if (numInput.val().trim() == "") {
+    numInput.closest(".input-field").effect("shake");
+    return;
+  }
+
+  const aksi = acc ? "Menyetujui" : "Menolak";
+  const status = acc ? 5 : 4;
   Swal.fire({
     title: "Kirim Permohonan",
     text: `Anda yakin untuk ${aksi} permohonan ini?`,
@@ -24,6 +42,9 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
         status: status,
         catatan: catatan.val(),
       };
+      if (acc) {
+        data.nomor = numInput.val();
+      }
       $.ajax({
         type: "POST",
         url: baseUrl + "/api/permohonan",
@@ -92,7 +113,7 @@ $(document).ready(async function () {
       type: "GET",
       data: {
         wrap: "data",
-        status: "1",
+        status: "3",
       },
     },
     responsive: true,
@@ -136,7 +157,7 @@ $(document).ready(async function () {
       type: "GET",
       data: {
         wrap: "data",
-        status: ">= 3",
+        status: ">= 5",
       },
     },
     responsive: true,
@@ -185,7 +206,7 @@ $(document).ready(async function () {
       type: "GET",
       data: {
         wrap: "data",
-        status: "2",
+        status: "4",
       },
     },
     responsive: true,

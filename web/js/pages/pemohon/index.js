@@ -10,9 +10,9 @@ $(document).ready(async function () {
   });
 
   $(".count-berjalan").text(
-    cloud.get("permohonan").filter((x) => parseInt(x.status) < 4).length
+    cloud.get("permohonan").filter((x) => parseInt(x.status) < 7).length
   );
   $(".count-selesai").text(
-    cloud.get("permohonan").filter((x) => parseInt(x.status) == 4).length
+    cloud.get("permohonan").filter((x) => parseInt(x.status) == 7).length
   );
 });

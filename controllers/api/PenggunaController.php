@@ -2,6 +2,8 @@
 
 namespace app\controllers\api;
 
+use app\models\Assignment;
+use app\models\Penduduk;
 use app\models\Pengguna as Model;
 use Yii;
 use yii\web\UploadedFile;
@@ -21,6 +23,67 @@ class PenggunaController extends BaseRestApi
             $data = $this->modelClass::with('biodata')->find($id);
         } else {
             $data = $this->modelClass::find($id);
+        }
+
+        return $this->asJson($data);
+    }
+
+    public function actionAll()
+    {
+        $data = $this->modelClass::with('biodata', 'assignments')->get();
+        $wrap = Yii::$app->request->get('wrap');
+        if ($wrap != null) {
+            $data = [$wrap => $data];
+        }
+        return $this->asJson($data);
+    }
+    public function actionRegister()
+    {
+        $post = Yii::$app->request->post();
+        if (!isset($post["role"])) {
+            return $this->asJson([
+                'toast' => [
+                    'icon' => 'error',
+                    'title' => 'Role tidak boleh kosong',
+                ],
+            ]);
+        }
+
+        if ($this->modelClass::where('email', $post["email"])->exists() || $this->modelClass::where('nid', $post["nid"])->exists()) {
+            return $this->asJson([
+                'toast' => [
+                    'icon' => 'error',
+                    'title' => 'Email atau NID/NIK sudah terdaftar',
+                ],
+            ]);
+        }
+
+        $data = new $this->modelClass();
+        $data->password_hash = $post['password'];
+        $data->fill($post)->save();
+
+        $auth = Yii::$app->authManager;
+        $roleass = $auth->createRole($post["role"]);
+        $auth->add($roleass);
+        $auth->assign($roleass, $data->id);
+
+        if ($post["role"] == "pemohon") {
+            $biodata = new Penduduk();
+            $biodata->fill([
+                "id_user" => $data->id,
+                "nama" => $data->name,
+                "nik" => $data->nid,
+            ])->save();
+        }
+
+        $picture = UploadedFile::getInstanceByName('picture');
+        if ($picture) {
+            $ext = $picture->getExtension();
+            $filename = $data->id . '.' . $ext;
+            $picture->saveAs("uploads/foto/$filename");
+            $data->fill([
+                "picture" => $filename,
+            ])->save();
         }
 
         return $this->asJson($data);

@@ -103,6 +103,7 @@ $(document).ready(async function () {
   await cloud.add("http://sipedes.project/api/pengguna", { name: "profil" });
   $("input[name=name]").val(cloud.get("profil").name);
   $("input[name=nid]").val(cloud.get("profil").nid);
+  $("input[name=email]").val(cloud.get("profil").email);
   M.updateTextFields();
 
   $("body").on("saving", ".form-autosave", function (e, el, form) {

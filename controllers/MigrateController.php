@@ -104,7 +104,7 @@ class MigrateController extends Controller
         Yii::$app->eloquent->schema()->create('auth_assignment', function (Blueprint $table) {
             $table->string('item_name');
             $table->integer('user_id');
-            $table->integer('created_at');
+            $table->timestamps();
         });
 
         Yii::$app->eloquent->schema()->create('auth_item', function (Blueprint $table) {

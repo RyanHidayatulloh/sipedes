@@ -259,7 +259,7 @@ $(document).ready(async function () {
       data: {
         id_user: cloud.get("profil").id,
         wrap: "data",
-        status: "< 4",
+        status: "< 7",
       },
     },
     responsive: true,
@@ -287,7 +287,7 @@ $(document).ready(async function () {
       {
         data: "status",
         render: (data) => {
-          const StatusSurat = ["Belum Berjalan", "Menunggu Acc RT", "Aksi Pra RT", "ACC RT", "Aksi Pra Agenda", "Menunggu Agenda Staff", "Tertandatangani", "Tercetak"];
+          const StatusSurat = ["Belum Berjalan", "Menunggu Acc RT", "Aksi Pra RT", "Pra Agenda", "Aksi Pra Agenda", "Diagendakan", "Tertandatangani", "Tercetak"];
           const WarnaStatus = ["gray", "orange", "red", "orange", "red", "orange", "purple", "green"];
           // span pill materialize
           return `<span class="pill-status ${WarnaStatus[parseInt(data)]} darken-3">${StatusSurat[parseInt(data)]}</span>`;
@@ -320,7 +320,7 @@ $(document).ready(async function () {
       data: {
         id_user: cloud.get("profil").id,
         wrap: "data",
-        status: 4,
+        status: 7,
       },
     },
     responsive: true,

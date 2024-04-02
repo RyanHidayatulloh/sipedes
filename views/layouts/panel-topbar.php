@@ -43,8 +43,11 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
                 <a href="<?= Url::to(['panel/permohonan']) ?>">Permohonan</a>
             </li>
             <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'staff') : ?>
-            <li class="waves-effect waves-light" data-page="pemohon">
-                <a href="<?= Url::to(['panel/pemohon']) ?>">Pemohon</a>
+            <li class="waves-effect waves-light" data-page="cetak">
+                <a href="<?= Url::to(['panel/cetak']) ?>">Cetak</a>
+            </li>
+            <li class="waves-effect waves-light" data-page="pengguna">
+                <a href="<?= Url::to(['panel/pengguna']) ?>">Pengguna</a>
             </li>
             <?php endif; ?>
             <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'kades') : ?>

@@ -1,44 +1,29 @@
-<div class="staf">
-    <div class="row dashboard">
-        <div class="col l3 m6 s12">
-            <div class="card-item">
-                <div class="icon"><i class="material-icons">email</i></div>
-                <div class="card center">
-                    <h5>Surat Keterangan Usaha</h5>
-                    <h1>0</h1>
-                    <a class="waves-effect waves-light btn">Buat</a>
-                </div>
-            </div>
+<?php
+
+use yii\helpers\Url;
+?>
+<div class="pemohon dashboard">
+    <div class="row" style="margin-bottom: 0; gap: 0;">
+        <div class="card except">
+            <p>Permohonan Berjalan</p>
+            <p><b class="count-berjalan">0</b></p>
         </div>
-        <div class="col l3 m6 s12">
-            <div class="card-item">
-                <div class="icon"><i class="material-icons">email</i></div>
-                <div class="card center">
-                    <h5>Surat Pengantar</h5>
-                    <h1>0</h1>
-                    <a class="waves-effect waves-light btn">Buat</a>
-                </div>
-            </div>
+    </div>
+    <div class="row" style="margin-bottom: 0; gap: 0;">
+        <div class="card except">
+            <p>Permohonan Ditolak</p>
+            <p><b class="count-reject">0</b></p>
         </div>
-        <div class="col l3 m6 s12">
-            <div class="card-item">
-                <div class="icon"><i class="material-icons">email</i></div>
-                <div class="card center">
-                    <h5>Surat Keterangan</h5>
-                    <h1>0</h1>
-                    <a class="waves-effect waves-light btn">Buat</a>
-                </div>
-            </div>
-        </div>
-        <div class="col l3 m6 s12">
-            <div class="card-item">
-                <div class="icon"><i class="material-icons">email</i></div>
-                <div class="card center">
-                    <h5>Surat Catatan Kepolisian</h5>
-                    <h1>0</h1>
-                    <a class="waves-effect waves-light btn">Buat</a>
-                </div>
-            </div>
+    </div>
+    <div class="row" style="margin-bottom: 0; gap: 0;">
+        <div class="card except">
+            <p>Permohonan Disetujui</p>
+            <p><b class="count-accept">0</b></p>
         </div>
     </div>
 </div>
+
+
+<?php $this->beginBlock('script'); ?>
+<script src="<?= Url::to('@web/js/pages/dashboard/staf.js') ?>"></script>
+<?php $this->endBlock(); ?>

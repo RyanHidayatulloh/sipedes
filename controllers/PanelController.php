@@ -57,10 +57,15 @@ class PanelController extends Controller
         $this->view->title = 'permohonan';
         return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/permohonan');
     }
-    public function actionPemohon()
+    public function actionCetak()
     {
-        $this->view->title = 'pemohon';
-        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/pemohon');
+        $this->view->title = 'cetak';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/cetak');
+    }
+    public function actionPengguna()
+    {
+        $this->view->title = 'pengguna';
+        return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/pengguna');
     }
     public function actionLaporan()
     {

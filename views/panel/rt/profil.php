@@ -1,12 +1,5 @@
 <?php
 
-use app\models\Enums\Agama;
-use app\models\Enums\Hubungan;
-use app\models\Enums\JenisKelamin;
-use app\models\Enums\Kewarganegaraan;
-use app\models\Enums\Pekerjaan;
-use app\models\Enums\Pendidikan;
-use app\models\Enums\StatusPerkawinan;
 use app\models\Pengguna;
 use yii\helpers\Url;
 

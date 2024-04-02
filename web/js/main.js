@@ -479,11 +479,24 @@ function getJenisSurat(code) {
   return JenisSurat[parseInt(code)];
 }
 function getStatusSurat(code) {
-  const StatusSurat = ["Belum Berjalan", "Menunggu Acc RT", "Aksi Pra RT", "ACC RT", "Aksi Pra Agenda", "Menunggu Agenda Staff", "Tertandatangani", "Tercetak"];
+  const StatusSurat = ["Belum Berjalan", "Menunggu Acc RT", "Aksi Pra RT", "Pra Agenda", "Aksi Pra Agenda", "Diagendakan", "Tertandatangani", "Tercetak"];
   const WarnaStatus = ["gray", "orange", "red", "orange", "red", "orange", "purple", "green"];
   return {
     text: StatusSurat[parseInt(code)],
     color: WarnaStatus[parseInt(code)],
+  };
+}
+function getRole(name) {
+  const WarnaStatus = {
+    admin: "blue",
+    kades: "purple",
+    staff: "orange",
+    rt: "cyan",
+    pemohon: "green",
+  };
+  return {
+    text: capEachWord(name),
+    color: WarnaStatus[name],
   };
 }
 

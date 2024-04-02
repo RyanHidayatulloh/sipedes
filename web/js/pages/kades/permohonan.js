@@ -1,17 +1,33 @@
 const cloud = new Puller();
 
+
+$("input[name=tgl_ttd]").addClass("datepicker").datepicker({
+  format: "yyyy-mm-dd",
+  i18n: {
+    months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+    monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
+    weekdays: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"],
+    weekdaysShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+    weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
+  },
+});
+
 $("body").on("click", "#paper-action .paper-content .btn#action-send", function (e) {
   const paper = $(this).closest(".paper-fold");
   const catatan = paper.find("textarea[name=catatan]");
+  const tanggal = paper.find("input[name=tgl_ttd]");
   if (catatan.val().trim() == "") {
     catatan.closest(".input-field").effect("shake");
     return;
   }
-  const aksi = paper.find("input[name=aksi]").is(":checked") ? "Menyetujui" : "Menolak";
-  const status = paper.find("input[name=aksi]").is(":checked") ? 3 : 2;
+  if (tanggal.val().trim() == "") {
+    tanggal.closest(".input-field").effect("shake");
+    return;
+  }
+  const status = 6;
   Swal.fire({
     title: "Kirim Permohonan",
-    text: `Anda yakin untuk ${aksi} permohonan ini?`,
+    text: `Anda yakin untuk menyetujui permohonan ini?`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -23,6 +39,7 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
         id: paper.find("input[name=id]").val(),
         status: status,
         catatan: catatan.val(),
+        tgl_ttd: tanggal.val(),
       };
       $.ajax({
         type: "POST",
@@ -92,7 +109,7 @@ $(document).ready(async function () {
       type: "GET",
       data: {
         wrap: "data",
-        status: "1",
+        status: "5",
       },
     },
     responsive: true,
@@ -136,13 +153,13 @@ $(document).ready(async function () {
       type: "GET",
       data: {
         wrap: "data",
-        status: ">= 3",
+        status: "6",
       },
     },
     responsive: true,
     columns: [
       {
-        data: "updated_at",
+        data: "tgl_ttd",
         render: (data) => {
           return moment(data).tz("Asia/Jakarta").format("YYYY-MM-DD");
         },
@@ -185,7 +202,7 @@ $(document).ready(async function () {
       type: "GET",
       data: {
         wrap: "data",
-        status: "2",
+        status: "7",
       },
     },
     responsive: true,

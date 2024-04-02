@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Yii;
 use yii\helpers\Url;
 
 /**
@@ -43,6 +44,12 @@ class Pengguna extends Model
         'verification_token',
     ];
 
+    protected function password_hash(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => Yii::$app->security->generatePasswordHash($value),
+        );
+    }
     protected function picture(): Attribute
     {
         return Attribute::make(
