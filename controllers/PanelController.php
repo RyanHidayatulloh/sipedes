@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\Enums\JenisKelamin;
 use app\models\Enums\JenisSurat;
+use app\models\Pengguna;
+use app\models\Permohonan;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -78,6 +80,21 @@ class PanelController extends Controller
         $this->view->title = 'profil';
         return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/profil', [
             'user' => Yii::$app->user->identity,
+        ]);
+    }
+
+    public function actionPrint()
+    {
+        $id = Yii::$app->request->get('id');
+        if (!$id) {
+            return null;
+        }
+        $kades = Pengguna::whereRelation('assignments', 'item_name', "kades")->get()[0];
+        $permohonan = Permohonan::with("pemohon")->find($id);
+        $this->view->title = $permohonan->pemohon->biodata->nama;
+        return $this->renderPartial("print/$permohonan->jenis", [
+            'surat' => $permohonan,
+            'kades' => $kades,
         ]);
     }
 }

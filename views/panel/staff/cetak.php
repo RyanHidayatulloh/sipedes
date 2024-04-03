@@ -65,6 +65,11 @@ use yii\helpers\Url;
                     </div>
                     <div class="row paper-content">
                         <div class="container">
+                            <form action="" method="POST"></form>
+                            <div class="center">
+                                <button id="btn-cetak" class="btn waves-effect waves-light green">Cetak</button>
+                            </div>
+                            <iframe id="print-cetak" src="<?= Url::to(['print?id=1']) ?>" height="300" frameborder="0" style="width: 100%;"></iframe>
                         </div>
                     </div>
                 </div>

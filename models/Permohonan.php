@@ -26,6 +26,14 @@ class Permohonan extends Model
         'catatan',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'tgl_surat' => 'datetime:Y-m-d',
+            'tgl_ttd' => 'datetime:Y-m-d',
+        ];
+    }
+
     protected function jenis(): Attribute
     {
         return Attribute::make(

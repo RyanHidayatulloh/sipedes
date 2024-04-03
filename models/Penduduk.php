@@ -37,17 +37,24 @@ class Penduduk extends Model
         "ktp",
         "kk",
     ];
-    
+
+    protected function casts(): array
+    {
+        return [
+            'tgl_lahir' => 'datetime:Y-m-d',
+        ];
+    }
+
     protected function ktp(): Attribute
     {
         return Attribute::make(
-            get: fn (?string $value) => $value ? Url::to("@web/uploads/ktp/$value") : null,
+            get: fn(?string $value) => $value ? Url::to("@web/uploads/ktp/$value") : null,
         );
     }
     protected function kk(): Attribute
     {
         return Attribute::make(
-            get: fn (?string $value) => $value ? Url::to("@web/uploads/kk/$value") : null,
+            get: fn(?string $value) => $value ? Url::to("@web/uploads/kk/$value") : null,
         );
     }
 }

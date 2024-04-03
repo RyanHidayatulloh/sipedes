@@ -1,0 +1,18 @@
+
+.kertas {
+  background-color: white;
+  color: black;
+  font-size: 12pt;
+  font-family: sans-serif;
+  width: 210mm;
+  height: 297mm;
+}
+
+.kertas .kop {
+  width: 100%;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}

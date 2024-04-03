@@ -3,6 +3,11 @@ const cloud = new Puller();
 $("body").on("click", ".paper-trigger[target=paper-action]", function () {
   const id = $(this).data("id");
   $("#paper-action form")[0]?.reset();
+  $("#paper-action iframe#print-cetak").attr("src", `${baseUrl}/panel/print?id=${id}&t=${Date.now()}`);
+});
+
+$("body").on("click", "#btn-cetak", function (e) {
+  $("#paper-action iframe#print-cetak")[0].contentWindow.print();
 });
 
 $(document).ready(async function () {

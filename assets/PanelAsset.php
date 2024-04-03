@@ -28,6 +28,7 @@ class PanelAsset extends AssetBundle
         'css/materialize.min.css',
         'css/main.css',
         'css/panel.css',
+        'css/print.css',
     ];
     public $js = [
         'js/jquery-3.7.1.min.js',
