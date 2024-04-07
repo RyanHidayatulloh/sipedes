@@ -48,7 +48,7 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
   const permohonan = cloud.get("permohonan").find((x) => x.id == id);
   const detail = $("#paper-action .paper-content .detail-permohonan");
   const dokumen = $("#paper-action .paper-content .detail-dokumen");
-  detail.empty().append(`<div class="round-title"><span>Keperluan</span></div>`).append(`<p>${permohonan.keperluan}</p>`);
+  detail.empty().append(`<div class="round-title"><span>Keperluan</span></div>`).append(`<p>${permohonan.keperluan.replace(/\n/g, "<br>")}</p>`);
   dokumen.empty().append(`<div class="round-title"><span>Dokumen</span></div>`);
   $("#paper-action .paper-content form")[0].reset();
   M.textareaAutoResize($("#paper-action .paper-content textarea"));
@@ -56,7 +56,7 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
     $(`.detail-${k}`).text(v);
   });
   if (![4, 5].includes(permohonan.jenis)) {
-    detail.append(`<div class="round-title"><span>Keterangan</span></div>`).append(`<p>${permohonan.keterangan}</p>`);
+    detail.append(`<div class="round-title"><span>Keterangan</span></div>`).append(`<p>${permohonan.keterangan.replace(/\n/g, "<br>")}</p>`);
   }
   if (permohonan.jenis == 5) {
     const isFotoPdf = permohonan.file.includes(".pdf") ? `data-type="pdf"` : "";

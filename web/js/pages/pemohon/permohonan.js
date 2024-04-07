@@ -136,14 +136,14 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
   dokumen.empty().append(`<div class="round-title"><span>Dokumen</span></div>`);
 
   $("#paper-action p#detail-jenis").text(getJenisSurat(permohonan.jenis));
-  $("#paper-action p#detail-catatan").text(permohonan.catatan);
+  $("#paper-action p#detail-catatan").text(permohonan.catatan == "" ? "-" : permohonan.catatan);
 
   const detail = $("#paper-action .paper-content .detail-permohonan");
   detail.empty().append(`<div class="round-title"><span>Detail Permohonan</span></div>`);
   const formAutosave = $(`<form action="" method="POST" class="form-autosave" class="row"></form>`);
   formAutosave
     .append(`<input type="hidden" name="id" value="${permohonan.id}">`)
-    .append(`<div class="input-field col s12"><textarea id="keperluan" name="keperluan" class="materialize-textarea">${permohonan.keperluan}</textarea><label for="keperluan">Keperluan</label></div>`);
+    .append(`<div class="input-field col s12"><textarea id="keperluan" name="keperluan" class="materialize-textarea">${permohonan.keperluan.replace(/\n/g, "<br>")}</textarea><label for="keperluan">Keperluan</label></div>`);
   if (![4, 5].includes(permohonan.jenis)) {
     formAutosave.append(`<div class="input-field col s12"><textarea id="keterangan" name="keterangan" class="materialize-textarea">${permohonan.keterangan}</textarea><label for="keterangan">Keterangan</label></div>`);
   }
@@ -169,7 +169,7 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
 
   M.updateTextFields();
   setTimeout(function () {
-    M.textareaAutoResize($(`textarea`));
+    M.textareaAutoResize($("textarea"));
   }, 500);
   console.log(permohonan);
 });
@@ -183,12 +183,12 @@ $("body").on("click", "#ongoing .btn-detail", function (e) {
   $("#paper-detail p#detail-jenis").text(getJenisSurat(permohonan.jenis));
   const stts = getStatusSurat(permohonan.status);
   $("#paper-detail div#detail-status").empty().append(`<span class="pill-status ${stts.color} darken-3">${stts.text}</span>`);
-  $("#paper-detail p#detail-catatan").text(permohonan.catatan);
+  $("#paper-detail p#detail-catatan").text(permohonan.catatan ?? "-");
 
   const detail = $("#paper-detail .paper-content .detail-permohonan");
-  detail.empty().append(`<div class="round-title"><span>Keperluan</span></div>`).append(`<div class="col s12"><p>${permohonan.keperluan}</p></div>`);
+  detail.empty().append(`<div class="round-title"><span>Keperluan</span></div>`).append(`<div class="col s12"><p>${permohonan.keperluan.replace(/\n/g, "<br>")}</p></div>`);
   if (![4, 5].includes(permohonan.jenis)) {
-    detail.append(`<div class="round-title col s12"><span>Keterangan</span></div>`).append(`<div class="col s12"><p>${permohonan.keterangan}</p></div>`);
+    detail.append(`<div class="round-title col s12"><span>Keterangan</span></div>`).append(`<div class="col s12"><p>${permohonan.keterangan.replace(/\n/g, "<br>")}</p></div>`);
   }
 
   if (permohonan.jenis == 5) {

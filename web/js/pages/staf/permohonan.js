@@ -96,6 +96,7 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
   dokumen.append(
     `<div class="list-card"><p>KK</p><div class="btn-wrapper"><a href="${permohonan.pemohon.biodata.kk}" class="btn btn-small waves-effect waves-light blue" data-fancybox ${isKkPdf}><span><i class="material-icons">visibility</i></span></a></div>`
   );
+  $("#paper-action .paper-content input[name=nomor]").closest(".input-field").slideUp();
   console.log(permohonan);
 });
 
