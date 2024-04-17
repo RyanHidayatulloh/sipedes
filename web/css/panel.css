@@ -543,6 +543,16 @@ table tbody .btn {
   justify-content: center;
   align-items: center;
 }
+
+.btn-laporan {
+  margin-top: 1.5rem;
+}
+.btn-laporan .btn {
+  padding: 0 1rem;
+  margin: 0;
+  border-radius: 2rem;
+}
+
 @media only screen and (min-width: 600px) {
   /* For tablets: */
 }

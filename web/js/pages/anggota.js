@@ -31,11 +31,11 @@ function loadFile(event) {
 }
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/wilayah", {
+  await cloud.add(baseUrl + "/api/wilayah", {
     name: "wilayah",
     data: { q: "all" },
   });
-  await cloud.add("http://sipedes.project/api/keluarga", {
+  await cloud.add(baseUrl + "/api/keluarga", {
     name: "keluarga",
     data: { id_user: true },
   });

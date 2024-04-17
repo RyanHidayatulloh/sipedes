@@ -1,10 +1,10 @@
 const cloud = new Puller();
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/pengguna", {
+  await cloud.add(baseUrl + "/api/pengguna", {
     name: "profil",
   });
-  await cloud.add("http://sipedes.project/api/permohonan", {
+  await cloud.add(baseUrl + "/api/permohonan", {
     name: "permohonan",
     data: { id_user: cloud.get("profil").id },
   });

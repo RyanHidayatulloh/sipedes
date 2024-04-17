@@ -100,8 +100,8 @@ function uploadBtnClick(e) {
 }
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/pengguna", { name: "profil" });
-  cloud.add("http://sipedes.project/api/wilayah", { name: "wilayah", data: { q: "all" } }).then(() => {
+  await cloud.add(baseUrl + "/api/pengguna", { name: "profil" });
+  cloud.add(baseUrl + "/api/wilayah", { name: "wilayah", data: { q: "all" } }).then(() => {
     initWilayah(cloud.get("profil").biodata);
   });
   $.each(cloud.get("profil").biodata, function (k, v) {

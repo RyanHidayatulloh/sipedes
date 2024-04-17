@@ -65,11 +65,22 @@ use yii\helpers\Url;
                     </div>
                     <div class="row paper-content">
                         <div class="container">
-                            <form action="" method="POST"></form>
                             <div class="center">
-                                <button id="btn-cetak" class="btn waves-effect waves-light green">Cetak</button>
+                                <button id="btn-cetak" class="btn waves-effect waves-light green"><i
+                                        class="material-icons">print</i></button>
                             </div>
-                            <iframe id="print-cetak" src="<?= Url::to(['print?id=1']) ?>" height="300" frameborder="0" style="width: 100%;"></iframe>
+                            <iframe id="print-cetak" src="<?= Url::to(['print?id=1']) ?>" height="300" frameborder="0"
+                                style="width: 100%;"></iframe>
+                            <form action="" method="POST">
+                                <input type="hidden" name="id">
+                                <div class="input-field col s12">
+                                    <textarea id="catatan" name="catatan" class="materialize-textarea" placeholder="Catatan..."></textarea>
+                                </div>
+                                <div class="center">
+                                    <button class="btn waves-effect waves-light" type="button"
+                                        id="action-send">Kirim</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

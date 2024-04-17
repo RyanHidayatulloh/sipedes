@@ -219,13 +219,13 @@ $("body").on("submit", "#form-add", function (e) {
 });
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/pengguna", {
+  await cloud.add(baseUrl + "/api/pengguna", {
     name: "profil",
   });
-  await cloud.add("http://sipedes.project/api/pengguna/all", {
+  await cloud.add(baseUrl + "/api/pengguna/all", {
     name: "pengguna",
   });
-  await cloud.add("http://sipedes.project/api/wilayah", { name: "wilayah", data: { q: "all" } });
+  await cloud.add(baseUrl + "/api/wilayah", { name: "wilayah", data: { q: "all" } });
   const tablePengguna = $("#pengguna table").DataTable({
     processing: true,
     ajax: {

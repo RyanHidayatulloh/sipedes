@@ -101,10 +101,10 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
 });
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/pengguna", {
+  await cloud.add(baseUrl + "/api/pengguna", {
     name: "profil",
   });
-  await cloud.add("http://sipedes.project/api/permohonan", {
+  await cloud.add(baseUrl + "/api/permohonan", {
     name: "permohonan",
   });
   const tableOngoing = $("#ongoing table").DataTable({
