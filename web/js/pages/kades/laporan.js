@@ -3,8 +3,34 @@ const cloud = new Puller();
 $(".datepicker").datepicker({
   format: "yyyy-mm-dd",
   i18n: {
-    months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
-    monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
+    months: [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ],
+    monthsShort: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mei",
+      "Jun",
+      "Jul",
+      "Agt",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Des",
+    ],
     weekdays: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"],
     weekdaysShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
     weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
@@ -27,7 +53,7 @@ function printTable() {
       }
     }
   </style>
-  <img src="${baseUrl}/img/kop.png" alt="kop" class="kop">
+  <img src="${baseUrl}/img/kop.png" alt="kop" class="kop" style="width: 100%;">
   <h1 style="text-align: center;">LAPORAN SURAT</h1>
   ${divToPrint.outerHTML}`);
   setTimeout(function () {
@@ -49,7 +75,8 @@ function getDateFilter() {
 }
 
 $("body").on("change", "input[name=aksi]", function (e) {
-  const all = $("input[name=aksi]:checked").length == $("input[name=aksi]").length;
+  const all =
+    $("input[name=aksi]:checked").length == $("input[name=aksi]").length;
   const awal = $("input[name=tgl_awal]");
   const akhir = $("input[name=tgl_akhir]");
   if (all) {
@@ -100,8 +127,13 @@ $("body").on("click", ".btn-laporan button", async function (e) {
           <td style="border: 1px solid;">${data.tgl_ttd}</td>
           <td style="border: 1px solid;">${data.pemohon.biodata.nik}</td>
           <td style="border: 1px solid;">${data.pemohon.biodata.nama}</td>
-          <td style="border: 1px solid;">${JenisSurat[parseInt(data.jenis)]}</td>
-          <td style="border: 1px solid;">${data.keperluan.replace(/\n/g, "<br>")}</td>
+          <td style="border: 1px solid;">${
+            JenisSurat[parseInt(data.jenis)]
+          }</td>
+          <td style="border: 1px solid;">${data.keperluan.replace(
+            /\n/g,
+            "<br>"
+          )}</td>
         </tr>
       `);
     });

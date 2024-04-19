@@ -3,22 +3,38 @@ const cloud = new Puller();
 let slideControl = {
   current: 1,
   next: function () {
-    let page = slideControl.current < $(".permohonan-slider-wrapper .screen").length ? slideControl.current + 1 : slideControl.current;
+    let page =
+      slideControl.current < $(".permohonan-slider-wrapper .screen").length
+        ? slideControl.current + 1
+        : slideControl.current;
     slideControl.go(page);
   },
   prev: function () {
-    let page = slideControl.current > 1 ? slideControl.current - 1 : slideControl.current;
+    let page =
+      slideControl.current > 1
+        ? slideControl.current - 1
+        : slideControl.current;
     slideControl.go(page);
   },
   go: function (n) {
-    if (n > 0 && n <= $(".permohonan-slider-wrapper .screen").length && n != slideControl.current) {
+    if (
+      n > 0 &&
+      n <= $(".permohonan-slider-wrapper .screen").length &&
+      n != slideControl.current
+    ) {
       if (n == 1) {
         reset();
       }
-      $(`.permohonan-slider-wrapper .screen[data-screen=${slideControl.current}]`).fadeOut("normal", function () {
+      $(
+        `.permohonan-slider-wrapper .screen[data-screen=${slideControl.current}]`
+      ).fadeOut("normal", function () {
         if (slideControl.current == 2) {
-          $(`.permohonan-slider-wrapper .screen[data-screen=${n}]`).find("input").val("");
-          $(`.permohonan-slider-wrapper .screen[data-screen=${n}]`).find("textarea").val("");
+          $(`.permohonan-slider-wrapper .screen[data-screen=${n}]`)
+            .find("input")
+            .val("");
+          $(`.permohonan-slider-wrapper .screen[data-screen=${n}]`)
+            .find("textarea")
+            .val("");
         }
         $(`.permohonan-slider-wrapper .screen[data-screen=${n}]`)
           .css("display", "flex")
@@ -59,71 +75,79 @@ function uploadBtnClick(e) {
   });
 }
 
-$("body").on("click", "#paper-action .paper-content .btn#action-send", function (e) {
-  const paper = $(this).closest(".paper-fold");
-  const id = paper.find("input[name=id]").val();
-  const permohonan = cloud.get("permohonan").find((x) => x.id == id);
-  const keperluan = paper.find("textarea[name=keperluan]");
+$("body").on(
+  "click",
+  "#paper-action .paper-content .btn#action-send",
+  function (e) {
+    const paper = $(this).closest(".paper-fold");
+    const id = paper.find("input[name=id]").val();
+    const permohonan = cloud.get("permohonan").find((x) => x.id == id);
+    const keperluan = paper.find("textarea[name=keperluan]");
 
-  data = {};
-  if (keperluan.val().trim() == "") {
-    keperluan.closest(".input-field").effect("shake");
-    return;
-  }
-  data.id = id;
-  data.keperluan = keperluan.val();
-  switch (permohonan.jenis) {
-    case 4:
-      break;
-    case 5:
-      break;
-    default:
-      const keterangan = paper.find("textarea[name=keterangan]");
-      if (keterangan.val().trim() == "") {
-        keterangan.closest(".input-field").effect("shake");
-        return;
-      }
-      data.keterangan = keterangan.val();
-      break;
-  }
-  switch (permohonan.status) {
-    case 2:
-      data.status = 1;
-      break;
-    case 4:
-      data.status = 3;
-      break;
-  }
-  Swal.fire({
-    title: "Kirim Permohonan",
-    text: `Anda yakin untuk mengirim permohonan ini kembali?`,
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Kirim",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      $.ajax({
-        type: "POST",
-        url: baseUrl + "/api/permohonan",
-        data: data,
-        success: function (response) {
-          cloud.pull("permohonan");
-          paper.find(".paper-folder").trigger("click");
-          Toast.fire({
-            icon: "success",
-            title: "Perubahan Berhasil disimpan",
-          });
-        },
-      });
-      console.log(data);
+    data = {};
+    if (keperluan.val().trim() == "") {
+      keperluan.closest(".input-field").effect("shake");
+      return;
     }
-  });
-});
+    data.id = id;
+    data.keperluan = keperluan.val();
+    switch (permohonan.jenis) {
+      case 4:
+        break;
+      case 5:
+        break;
+      default:
+        const keterangan = paper.find("textarea[name=keterangan]");
+        if (keterangan.val().trim() == "") {
+          keterangan.closest(".input-field").effect("shake");
+          return;
+        }
+        data.keterangan = keterangan.val();
+        break;
+    }
+    switch (permohonan.status) {
+      case 2:
+        data.status = 1;
+        break;
+      case 4:
+        data.status = 3;
+        break;
+    }
+    Swal.fire({
+      title: "Kirim Permohonan",
+      text: `Anda yakin untuk mengirim permohonan ini kembali?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Kirim",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "POST",
+          url: baseUrl + "/api/permohonan",
+          data: data,
+          success: function (response) {
+            cloud.pull("permohonan");
+            paper.find(".paper-folder").trigger("click");
+            Toast.fire({
+              icon: "success",
+              title: "Perubahan Berhasil disimpan",
+            });
+          },
+        });
+        console.log(data);
+      }
+    });
+  }
+);
 
 $("body").on("click", ".list-card button", function (e) {
-  let input = $(`<input type="file" name="${$(this).data("name")}" accept="image/*, application/pdf" />`);
+  let input = $(
+    `<input type="file" name="${$(this).data(
+      "name"
+    )}" accept="image/*, application/pdf" />`
+  );
   input.on("change", uploadBtnClick);
   input.trigger("click");
 });
@@ -136,16 +160,29 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
   dokumen.empty().append(`<div class="round-title"><span>Dokumen</span></div>`);
 
   $("#paper-action p#detail-jenis").text(getJenisSurat(permohonan.jenis));
-  $("#paper-action p#detail-catatan").text(permohonan.catatan == "" ? "-" : permohonan.catatan);
+  $("#paper-action p#detail-catatan").text(
+    permohonan.catatan == "" ? "-" : permohonan.catatan
+  );
 
   const detail = $("#paper-action .paper-content .detail-permohonan");
-  detail.empty().append(`<div class="round-title"><span>Detail Permohonan</span></div>`);
-  const formAutosave = $(`<form action="" method="POST" class="form-autosave" class="row"></form>`);
+  detail
+    .empty()
+    .append(`<div class="round-title"><span>Detail Permohonan</span></div>`);
+  const formAutosave = $(
+    `<form action="" method="POST" class="form-autosave" class="row"></form>`
+  );
   formAutosave
     .append(`<input type="hidden" name="id" value="${permohonan.id}">`)
-    .append(`<div class="input-field col s12"><textarea id="keperluan" name="keperluan" class="materialize-textarea">${permohonan.keperluan.replace(/\n/g, "<br>")}</textarea><label for="keperluan">Keperluan</label></div>`);
+    .append(
+      `<div class="input-field col s12"><textarea id="keperluan" name="keperluan" class="materialize-textarea">${permohonan.keperluan.replace(
+        /\n/g,
+        "<br>"
+      )}</textarea><label for="keperluan">Keperluan</label></div>`
+    );
   if (![4, 5].includes(permohonan.jenis)) {
-    formAutosave.append(`<div class="input-field col s12"><textarea id="keterangan" name="keterangan" class="materialize-textarea">${permohonan.keterangan}</textarea><label for="keterangan">Keterangan</label></div>`);
+    formAutosave.append(
+      `<div class="input-field col s12"><textarea id="keterangan" name="keterangan" class="materialize-textarea">${permohonan.keterangan}</textarea><label for="keterangan">Keterangan</label></div>`
+    );
   }
   detail.append(formAutosave);
 
@@ -158,8 +195,12 @@ $("body").on("click", "#ongoing .btn-action", function (e) {
   dokumen.append(
     `<div class="list-card"><p>Foto Pemohon</p><div class="btn-wrapper"><a href="${permohonan.pemohon.picture}" class="btn btn-small waves-effect waves-light blue" data-fancybox><span><i class="material-icons">visibility</i></span></a></div>`
   );
-  const isKtpPdf = permohonan.pemohon.biodata.ktp.includes(".pdf") ? `data-type="pdf"` : "";
-  const isKkPdf = permohonan.pemohon.biodata.kk.includes(".pdf") ? `data-type="pdf"` : "";
+  const isKtpPdf = permohonan.pemohon.biodata.ktp.includes(".pdf")
+    ? `data-type="pdf"`
+    : "";
+  const isKkPdf = permohonan.pemohon.biodata.kk.includes(".pdf")
+    ? `data-type="pdf"`
+    : "";
   dokumen.append(
     `<div class="list-card"><p>KTP</p><div class="btn-wrapper"><a href="${permohonan.pemohon.biodata.ktp}" class="btn btn-small waves-effect waves-light blue" data-fancybox ${isKtpPdf}><span><i class="material-icons">visibility</i></span></a></div>`
   );
@@ -182,13 +223,32 @@ $("body").on("click", "#ongoing .btn-detail", function (e) {
 
   $("#paper-detail p#detail-jenis").text(getJenisSurat(permohonan.jenis));
   const stts = getStatusSurat(permohonan.status);
-  $("#paper-detail div#detail-status").empty().append(`<span class="pill-status ${stts.color} darken-3">${stts.text}</span>`);
+  $("#paper-detail div#detail-status")
+    .empty()
+    .append(
+      `<span class="pill-status ${stts.color} darken-3">${stts.text}</span>`
+    );
   $("#paper-detail p#detail-catatan").text(permohonan.catatan ?? "-");
 
   const detail = $("#paper-detail .paper-content .detail-permohonan");
-  detail.empty().append(`<div class="round-title"><span>Keperluan</span></div>`).append(`<div class="col s12"><p>${permohonan.keperluan.replace(/\n/g, "<br>")}</p></div>`);
+  detail
+    .empty()
+    .append(`<div class="round-title"><span>Keperluan</span></div>`)
+    .append(
+      `<div class="col s12"><p>${permohonan.keperluan.replace(
+        /\n/g,
+        "<br>"
+      )}</p></div>`
+    );
   if (![4, 5].includes(permohonan.jenis)) {
-    detail.append(`<div class="round-title col s12"><span>Keterangan</span></div>`).append(`<div class="col s12"><p>${permohonan.keterangan.replace(/\n/g, "<br>")}</p></div>`);
+    detail
+      .append(`<div class="round-title col s12"><span>Keterangan</span></div>`)
+      .append(
+        `<div class="col s12"><p>${permohonan.keterangan.replace(
+          /\n/g,
+          "<br>"
+        )}</p></div>`
+      );
   }
 
   if (permohonan.jenis == 5) {
@@ -200,8 +260,12 @@ $("body").on("click", "#ongoing .btn-detail", function (e) {
   dokumen.append(
     `<div class="list-card"><p>Foto Pemohon</p><div class="btn-wrapper"><a href="${permohonan.pemohon.picture}" class="btn btn-small waves-effect waves-light blue" data-fancybox><span><i class="material-icons">visibility</i></span></a></div>`
   );
-  const isKtpPdf = permohonan.pemohon.biodata.ktp.includes(".pdf") ? `data-type="pdf"` : "";
-  const isKkPdf = permohonan.pemohon.biodata.kk.includes(".pdf") ? `data-type="pdf"` : "";
+  const isKtpPdf = permohonan.pemohon.biodata.ktp.includes(".pdf")
+    ? `data-type="pdf"`
+    : "";
+  const isKkPdf = permohonan.pemohon.biodata.kk.includes(".pdf")
+    ? `data-type="pdf"`
+    : "";
   dokumen.append(
     `<div class="list-card"><p>KTP</p><div class="btn-wrapper"><a href="${permohonan.pemohon.biodata.ktp}" class="btn btn-small waves-effect waves-light blue" data-fancybox ${isKtpPdf}><span><i class="material-icons">visibility</i></span></a></div>`
   );
@@ -287,10 +351,30 @@ $(document).ready(async function () {
       {
         data: "status",
         render: (data) => {
-          const StatusSurat = ["Belum Berjalan", "Menunggu Acc RT", "Aksi Pra RT", "Pra Agenda", "Aksi Pra Agenda", "Diagendakan", "Tertandatangani", "Tercetak"];
-          const WarnaStatus = ["gray", "orange", "red", "orange", "red", "orange", "purple", "green"];
+          const StatusSurat = [
+            "Belum Berjalan",
+            "Menunggu Acc RT",
+            "Aksi Pra RT",
+            "Pra Agenda",
+            "Aksi Pra Agenda",
+            "Diagendakan",
+            "Tertandatangani",
+            "Tercetak",
+          ];
+          const WarnaStatus = [
+            "gray",
+            "orange",
+            "red",
+            "orange",
+            "red",
+            "orange",
+            "purple",
+            "green",
+          ];
           // span pill materialize
-          return `<span class="pill-status ${WarnaStatus[parseInt(data)]} darken-3">${StatusSurat[parseInt(data)]}</span>`;
+          return `<span class="pill-status ${
+            WarnaStatus[parseInt(data)]
+          } darken-3">${StatusSurat[parseInt(data)]}</span>`;
         },
       },
       {
@@ -324,13 +408,39 @@ $(document).ready(async function () {
       },
     },
     responsive: true,
-    columns: [{ data: "jenis" }, { data: "status" }],
+    columns: [
+      {
+        data: "tgl_ttd",
+        render: (data) => {
+          return moment(data).tz("Asia/Jakarta").format("YYYY-MM-DD");
+        },
+      },
+      {
+        data: "jenis",
+        render: (data) => {
+          const JenisSurat = {
+            1: "Surat Pengantar",
+            2: "Surat Keterangan",
+            3: "Surat Keterangan Usaha",
+            4: "Surat Pengantar Catatan Kepolisian",
+            5: "Surat Keterangan Tidak Mampu",
+            6: "Surat Keterangan Domisili Tempat Tinggal",
+          };
+          return JenisSurat[parseInt(data)];
+        },
+      },
+      { data: "catatan" },
+    ],
   });
   cloud.addCallback("permohonan", (data) => {
     tableOngoing.ajax.reload();
     tableHistory.ajax.reload();
   });
-  $(".permohonan-slider-wrapper .screen").first().css("display", "flex").hide().fadeIn();
+  $(".permohonan-slider-wrapper .screen")
+    .first()
+    .css("display", "flex")
+    .hide()
+    .fadeIn();
   $(".permohonan-slider-wrapper .screen").last().find("button.next").hide();
   $("select").formSelect();
 });
@@ -341,79 +451,91 @@ function reset() {
   $("textarea").val("");
 }
 
-$("body").on("click", ".permohonan-slider-wrapper .screen button.add", function () {
-  reset();
-  slideControl.next();
-});
-$("body").on("click", ".permohonan-slider-wrapper .screen button.next", function () {
-  const screen = $(this).closest(".screen");
-  if (screen.data("screen") == 2) {
-    if (screen.find("input[name=jenis]:checked").length == 0) {
-      screen.find(".main").effect("shake");
-      return;
-    }
+$("body").on(
+  "click",
+  ".permohonan-slider-wrapper .screen button.add",
+  function () {
+    reset();
+    slideControl.next();
   }
-  if (screen.data("screen") == 3) {
-    let input = screen.find("input");
-    input = input.length == 0 ? screen.find("textarea") : input;
-    if (input.length > 0 && input.val() == "") {
-      screen.find(".main").effect("shake");
-      return;
-    }
-    switch ($("input[name=jenis]:checked").data("value")) {
-      case 4:
-        slideControl.go(6);
+);
+$("body").on(
+  "click",
+  ".permohonan-slider-wrapper .screen button.next",
+  function () {
+    const screen = $(this).closest(".screen");
+    if (screen.data("screen") == 2) {
+      if (screen.find("input[name=jenis]:checked").length == 0) {
+        screen.find(".main").effect("shake");
         return;
-      case 5:
-        slideControl.go(5);
+      }
+    }
+    if (screen.data("screen") == 3) {
+      let input = screen.find("input");
+      input = input.length == 0 ? screen.find("textarea") : input;
+      if (input.length > 0 && input.val() == "") {
+        screen.find(".main").effect("shake");
         return;
-      default:
-        break;
-    }
-  }
-  if (screen.data("screen") == 4) {
-    let input = screen.find("input");
-    input = input.length == 0 ? screen.find("textarea") : input;
-    if (input.length > 0 && input.val() == "") {
-      screen.find(".main").effect("shake");
-      return;
-    }
-    slideControl.go(6);
-    return;
-  }
-  if (screen.data("screen") == 5) {
-    let input = screen.find("input[name=file]");
-    if (input[0].files.length == 0) {
-      screen.find(".main").effect("shake");
-      return;
-    }
-  }
-  slideControl.next();
-});
-$("body").on("click", ".permohonan-slider-wrapper .screen button.prev", function (e) {
-  const screen = $(this).closest(".screen");
-  switch (screen.data("screen")) {
-    case 6:
+      }
       switch ($("input[name=jenis]:checked").data("value")) {
         case 4:
-          slideControl.go(3);
+          slideControl.go(6);
           return;
         case 5:
           slideControl.go(5);
           return;
         default:
-          console.log("defaul");
-          slideControl.go(4);
-          return;
+          break;
       }
-    case 5:
-      slideControl.go(3);
+    }
+    if (screen.data("screen") == 4) {
+      let input = screen.find("input");
+      input = input.length == 0 ? screen.find("textarea") : input;
+      if (input.length > 0 && input.val() == "") {
+        screen.find(".main").effect("shake");
+        return;
+      }
+      slideControl.go(6);
       return;
-    default:
-      slideControl.prev();
-      return;
+    }
+    if (screen.data("screen") == 5) {
+      let input = screen.find("input[name=file]");
+      if (input[0].files.length == 0) {
+        screen.find(".main").effect("shake");
+        return;
+      }
+    }
+    slideControl.next();
   }
-});
+);
+$("body").on(
+  "click",
+  ".permohonan-slider-wrapper .screen button.prev",
+  function (e) {
+    const screen = $(this).closest(".screen");
+    switch (screen.data("screen")) {
+      case 6:
+        switch ($("input[name=jenis]:checked").data("value")) {
+          case 4:
+            slideControl.go(3);
+            return;
+          case 5:
+            slideControl.go(5);
+            return;
+          default:
+            console.log("defaul");
+            slideControl.go(4);
+            return;
+        }
+      case 5:
+        slideControl.go(3);
+        return;
+      default:
+        slideControl.prev();
+        return;
+    }
+  }
+);
 
 function sendSuccess(response) {
   slideControl.go(1);
@@ -425,52 +547,68 @@ function sendSuccess(response) {
   });
 }
 
-$("body").on("click", ".permohonan-slider-wrapper .screen button.send", function (e) {
-  Swal.fire({
-    title: "Apakah anda yakin?",
-    text: "Data yang anda masukkan akan disimpan",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Kirim",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const jenis = $("input[name=jenis]:checked").data("value");
-      let data = {};
-      switch (jenis) {
-        case 4:
-          data.keperluan = $(".permohonan-slider-wrapper textarea[name=keperluan]").val();
-          break;
-        case 5:
-          data = new FormData();
-          data.append("id_pemohon", cloud.get("profil").id);
-          data.append("jenis", jenis);
-          data.append("keperluan", $(".permohonan-slider-wrapper textarea[name=keperluan]").val());
-          data.append("file", $(".permohonan-slider-wrapper input[name=file]")[0].files[0]);
-          $.ajax({
-            type: "POST",
-            url: baseUrl + `/api/permohonan`,
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: sendSuccess,
-          });
-          return;
-        default:
-          data.keperluan = $(".permohonan-slider-wrapper textarea[name=keperluan]").val();
-          data.keterangan = $(".permohonan-slider-wrapper textarea[name=keterangan]").val();
-          break;
+$("body").on(
+  "click",
+  ".permohonan-slider-wrapper .screen button.send",
+  function (e) {
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Data yang anda masukkan akan disimpan",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Kirim",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const jenis = $("input[name=jenis]:checked").data("value");
+        let data = {};
+        switch (jenis) {
+          case 4:
+            data.keperluan = $(
+              ".permohonan-slider-wrapper textarea[name=keperluan]"
+            ).val();
+            break;
+          case 5:
+            data = new FormData();
+            data.append("id_pemohon", cloud.get("profil").id);
+            data.append("jenis", jenis);
+            data.append(
+              "keperluan",
+              $(".permohonan-slider-wrapper textarea[name=keperluan]").val()
+            );
+            data.append(
+              "file",
+              $(".permohonan-slider-wrapper input[name=file]")[0].files[0]
+            );
+            $.ajax({
+              type: "POST",
+              url: baseUrl + `/api/permohonan`,
+              data: data,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: sendSuccess,
+            });
+            return;
+          default:
+            data.keperluan = $(
+              ".permohonan-slider-wrapper textarea[name=keperluan]"
+            ).val();
+            data.keterangan = $(
+              ".permohonan-slider-wrapper textarea[name=keterangan]"
+            ).val();
+            break;
+        }
+        data.id_pemohon = cloud.get("profil").id;
+        data.jenis = jenis;
+        $.ajax({
+          type: "POST",
+          url: baseUrl + `/api/permohonan`,
+          data: data,
+          success: sendSuccess,
+        });
       }
-      data.id_pemohon = cloud.get("profil").id;
-      data.jenis = jenis;
-      $.ajax({
-        type: "POST",
-        url: baseUrl + `/api/permohonan`,
-        data: data,
-        success: sendSuccess,
-      });
-    }
-  });
-});
+    });
+  }
+);
