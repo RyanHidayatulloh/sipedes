@@ -43,6 +43,7 @@ class Pengguna extends Model
         'updated_at',
         'verification_token',
     ];
+    
 
     protected function password_hash(): Attribute
     {

@@ -4,11 +4,11 @@ namespace app\models\Enums;
 
 enum Pendidikan: string
 {
-    case None = 'Tidak / Belum Sekolah';
+    case None = 'Tidak/Belum Sekolah';
     case TK = 'TK';
     case SD = 'SD/Sederajat';
-    case SMP = 'SMP/Sederajat';
-    case SMA = 'SMA/Sederajat';
+    case SLTP = 'SLTP/Sederajat';
+    case SLTA = 'SLTA/Sederajat';
     case D1 = 'D1';
     case D2 = 'D2';
     case D3 = 'D3';

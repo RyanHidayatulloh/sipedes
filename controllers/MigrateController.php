@@ -3,30 +3,29 @@
 namespace app\controllers;
 
 use app\libraries\Eloquent;
+use app\models\Assignment;
+use app\models\AuthItem;
 use app\models\Enums\Agama;
 use app\models\Enums\Hubungan;
 use app\models\Enums\JenisKelamin;
+use app\models\Enums\JenisSurat;
 use app\models\Enums\Kewarganegaraan;
 use app\models\Enums\Pekerjaan;
 use app\models\Enums\Pendidikan;
-use app\models\Enums\JenisSurat;
 use app\models\Enums\StatusPerkawinan;
 use app\models\Enums\StatusSurat;
-use app\models\Keluarga;
 use app\models\Penduduk;
 use app\models\Pengguna;
 use app\models\User;
 use app\models\Wilayah;
-use DateTime;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\rbac\DbManager;
 use yii\rbac\ManagerInterface;
 use yii\web\Controller;
 
@@ -181,6 +180,7 @@ class MigrateController extends Controller
         });
 
         Pengguna::truncate();
+
         Pengguna::create([
             'nid' => '654321',
             'email' => 'admin@gmail.com',
@@ -213,38 +213,6 @@ class MigrateController extends Controller
             'name' => 'RT',
             'status' => User::STATUS_ACTIVE,
         ]);
-        Pengguna::create([
-            'nid' => '0987',
-            'email' => 'pemohon@gmail.com',
-            'auth_key' => Yii::$app->security->generateRandomString(),
-            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'pemohon',
-            'status' => User::STATUS_ACTIVE,
-        ]);
-
-        Penduduk::create([
-            "id_user" => 5,
-            "nama" => "Rian Hidayatullah",
-            "nik" => "3329162711010002",
-            "nokk" => "33291627",
-            "jenis_kelamin" => JenisKelamin::Pria->value,
-            "tempat_lahir" => "Brebes",
-            "tgl_lahir" => DateTime::createFromFormat("Y-m-d", "1999-01-01"),
-            "pendidikan" => Pendidikan::S1->value,
-            "pekerjaan" => Pekerjaan::Petani->value,
-            "hubungan" => Hubungan::Anak,
-            "status_perkawinan" => StatusPerkawinan::BelumKawin->value,
-            "kewarganegaraan" => Kewarganegaraan::WNI->name,
-            "agama" => Agama::Islam->value,
-            "alamat" => "Jl. Raya Buniwah",
-            "rt" => "01",
-            "rw" => "01",
-            "desa" => "Buniwah",
-            "kecamatan" => "Sirampog",
-            "kota" => "Kab. Brebes",
-            "provinsi" => "Jawa Tengah",
-            "kodepos" => 52272,
-        ]);
 
         $auth = Yii::$app->authManager;
 
@@ -265,8 +233,17 @@ class MigrateController extends Controller
         $auth->assign($staff, 2);
         $auth->assign($kades, 3);
         $auth->assign($rt, 4);
-        $auth->assign($pemohon, 5);
 
+        foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/user.json'), true), 1000) as $t) {
+            Pengguna::upsert($t, ['nid'], ["name"]);
+        }
+        foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/penduduk.json'), true), 1000) as $t) {
+            Penduduk::upsert($t, ['nik'], ["nokk", 'nama', "alamat", "rt", "rw", "tempat_lahir", "tgl_lahir", "jenis_kelamin", "status_perkawinan", "pendidikan", "agama", "id_user",
+            ]);
+        }
+        foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/auth_item.json'), true), 1000) as $t) {
+            Assignment::upsert($t, ['user_id'], ["item_name"]);
+        }
         foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/wilayah.json'), true), 1000) as $t) {
             Wilayah::upsert($t, ['kode'], ['nama']);
         }

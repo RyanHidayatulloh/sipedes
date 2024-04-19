@@ -10,8 +10,8 @@ enum Agama: string
     case Kristen = 'Kristen';
     case Hindu = 'Hindu';
     case Budha = 'Budha';
-    case Katolik = 'Katolik';
-    case Konghucu = 'Konghucu';
+    case Katolik = 'Katholik';
+    case Konghucu = 'Konghuchu';
 
     public static function forSelect(): array
     {
