@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Enums\JenisKelamin;
 use app\models\Enums\JenisSurat;
+use app\models\Penduduk;
 use app\models\Pengguna;
 use app\models\Permohonan;
 use Yii;

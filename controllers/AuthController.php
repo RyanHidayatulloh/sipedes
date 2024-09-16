@@ -73,9 +73,10 @@ class AuthController extends Controller
 
         if (Yii::$app->request->isPost) {
             $data = Yii::$app->request->post();
-            $user = Pengguna::where('nid', $data['username'])
-                ->orWhere('email', $data['username'])
-                ->first();
+            $user = Pengguna::where('nid', $data['username'])->first();
+            if (!$user) {
+                $user = Pengguna::where('email', $data['username'])->first();
+            }
             if ($user) {
                 $validator = User::findByUsername($user->nid);
                 if ($validator->validatePassword($data['password'])) {
