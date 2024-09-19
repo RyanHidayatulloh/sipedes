@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use app\libraries\Eloquent;
 use app\models\Assignment;
-use app\models\AuthItem;
 use app\models\Enums\Agama;
 use app\models\Enums\Hubungan;
 use app\models\Enums\JenisKelamin;
@@ -21,7 +20,6 @@ use app\models\Wilayah;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Hash;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
@@ -144,8 +142,8 @@ class MigrateController extends Controller
             $table->enum('kewarganegaraan', Kewarganegaraan::forSelect())->nullable(true);
             $table->enum('agama', Agama::forSelect())->nullable(true);
             $table->longText('alamat')->nullable(true);
-            $table->string('rt')->nullable(true);
-            $table->string('rw')->nullable(true);
+            $table->integer('rt')->default(0);
+            $table->integer('rw')->default(0);
             $table->string('desa')->nullable(true);
             $table->string('kecamatan')->nullable(true);
             $table->string('kota')->nullable(true);
@@ -205,12 +203,157 @@ class MigrateController extends Controller
             'name' => 'Kades',
             'status' => User::STATUS_ACTIVE,
         ]);
+
         Pengguna::create([
-            'nid' => '123',
-            'email' => 'rt@gmail.com',
+            'nid' => '89890101',
+            'email' => 'rt1rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT',
+            'name' => 'RT 01 RW 01',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890201',
+            'email' => 'rt2rw1@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 02 RW 01',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890301',
+            'email' => 'rt3rw1@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 03 RW 01',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890401',
+            'email' => 'rt4rw1@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 04 RW 01',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890501',
+            'email' => 'rt5rw1@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 05 RW 01',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890601',
+            'email' => 'rt6rw1@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 06 RW 01',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890102',
+            'email' => 'rt1rw2@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 01 RW 02',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890202',
+            'email' => 'rt2rw2@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 02 RW 02',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890302',
+            'email' => 'rt3rw2@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 03 RW 02',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890402',
+            'email' => 'rt4rw2@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 04 RW 02',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890103',
+            'email' => 'rt1rw3@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 01 RW 03',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890203',
+            'email' => 'rt2rw3@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 02 RW 03',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890303',
+            'email' => 'rt3rw3@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 03 RW 03',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890403',
+            'email' => 'rt4rw3@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 04 RW 03',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890104',
+            'email' => 'rt1rw4@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 01 RW 04',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890204',
+            'email' => 'rt2rw4@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 02 RW 04',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890304',
+            'email' => 'rt3rw4@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 03 RW 04',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890404',
+            'email' => 'rt4rw4@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 04 RW 04',
+            'status' => User::STATUS_ACTIVE,
+        ]);
+        Pengguna::create([
+            'nid' => '89890504',
+            'email' => 'rt5rw4@gmail.com',
+            'auth_key' => Yii::$app->security->generateRandomString(),
+            'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
+            'name' => 'RT 05 RW 04',
             'status' => User::STATUS_ACTIVE,
         ]);
 
@@ -233,6 +376,24 @@ class MigrateController extends Controller
         $auth->assign($staff, 2);
         $auth->assign($kades, 3);
         $auth->assign($rt, 4);
+        $auth->assign($rt, 5);
+        $auth->assign($rt,6);
+        $auth->assign($rt, 7);
+        $auth->assign($rt, 8);
+        $auth->assign($rt, 9);
+        $auth->assign($rt, 10);
+        $auth->assign($rt, 11);
+        $auth->assign($rt, 12);
+        $auth->assign($rt, 13);
+        $auth->assign($rt, 14);
+        $auth->assign($rt, 15);
+        $auth->assign($rt, 16);
+        $auth->assign($rt, 17);
+        $auth->assign($rt, 18);
+        $auth->assign($rt, 19);
+        $auth->assign($rt, 20);
+        $auth->assign($rt, 21);
+        $auth->assign($rt, 22);
 
         foreach (array_chunk(json_decode(file_get_contents(Yii::$app->basePath . '/user.json'), true), 1000) as $t) {
             Pengguna::upsert($t, ['nid'], ["name"]);

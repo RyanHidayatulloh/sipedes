@@ -42,7 +42,7 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
             <li class="waves-effect waves-light" data-page="permohonan">
                 <a href="<?= Url::to(['panel/permohonan']) ?>">Permohonan</a>
             </li>
-            <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'staff') : ?>
+            <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'staff') || key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'admin') : ?>
             <li class="waves-effect waves-light" data-page="cetak">
                 <a href="<?= Url::to(['panel/cetak']) ?>">Cetak</a>
             </li>
@@ -50,12 +50,12 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
                 <a href="<?= Url::to(['panel/pengguna']) ?>">Pengguna</a>
             </li>
             <?php endif; ?>
-            <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'kades') : ?>
+            <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'kades') || key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'admin') : ?>
             <li class="waves-effect waves-light" data-page="laporan">
                 <a href="<?= Url::to(['panel/laporan']) ?>">Laporan</a>
             </li>
             <?php endif; ?>
-            <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) != 'staff') : ?>
+            <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) != 'staff') && key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) != 'admin') : ?>
             <li class="waves-effect waves-light" data-page="profil">
                 <a href="<?= Url::to(['panel/profil']) ?>">Profil</a>
             </li>
@@ -71,22 +71,22 @@ $pengguna = Pengguna::with("biodata")->find(Yii::$app->user->getId());
     <li data-page="permohonan">
         <a href="<?= Url::to(['panel/permohonan']) ?>">Permohonan</a>
     </li>
-    <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'staff') : ?>
+    <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'staff') || key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'admin') : ?>
     <li data-page="pemohon">
         <a href="<?= Url::to(['panel/pemohon']) ?>">Pemohon</a>
     </li>
     <?php endif; ?>
-    <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'kades') : ?>
+    <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'kades') || key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'admin') : ?>
     <li data-page="laporan">
         <a href="<?= Url::to(['panel/laporan']) ?>">Laporan</a>
     </li>
     <?php endif; ?>
-    <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'pemohon') : ?>
+    <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'pemohon') || key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'admin') : ?>
     <li class="waves-effect waves-light" data-page="anggota">
         <a href="<?= Url::to(['panel/anggota']) ?>">Anggota</a>
     </li>
     <?php endif; ?>
-    <?php if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) != 'staff') : ?>
+    <?php if ((key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) != 'staff') && key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) != 'admin') : ?>
     <li data-page="profil">
         <a href="<?= Url::to(['panel/profil']) ?>">Profil</a>
     </li>
