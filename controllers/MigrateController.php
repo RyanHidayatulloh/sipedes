@@ -91,6 +91,7 @@ class MigrateController extends Controller
             $table->string('password_hash')->nullable(false);
             $table->string('password_reset_token')->nullable();
             $table->string('name');
+            $table->string('rtrw')->nullable();
             $table->longText('picture')->nullable()->default('avatar.jpg');
             $table->unsignedInteger('status')->nullable(false)->default(10);
             $table->string('verification_token')->nullable();
@@ -209,7 +210,8 @@ class MigrateController extends Controller
             'email' => 'rt1rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 01 RW 01',
+            'name' => 'RT-01 RW-01',
+            'rtrw' => 'RT-01 RW-01',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -217,7 +219,8 @@ class MigrateController extends Controller
             'email' => 'rt2rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 02 RW 01',
+            'name' => 'RT-02 RW-01',
+            'rtrw' => 'RT-02 RW-01',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -225,7 +228,8 @@ class MigrateController extends Controller
             'email' => 'rt3rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 03 RW 01',
+            'name' => 'RT-03 RW-01',
+            'rtrw' => 'RT-03 RW-01',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -233,7 +237,8 @@ class MigrateController extends Controller
             'email' => 'rt4rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 04 RW 01',
+            'name' => 'RT-04 RW-01',
+            'rtrw' => 'RT-04 RW-01',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -241,7 +246,8 @@ class MigrateController extends Controller
             'email' => 'rt5rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 05 RW 01',
+            'name' => 'RT-05 RW-01',
+            'rtrw' => 'RT-05 RW-01',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -249,7 +255,8 @@ class MigrateController extends Controller
             'email' => 'rt6rw1@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 06 RW 01',
+            'name' => 'RT-06 RW-01',
+            'rtrw' => 'RT-06 RW-01',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -257,7 +264,8 @@ class MigrateController extends Controller
             'email' => 'rt1rw2@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 01 RW 02',
+            'name' => 'RT-01 RW-02',
+            'rtrw' => 'RT-01 RW-02',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -265,7 +273,8 @@ class MigrateController extends Controller
             'email' => 'rt2rw2@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 02 RW 02',
+            'name' => 'RT-02 RW-02',
+            'rtrw' => 'RT-02 RW-02',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -273,7 +282,8 @@ class MigrateController extends Controller
             'email' => 'rt3rw2@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 03 RW 02',
+            'name' => 'RT-03 RW-02',
+            'rtrw' => 'RT-03 RW-02',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -281,7 +291,8 @@ class MigrateController extends Controller
             'email' => 'rt4rw2@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 04 RW 02',
+            'name' => 'RT-04 RW-02',
+            'rtrw' => 'RT-04 RW-02',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -289,7 +300,8 @@ class MigrateController extends Controller
             'email' => 'rt1rw3@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 01 RW 03',
+            'name' => 'RT-01 RW-03',
+            'rtrw' => 'RT-01 RW-03',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -297,7 +309,8 @@ class MigrateController extends Controller
             'email' => 'rt2rw3@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 02 RW 03',
+            'name' => 'RT-02 RW-03',
+            'rtrw' => 'RT-02 RW-03',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -305,7 +318,8 @@ class MigrateController extends Controller
             'email' => 'rt3rw3@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 03 RW 03',
+            'name' => 'RT-03 RW-03',
+            'rtrw' => 'RT-03 RW-03',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -313,7 +327,8 @@ class MigrateController extends Controller
             'email' => 'rt4rw3@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 04 RW 03',
+            'name' => 'RT-04 RW-03',
+            'rtrw' => 'RT-04 RW-03',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -321,7 +336,8 @@ class MigrateController extends Controller
             'email' => 'rt1rw4@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 01 RW 04',
+            'name' => 'RT-01 RW-04',
+            'rtrw' => 'RT-01 RW-04',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -329,7 +345,8 @@ class MigrateController extends Controller
             'email' => 'rt2rw4@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 02 RW 04',
+            'name' => 'RT-02 RW-04',
+            'rtrw' => 'RT-02 RW-04',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -337,7 +354,8 @@ class MigrateController extends Controller
             'email' => 'rt3rw4@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 03 RW 04',
+            'name' => 'RT-03 RW-04',
+            'rtrw' => 'RT-03 RW-04',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -345,7 +363,8 @@ class MigrateController extends Controller
             'email' => 'rt4rw4@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 04 RW 04',
+            'name' => 'RT-04 RW-04',
+            'rtrw' => 'RT-04 RW-04',
             'status' => User::STATUS_ACTIVE,
         ]);
         Pengguna::create([
@@ -353,7 +372,8 @@ class MigrateController extends Controller
             'email' => 'rt5rw4@gmail.com',
             'auth_key' => Yii::$app->security->generateRandomString(),
             'password_hash' => Yii::$app->security->generatePasswordHash('123456'),
-            'name' => 'RT 05 RW 04',
+            'name' => 'RT-05 RW-04',
+            'rtrw' => 'RT-05 RW-04',
             'status' => User::STATUS_ACTIVE,
         ]);
 

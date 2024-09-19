@@ -52,6 +52,10 @@ class PanelController extends Controller
     }
     public function actionIndex()
     {
+        // Pengguna::all()->each(function ($pengguna) {
+        //     Penduduk::where(['nik' => $pengguna->nid])->update(['id_user' => $pengguna->id]);
+        // });
+        // die;
         $this->view->title = 'dashboard';
         return $this->render(key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) . '/index');
     }

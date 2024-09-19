@@ -33,6 +33,7 @@ class Pengguna extends Model
     protected $fillable = [
         'nid',
         'name',
+        'rtrw',
         'auth_key',
         'password_hash',
         'password_reset_token',

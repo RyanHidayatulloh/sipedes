@@ -3,16 +3,17 @@
 namespace app\controllers\api;
 
 use app\models\Enums\JenisSurat;
-use app\models\Permohonan as Model;
+use app\models\Pengguna;
 use app\models\Permohonan;
+use app\models\Permohonan as Model;
+use Illuminate\Database\Eloquent\Builder;
 use Yii;
-use yii\web\Response;
 use yii\web\UploadedFile;
 
 class PermohonanController extends BaseRestApi
 {
     public $modelClass = Model::class;
-    
+
     public $bulan = [
         "01" => "I",
         "02" => "II",
@@ -38,9 +39,20 @@ class PermohonanController extends BaseRestApi
         } else {
             $data = $this->modelClass::with('pemohon.biodata');
         }
+        if (key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId())) == 'rt') {
+            $pengguna = Pengguna::find(Yii::$app->user->getId());
+            $rt = (int) explode("-", explode(' ', $pengguna->rtrw)[0])[1];
+            $rw = (int) explode("-", explode(' ', $pengguna->rtrw)[1])[1];
+            $data = $data->whereHas('pemohon.biodata', function ($query) use($rt, $rw) {
+                $query->where('rt', $rt);
+                $query->where('rw', $rw);
+            });
+            // $data = $data->has('pemohon.biodata');
+        }
         if ($status) {
             $data = strlen($status) == 1 ? $data->where('status', $status) : $data->where('status', explode(' ', $status)[0], explode(' ', $status)[1]);
         }
+
         $data = $data->get();
         if ($wrap != null) {
             $data = [$wrap => $data];
