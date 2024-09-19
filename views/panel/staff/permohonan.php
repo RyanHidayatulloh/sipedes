@@ -124,10 +124,6 @@ use yii\helpers\Url;
                                                 Terima
                                             </label>
                                         </div>
-                                        <div class="input-field col s12" style="display: none">
-                                            <input id="nomor" name="nomor" class="validate" type="text"></input>
-                                            <label for="nomor">Nomor Surat</label>
-                                        </div>
                                         <div class="center">
                                             <button class="btn waves-effect waves-light" type="button"
                                                 id="action-send">Kirim</button>

@@ -1,15 +1,5 @@
 const cloud = new Puller();
 
-$("body").on("change", "#paper-action .paper-content .switch input", function () {
-  const acc = $(this).is(":checked");
-  const numInput = $(this).closest("form").find("input[name=nomor]").closest(".input-field");
-  if (acc) {
-    numInput.slideDown();
-  } else {
-    numInput.slideUp();
-  }
-});
-
 $("body").on("click", "#paper-action .paper-content .btn#action-send", function (e) {
   const paper = $(this).closest(".paper-fold");
   const catatan = paper.find("textarea[name=catatan]");
@@ -19,11 +9,6 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
   }
 
   const acc = paper.find("input[name=aksi]").is(":checked");
-  const numInput = paper.find("input[name=nomor]");
-  if (numInput.val().trim() == "") {
-    numInput.closest(".input-field").effect("shake");
-    return;
-  }
 
   const aksi = acc ? "Menyetujui" : "Menolak";
   const status = acc ? 5 : 4;
@@ -42,9 +27,6 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
         status: status,
         catatan: catatan.val(),
       };
-      if (acc) {
-        data.nomor = numInput.val();
-      }
       $.ajax({
         type: "POST",
         url: baseUrl + "/api/permohonan",

@@ -47,4 +47,16 @@ enum JenisSurat: string
             6 => self::SKDTT->value,
         ];
     }
+
+    public static function toKodeSurat(int $code): string
+    {
+        return match ($code) {
+            1 => "300",
+            2 => "400",
+            3 => "501.4",
+            4 => "331",
+            5 => '334',
+            6 => '336',
+        };
+    }
 }

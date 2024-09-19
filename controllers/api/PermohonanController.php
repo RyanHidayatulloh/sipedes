@@ -2,7 +2,9 @@
 
 namespace app\controllers\api;
 
+use app\models\Enums\JenisSurat;
 use app\models\Permohonan as Model;
+use app\models\Permohonan;
 use Yii;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -10,6 +12,21 @@ use yii\web\UploadedFile;
 class PermohonanController extends BaseRestApi
 {
     public $modelClass = Model::class;
+    
+    public $bulan = [
+        "01" => "I",
+        "02" => "II",
+        "03" => "III",
+        "04" => "IV",
+        "05" => "V",
+        "06" => "VI",
+        "07" => "VII",
+        "08" => "VIII",
+        "09" => "IX",
+        "10" => "X",
+        "11" => "XI",
+        "12" => "XII",
+    ];
 
     public function beforeIndex(&$data)
     {
@@ -43,6 +60,8 @@ class PermohonanController extends BaseRestApi
             $data->id_pemohon = Yii::$app->user->id;
         }
         $data->fill($post);
+        $length = count(Permohonan::where("status", ">=", 5)->get()) + 1;
+        $data->nomor = JenisSurat::toKodeSurat($data->jenis) . "/" . $length . "/" . $this->bulan[date('m')] . "/" . date("Y");
     }
     public function afterSave(&$data)
     {
