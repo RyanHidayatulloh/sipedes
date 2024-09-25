@@ -5,12 +5,6 @@ use yii\helpers\Url;
 <div class="pemohon dashboard">
     <div class="row" style="margin-bottom: 0; gap: 0;">
         <div class="card except" style="margin: 0;">
-            <p>Menunggu Persetujuan RT</p>
-            <p><b class="count-0">0</b></p>
-        </div>
-    </div>
-    <div class="row" style="margin-bottom: 0; gap: 0;">
-        <div class="card except" style="margin: 0;">
             <p>Menunggu Konfirmasi RT</p>
             <p><b class="count-1">0</b></p>
         </div>
