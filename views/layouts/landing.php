@@ -24,16 +24,16 @@ use yii\helpers\Url;
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/landing.css" />
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <?php if(!Yii::$app->user->isGuest) :  ?>
+    <?php if (!Yii::$app->user->isGuest): ?>
     <script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
 
-        var pusher = new Pusher('<?= env('PUSHER_APP_KEY') ?>', {
-            cluster: 'ap1'
-        });
+    var pusher = new Pusher('<?=env('PUSHER_APP_KEY')?>', {
+        cluster: 'ap1'
+    });
     </script>
-    <?php endif; ?>
+    <?php endif;?>
 </head>
 
 <body>
@@ -45,9 +45,9 @@ use yii\helpers\Url;
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a class="waves-effect waves-light"
-                            href="<?= Yii::$app->user->isGuest ? Url::to(['auth/login']) : Url::to(['panel/index']) ?>"><i
+                            href="<?=Yii::$app->user->isGuest ? Url::to(['auth/login']) : Url::to(['panel/index'])?>"><i
                                 class="material-icons right">person</i>
-                            <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid) ?>
+                            <?=Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid)?>
                         </a>
                     </li>
                 </ul>
@@ -56,9 +56,9 @@ use yii\helpers\Url;
     </div>
     <!-- Nav side bar for mobile -->
     <ul class="sidenav" id="mobile-demo">
-        <li><a class="waves-effect " href="<?= Yii::$app->user->isGuest ? '/auth/login' : '/panel' ?>"><i
+        <li><a class="waves-effect " href="<?=Yii::$app->user->isGuest ? '/auth/login' : '/panel'?>"><i
                     class="material-icons">person</i>
-                <?= Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid) ?>
+                <?=Yii::$app->user->isGuest ? 'Login' : (Yii::$app->user->identity->name != '' ? Yii::$app->user->identity->name : Yii::$app->user->identity->nid)?>
             </a></li>
     </ul>
     <!-- /nav bar -->
@@ -73,8 +73,8 @@ use yii\helpers\Url;
                         <p class="flow-text" data-aos="fade-right">Hadir untuk membantu efektifitas dan efisiensi
                             pengelolaan proses pelayanan administrasi pembuatan surat-menyurat di desa buniwah</p>
                         <?php if (Yii::$app->user->isGuest): ?>
-                        <a href="<?= Url::to(['auth/register']) ?>" class="btn">Daftar</a>
-                        <?php endif; ?>
+                        <a href="<?=Url::to(['auth/register'])?>" class="btn">Daftar</a>
+                        <?php endif;?>
                     </div>
                     <div class="col m6" id="home-top-image" data-aos="fade-left">
                         <picture>
@@ -200,7 +200,7 @@ use yii\helpers\Url;
         <div class="footer-copyright">
             <div class="container center">
                 SIPEDES @
-                <?= date("Y") ?>
+                <?=date("Y")?>
             </div>
         </div>
     </footer>
@@ -218,6 +218,43 @@ use yii\helpers\Url;
     <script>
     AOS.init();
     </script>
+    <?php if (!Yii::$app->user->isGuest): ?>
+
+    <script>
+    const channel = pusher.subscribe('permohonan');
+    $(document).ready(function() {
+        cloud.add(origin + "/api/pengguna", {
+            name: "me",
+        }).then(me => {
+            console.log(me);
+            channel.bind('status', (pusherData) => {
+                let isNotify = false;
+                switch (me.assignments[0].item_name) {
+                    case 'kades':
+                        if (pusherData.status == 5) isNotify = true;
+                        break;
+                    case 'admin':
+                        isNotify = true;
+                        break;
+                    case 'staff':
+                        if (pusherData.status == 3) isNotify = true;
+                        if (pusherData.status == 6) isNotify = true;
+                        break;
+                    case 'rt':
+                        if (pusherData.status == 1) isNotify = true;
+                        break;
+                    case 'pemohon':
+                        if (pusherData.status == 2) isNotify = true;
+                        if (pusherData.status == 4) isNotify = true;
+                        if (pusherData.status == 7) isNotify = true;
+                        break;
+                }
+                if (isNotify) notifyMe(pusherData);
+            });
+        });
+    });
+    </script>
+    <?php endif;?>
 </body>
 
 </html>

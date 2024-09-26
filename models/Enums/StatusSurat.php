@@ -22,7 +22,7 @@ enum StatusSurat: int {
             self::ActRT => 'Aksi Pra RT',
             self::AccRT => 'ACC RT',
             self::ActAgenda => 'Aksi Pra Agenda',
-            self::Agenda => 'Menunggu Agenda Staff',
+            self::Agenda => 'Telah diagendakan',
             self::Tertandatangani => 'Tertandatangani',
             self::Tercetak => 'Tercetak',
         };

@@ -2,7 +2,6 @@
 
 namespace app\controllers\api;
 
-use app\models\Assignment;
 use app\models\Penduduk;
 use app\models\Pengguna as Model;
 use Yii;
@@ -20,9 +19,9 @@ class PenggunaController extends BaseRestApi
         $role = key(Yii::$app->authManager->getAssignments(Yii::$app->user->getId()));
 
         if ($role == 'pemohon') {
-            $data = $this->modelClass::with('biodata')->find($id);
+            $data = $this->modelClass::with('biodata', 'assignments')->find($id);
         } else {
-            $data = $this->modelClass::find($id);
+            $data = $this->modelClass::with('assignments')->find($id);
         }
 
         return $this->asJson($data);

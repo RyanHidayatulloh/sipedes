@@ -56,10 +56,10 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
 });
 
 $(document).ready(async function () {
-  await cloud.add("http://sipedes.project/api/pengguna", {
+  await cloud.add(origin + "/api/pengguna", {
     name: "profil",
   });
-  await cloud.add("http://sipedes.project/api/permohonan", {
+  await cloud.add(origin + "/api/permohonan", { 
     name: "permohonan",
   });
   const tableReady = $("#ready table").DataTable({
