@@ -64,6 +64,16 @@ class PermohonanController extends BaseRestApi
 
     public function beforeSave(&$data)
     {
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true,
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
         $id = Yii::$app->request->post('id');
         $post = Yii::$app->request->post();
         if ($id) {
@@ -71,6 +81,11 @@ class PermohonanController extends BaseRestApi
         } else {
             $data = new $this->modelClass();
             $data->id_pemohon = Yii::$app->user->id;
+            $pushData['message'] = "Permohonan dengan milik " . $data->pemohon->biodata->nama  . " telah diajukan";
+            $pushData['id'] = $data->id;
+            $pushData['status'] = 1;
+            $pusher->trigger('permohonan', 'status', $pushData);
+            
         }
         $data->fill($post);
         if ($status = Yii::$app->request->post('status')) {
@@ -78,18 +93,8 @@ class PermohonanController extends BaseRestApi
                 $length = count(Permohonan::where("status", ">=", 5)->get()) + 1;
                 $data->nomor = JenisSurat::toKodeSurat($data->jenis) . "/" . $length . "/" . $this->bulan[date('m')] . "/" . date("Y");
             }
-            $options = array(
-                'cluster' => 'ap1',
-                'useTLS' => true,
-            );
-            $pusher = new Pusher(
-                env('PUSHER_APP_KEY'),
-                env('PUSHER_APP_SECRET'),
-                env('PUSHER_APP_ID'),
-                $options
-            );
 
-            $pushData['message'] = "Permohonan dengan ID " . $data->id . " milik " . $data->pemohon->biodata->nama  ." telah diubah status menjadi " . StatusSurat::from($status)->label();
+            $pushData['message'] = "Permohonan dengan ID " . $data->id . " milik " . $data->pemohon->biodata->nama  . " telah diubah status menjadi " . StatusSurat::from($status)->label();
             $pushData['id'] = $data->id;
             $pushData['status'] = (int) $status;
             $pusher->trigger('permohonan', 'status', $pushData);
