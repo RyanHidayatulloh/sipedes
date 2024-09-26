@@ -64,6 +64,9 @@ $this->registerCsrfMetaTags();
                 body: data?.message ?? '',
                 icon: data?.icon ?? '',
             });
+            notification.onclick = function() {
+                window.open(data.status == 6 ? baseUrl + "/panel/cetak" : baseUrl + "/panel/permohonan");
+            }
             // …
         } else if (Notification.permission !== "denied") {
             // We need to ask the user for permission
@@ -74,6 +77,10 @@ $this->registerCsrfMetaTags();
                         body: data?.message ?? '',
                         icon: data?.icon ?? '',
                     });
+                    notification.onclick = function() {
+                        window.open(data.status == 6 ? baseUrl + "/panel/cetak" : baseUrl +
+                            "/panel/permohonan");
+                    }
                 }
             });
         }

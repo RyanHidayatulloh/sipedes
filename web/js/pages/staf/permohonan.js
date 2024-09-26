@@ -228,4 +228,9 @@ $(document).ready(async function () {
     tableAccepted.ajax.reload();
     tableRejected.ajax.reload();
   });
+  channel.bind("status", (pusherData) => {
+    tableOngoing.ajax.reload();
+    tableAccepted.ajax.reload();
+    tableRejected.ajax.reload();
+  });
 });

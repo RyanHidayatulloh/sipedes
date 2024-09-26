@@ -1,16 +1,17 @@
 const cloud = new Puller();
 
-
-$("input[name=tgl_ttd]").addClass("datepicker").datepicker({
-  format: "yyyy-mm-dd",
-  i18n: {
-    months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
-    monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
-    weekdays: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"],
-    weekdaysShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
-    weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
-  },
-});
+$("input[name=tgl_ttd]")
+  .addClass("datepicker")
+  .datepicker({
+    format: "yyyy-mm-dd",
+    i18n: {
+      months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+      monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"],
+      weekdays: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"],
+      weekdaysShort: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+      weekdaysAbbrev: ["M", "S", "S", "R", "K", "J", "S"],
+    },
+  });
 
 $("body").on("click", "#paper-action .paper-content .btn#action-send", function (e) {
   const paper = $(this).closest(".paper-fold");
@@ -232,6 +233,11 @@ $(document).ready(async function () {
   });
   $("select").formSelect();
   cloud.addCallback("permohonan", (data) => {
+    tableOngoing.ajax.reload();
+    tableAccepted.ajax.reload();
+    tableRejected.ajax.reload();
+  });
+  channel.bind("status", (pusherData) => {
     tableOngoing.ajax.reload();
     tableAccepted.ajax.reload();
     tableRejected.ajax.reload();

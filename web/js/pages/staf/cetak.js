@@ -144,4 +144,8 @@ $(document).ready(async function () {
     tableReady.ajax.reload();
     tablePrinted.ajax.reload();
   });
+  channel.bind("status", (pusherData) => {
+    tableReady.ajax.reload();
+    tablePrinted.ajax.reload();
+  });
 });
