@@ -15,13 +15,8 @@ $("input[name=tgl_ttd]").addClass("datepicker").datepicker({
 $("body").on("click", "#paper-action .paper-content .btn#action-send", function (e) {
   const paper = $(this).closest(".paper-fold");
   const catatan = paper.find("textarea[name=catatan]");
-  const tanggal = paper.find("input[name=tgl_ttd]");
   if (catatan.val().trim() == "") {
     catatan.closest(".input-field").effect("shake");
-    return;
-  }
-  if (tanggal.val().trim() == "") {
-    tanggal.closest(".input-field").effect("shake");
     return;
   }
   const status = 6;
@@ -39,7 +34,7 @@ $("body").on("click", "#paper-action .paper-content .btn#action-send", function 
         id: paper.find("input[name=id]").val(),
         status: status,
         catatan: catatan.val(),
-        tgl_ttd: tanggal.val(),
+        tgl_ttd: moment().format("YYYY-MM-DD"),
       };
       $.ajax({
         type: "POST",

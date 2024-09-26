@@ -72,8 +72,10 @@ class PermohonanController extends BaseRestApi
             $data->id_pemohon = Yii::$app->user->id;
         }
         $data->fill($post);
-        $length = count(Permohonan::where("status", ">=", 5)->get()) + 1;
-        $data->nomor = JenisSurat::toKodeSurat($data->jenis) . "/" . $length . "/" . $this->bulan[date('m')] . "/" . date("Y");
+        if (Yii::$app->request->post('status') == 5) {
+            $length = count(Permohonan::where("status", ">=", 5)->get()) + 1;
+            $data->nomor = JenisSurat::toKodeSurat($data->jenis) . "/" . $length . "/" . $this->bulan[date('m')] . "/" . date("Y");
+        }
     }
     public function afterSave(&$data)
     {

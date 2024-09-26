@@ -21,7 +21,10 @@
         "illuminate/database": "^10.31",
         "illuminate/events": "^10.31",
         "kint-php/kint": "^5.1",
-        "phpoffice/phpspreadsheet": "^2.0"
+        "phpoffice/phpspreadsheet": "^2.0",
+        "consik/yii2-websocket": "^1.0",
+        "pusher/pusher-php-server": "^7.2",
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

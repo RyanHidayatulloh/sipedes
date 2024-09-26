@@ -23,6 +23,17 @@ use yii\helpers\Url;
     <!-- Custom css stylesheet -->
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/landing.css" />
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <?php if(!Yii::$app->user->isGuest) :  ?>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('<?= env('PUSHER_APP_KEY') ?>', {
+            cluster: 'ap1'
+        });
+    </script>
+    <?php endif; ?>
 </head>
 
 <body>

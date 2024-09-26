@@ -22,8 +22,17 @@ $this->registerCsrfMetaTags();
     <?php $this->head() ?>
     <!-- Compiled and minified CSS -->
     <?php if (isset($this->blocks['style'])) : ?>
-    <?= $this->blocks['style'] ?>
+        <?= $this->blocks['style'] ?>
     <?php endif; ?>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('<?= env('PUSHER_APP_KEY') ?>', {
+            cluster: 'ap1'
+        });
+    </script>
 </head>
 
 <body>
@@ -38,13 +47,13 @@ $this->registerCsrfMetaTags();
         </div>
     </div>
     <script>
-    const baseUrl = '<?= Url::base('http') ?>';
-    let message = <?= json_encode(Yii::$app->session->getAllFlashes()) ?>;
-    let page = '<?= $this->title ?? 'dashboard' ?>';
+        const baseUrl = '<?= Url::base('http') ?>';
+        let message = <?= json_encode(Yii::$app->session->getAllFlashes()) ?>;
+        let page = '<?= $this->title ?? 'dashboard' ?>';
     </script>
     <?php $this->endBody() ?>
     <?php if (isset($this->blocks['script'])) : ?>
-    <?= $this->blocks['script'] ?>
+        <?= $this->blocks['script'] ?>
     <?php endif; ?>
 </body>
 

@@ -116,10 +116,6 @@ use yii\helpers\Url;
                                                 class="materialize-textarea"></textarea>
                                             <label for="catatan">Catatan</label>
                                         </div>
-                                        <div class="input-field col s12">
-                                            <input type="text" name="tgl_ttd" name="tgl_ttd">
-                                            <label for="tgl_ttd">Tanggal Acc</label>
-                                        </div>
                                         <div class="center">
                                             <button class="btn waves-effect waves-light" type="button"
                                                 id="action-send">Kirim</button>
